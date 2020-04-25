@@ -15,7 +15,8 @@ Vue.use(Router);
 
 export default new Router({
   linkExactActiveClass: "active", // CSS적용
-  base: process.env.BASE_URL,  
+  base: process.env.BASE_URL, 
+  mode: 'history',
   routes: [
     {
       path: "/",
