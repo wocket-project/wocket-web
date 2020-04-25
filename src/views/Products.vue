@@ -6,7 +6,7 @@
         </section>
         <section class="section section-skew">
             <div class="container">
-                <table class="table table-striped">
+                <table class="table table-striped table-hover productTbl">
                 <thead>
                   <tr>
                     <th scope="col">상품번호</th>
@@ -72,4 +72,7 @@ export default {
 }
 </script>
 <style>
+.productTbl tr {
+    cursor: pointer;
+}
 </style>

@@ -6,7 +6,7 @@
         </section>
         <section class="section section-skew">
             <div class="container">
-                상품 정보 페이지입니다              
+                             
             </div>            
         </section>
     </div>

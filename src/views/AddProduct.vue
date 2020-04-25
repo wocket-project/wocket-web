@@ -7,17 +7,19 @@
         <section class="section section-skew">
             <div class="container">
                 상품 추가 페이지입니다
-              <div>
-                <button type="button" class="btn btn-primary">Add Product</button>
-              </div>
+                <AddProductInputForm></AddProductInputForm>            
             </div>            
         </section>
     </div>
 </template>
 <script>
+import AddProductInputForm from "./components/AddProductInputForm";
 export default {
-    
-}
+    name: "components",
+  components: {
+    AddProductInputForm,
+  }
+};
 </script>
 <style>
 </style>
