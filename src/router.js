@@ -7,12 +7,15 @@ import Landing from "./views/Landing.vue";
 import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import Profile from "./views/Profile.vue";
-import ProductList from "./views/ProductList.vue";
+import Products from "./views/Products.vue";
+import ProductDetail from "./views/ProductDetail.vue";
+import AddProduct from "./views/AddProduct.vue";
 
 Vue.use(Router);
 
 export default new Router({
-  linkExactActiveClass: "active",
+  linkExactActiveClass: "active", // CSS적용
+  base: process.env.BASE_URL,  
   routes: [
     {
       path: "/",
@@ -60,11 +63,29 @@ export default new Router({
       },
     },
     {
-      path: "/productList",
-      name: "productList",
+      path: "/products",
+      name: "products",
       components: {
         header: AppHeader,
-        default: ProductList,       
+        default: Products,       
+        footer: AppFooter
+      }
+    },
+    {
+      path: "/addProduct",
+      name: "addProduct",
+      components: {
+        header: AppHeader,
+        default: AddProduct,       
+        footer: AppFooter
+      }
+    },
+    {
+      path: "/products/:id",
+      name: "productDetail",
+      components: {
+        header: AppHeader,
+        default: ProductDetail,       
         footer: AppFooter
       }
     }

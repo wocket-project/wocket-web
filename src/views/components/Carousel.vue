@@ -13,7 +13,7 @@
                 <div class="col-lg-5 mb-5 mb-lg-0">
                     <h2 class="text-white font-weight-light">오늘의 주요 상품</h2>
                     <p class="lead text-white mt-4">가정의 달 선물 최대 50% 할인</p>
-                    <a href="https://demos.creative-tim.com/argon-design-system/docs/components/alerts.html"
+                    <a href="http://localhost:8080/#/Products"
                        class="btn btn-white mt-4">모든상품 보러가기</a>
                 </div>
                 <div class="col-lg-6 mb-lg-auto">

@@ -10,7 +10,7 @@ module.exports = {
     ]
   },
   pwa: {
-    name: 'Vue Argon Design',
+    name: 'With Us',
     themeColor: '#172b4d',
     msTileColor: '#172b4d',
     appleMobileWebAppCapable: 'yes',
@@ -21,3 +21,9 @@ module.exports = {
     sourceMap: process.env.NODE_ENV !== 'production'
   }
 };
+
+module.exports = {
+  devServer: {
+      proxy: 'http://localhost:9002', // server address       
+  }
+}

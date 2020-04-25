@@ -495,15 +495,15 @@
     }
 }
 
-// ProductList cover
-.section-productList-cover {
+// Products cover
+.section-Products-cover {
     height: 180px;
     background-size: cover;
     background-position: center center;
 }
 
 @include media-breakpoint-down(md) {
-    .section-productList-cover {
+    .section-Products-cover {
         height: 100px;
     }
 }
