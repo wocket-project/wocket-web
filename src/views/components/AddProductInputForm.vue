@@ -31,9 +31,9 @@
     <label for="productDescription">상품 설명 입력</label>
     <textarea class="form-control" id="productDescription" rows="3" ref="productDescription"></textarea>
   </div>
-  <div class="form-group">
-    <label for="productImage">상품 이미지</label>
-    <input type="file" class="form-control-file" id="productImage">
+  <div class="form-group file-upload-wrapper" enctype="multipart/form-data">
+    <label for="productImage">상품 이미지 등록</label>
+    <input type="file" class="file-upload" id="productImage">
   </div>
   <div align="right">
     <button type="submit" class="btn btn-primary">상품등록</button>

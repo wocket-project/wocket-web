@@ -12,16 +12,17 @@
                 <table class="table table-striped table-hover productTbl">
                 <thead>
                   <tr>
-                    <th scope="col">제품번호</th>
-                    <th scope="col">제품명</th>
-                    <th scope="col">가격</th>
-                    <th scope="col">제조사</th>
-                    <th scope="col">재고</th>
+                    <th scope="col">Thumb</th>                    
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Manufacturer</th>
+                    <th scope="col">Stock</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="product in products" :key="product.id">
-                    <td scope="row">{{ product.id }}</td>
+                    <td v-if="product.imageFileName != null" scope="row"><img :src="require('../../public/img/uploadImage/' + product.imageFileName)" alt="productImage" width="100px"></td>
+                    <td v-if="product.imageFileName == null" scope="row">이미지 준비 중</td>
                     <td><a @click="gotoProduct(product)">{{ product.name }}</a></td>
                     <td>￦{{ product.price | currency}}</td>
                     <td>{{ product.manufacturer }}</td>
@@ -39,8 +40,12 @@
 <script>
 import axios from "axios"
 import router from "../router"
+import VLazyImage from "v-lazy-image"
 
 export default {
+    components: {
+        VLazyImage
+    },
     data() {
         return {
             loading: true,                      
@@ -78,7 +83,11 @@ export default {
         },
         gotoAddProduct() { // 상품 추가페이지로 이동            
             router.push({ name: "addProduct", })
-        }
+        },
+        // getImageUrl(image) {
+        //     var image = require.context('../../public/img/uploadImage/' + false, /\.png$/)
+        //     return image('./' + image + ".png")
+        // }
     }    
 }
 </script>
