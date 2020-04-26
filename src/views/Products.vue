@@ -1,16 +1,20 @@
-<template>
+<template>    
     <div class="Products-page">
         <section class="section-Products-cover section-shaped my-0">
             <div class="shape shape-style-1 shape-primary shape-skew alpha-4">
             </div>
         </section>
         <section class="section section-skew">
-            <div class="container">
+            <div class="container" v-if="loading">
+                데이터를 가져오는 중....
+            </div> 
+            <div class="container" v-if="!loading">
                 <table class="table table-striped table-hover productTbl">
                 <thead>
                   <tr>
-                    <th scope="col">상품번호</th>
+                    <th scope="col">제품번호</th>
                     <th scope="col">제품명</th>
+                    <th scope="col">가격</th>
                     <th scope="col">제조사</th>
                     <th scope="col">재고</th>
                   </tr>
@@ -19,6 +23,7 @@
                   <tr v-for="product in products" :key="product.id">
                     <td scope="row">{{ product.id }}</td>
                     <td><a @click="gotoProduct(product)">{{ product.name }}</a></td>
+                    <td>￦{{ product.price | currency}}</td>
                     <td>{{ product.manufacturer }}</td>
                     <td>{{ product.stock }}</td>
                   </tr>                  
@@ -42,6 +47,12 @@ export default {
             products: [],
         }
     },
+    filters: {
+        currency: function (value) {
+            var num = new Number(value);
+            return num.toFixed(0).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
+        }
+    },
     created () {
         this.getProducts()
     },
@@ -52,7 +63,7 @@ export default {
         // 상품 정보요청(All)
         getProducts() {            
             axios
-            .get("http://localhost:8080/products")
+            .get("http://localhost:8126/products")
             .then(response => {
                 this.loading = false
                 this.products = response.data                                       

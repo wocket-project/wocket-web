@@ -56,7 +56,7 @@ export default {
       var description = this.$refs.productDescription.value
       // console.log("name : " + name )
 
-      axios.post('http://localhost:8080/products', {
+      axios.post('http://localhost:8126/products', {
         name: name,
         category: category,
         price: price,
