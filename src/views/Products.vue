@@ -9,26 +9,30 @@
                 데이터를 가져오는 중....
             </div> 
             <div class="container" v-if="!loading">
+                <h4>모든 상품</h4>
+                <br>
                 <table class="table table-striped table-hover productTbl">
                 <thead>
                   <tr>
                     <th scope="col">Thumb</th>                    
                     <th scope="col">Name</th>
                     <th scope="col">Price</th>
-                    <th scope="col">Manufacturer</th>
-                    <th scope="col">Stock</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Manufacturer</th>                    
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="product in products" :key="product.id">
+                  <tr v-for="product in products" :key="product.id">                    
                     <td v-if="product.imageFileName != null" scope="row">
+                        <a @click="gotoProduct(product)">
                         <img :src="require('../../public/img/uploadImage/' + product.imageFileName)" alt="productImage" width="100px">
+                        </a>
                     </td>
                     <td v-if="product.imageFileName == null" scope="row">이미지 준비 중</td>
                     <td><a @click="gotoProduct(product)">{{ product.name }}</a></td>
                     <td>￦{{ product.price | currency}}</td>
+                    <td>{{ product.category }}</td>
                     <td>{{ product.manufacturer }}</td>
-                    <td>{{ product.stock }}</td>
                   </tr>                  
                 </tbody>
               </table>
