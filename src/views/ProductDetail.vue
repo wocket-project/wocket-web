@@ -9,11 +9,19 @@
                 데이터를 가져오는 중....
             </div> 
             <div class="container" v-if="!loading">
-               <h1>{{product.name}}</h1>
-               <h3>{{product.price}}</h3>
-               <h3>{{product.manufacturer}}</h3>
-               <h3>{{product.stock}}</h3>
-               <h3>{{product.description}}</h3>            
+                <div class="row">
+                    <div class="col-md-6">
+                        <img :src="require('../../public/img/uploadImage/' + product.imageFileName)"  alt="image" style="width:400px"/>
+                    </div>
+                    <div class="col-md-6">
+                        <h3>{{product.name}}</h3>
+                        <p>가격 : {{ product.price | currency}}원</p>
+                        <p>제조사 : {{product.manufacturer}}</p>
+                        <p>재고 : {{product.stock}}</p>
+                        <p>카테고리 : {{product.category}}</p>
+                        <p>상품설명 : {{product.description}}</p>   
+                    </div>
+                </div>                        
             </div>                       
         </section>
     </div>
@@ -31,8 +39,16 @@ export default {
                 {price: null},
                 {manufacturer: null},
                 {stock: null},
+                {category: null},
                 {description: null},
+                {imageFileName: null},
             ]
+        }
+    },
+    filters: {
+        currency: function (value) {
+            var num = new Number(value);
+            return num.toFixed(0).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
         }
     },
     created () {
