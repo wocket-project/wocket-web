@@ -1,6 +1,6 @@
 <template>
 <div class="jumbotron"> 
-  <form v-on:submit.prevent="registerProduct()">
+  <form v-on:submit.prevent="registerProduct()" enctype="multipart/form-data">
   <div class="form-group">
     <label for="productName">상품 이름</label>
     <input type="text" class="form-control" id="productName" placeholder="상품 이름" ref="productName">
@@ -31,9 +31,10 @@
     <label for="productDescription">상품 설명 입력</label>
     <textarea class="form-control" id="productDescription" rows="3" ref="productDescription"></textarea>
   </div>
-  <div class="form-group file-upload-wrapper" enctype="multipart/form-data">
+  <div class="form-group">
     <label for="productImage">상품 이미지 등록</label>
-    <input type="file" class="file-upload" id="productImage">
+    <br>
+    <input type="file" class="form-control" id="productImage" ref="productImage">
   </div>
   <div align="right">
     <button type="submit" class="btn btn-primary">상품등록</button>
@@ -54,17 +55,35 @@ export default {
       var stock = this.$refs.productStock.value
       var manufacturer = this.$refs.productManufacturer.value
       var description = this.$refs.productDescription.value
-      // console.log("name : " + name )
 
-      axios.post('http://localhost:8126/products', {
+      axios.post('http://localhost:8080/products', {
         name: name,
         category: category,
         price: price,
         manufacturer: manufacturer,
         stock: stock,        
-        description: description,
+        description: description
+
       }).then(response => {
-        alert('상품을 등록했습니다.')
+
+        var productId = response.data
+
+        var productImage = this.$refs.productImage.files[0]
+        var formData = new FormData()
+        formData.append('productImage', productImage) // this.productImage가 아닌 productImage를 사용해야함... 삽질...
+
+        axios.post('http://localhost:8080/upload/' + productId, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        .then(response => {
+            alert('상품을 등록했습니다.')
+        }).catch(error=> {
+            alert('이미지 업로드에 실패했습니다.')
+            console.log(error)
+      })
+
         router.push({ name: "products" })
 
       }).catch(error=> {

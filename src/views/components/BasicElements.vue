@@ -37,7 +37,7 @@
         <img src="img/theme/맥북 프로.jpg" class="img-fluid mb-4" alt=""
           data-wow-delay="0.2s">
 
-        <img src="img/theme/유니클로-울캐시미어체스터필드코드.jpg" class="img-fluid mb-4" alt=""
+        <img src="img/theme/유니클로-울캐시미어체스터필드 코트.jpg" class="img-fluid mb-4" alt=""
           data-wow-delay="0.5s">
 
       </div>

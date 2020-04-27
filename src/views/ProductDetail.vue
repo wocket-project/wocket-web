@@ -45,7 +45,7 @@ export default {
         // 상품 정보요청(세부정보)
         getProduct() {            
             axios
-            .get("http://localhost:8126/products/"+this.$route.params.id)
+            .get("http://localhost:8080/products/"+this.$route.params.id)
             .then(response => {
                 this.loading = false
                 this.product = response.data

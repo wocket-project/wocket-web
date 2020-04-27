@@ -21,7 +21,9 @@
                 </thead>
                 <tbody>
                   <tr v-for="product in products" :key="product.id">
-                    <td v-if="product.imageFileName != null" scope="row"><img :src="require('../../public/img/uploadImage/' + product.imageFileName)" alt="productImage" width="100px"></td>
+                    <td v-if="product.imageFileName != null" scope="row">
+                        <img :src="require('../../public/img/uploadImage/' + product.imageFileName)" alt="productImage" width="100px">
+                    </td>
                     <td v-if="product.imageFileName == null" scope="row">이미지 준비 중</td>
                     <td><a @click="gotoProduct(product)">{{ product.name }}</a></td>
                     <td>￦{{ product.price | currency}}</td>
@@ -68,7 +70,7 @@ export default {
         // 상품 정보요청(All)
         getProducts() {            
             axios
-            .get("http://localhost:8126/products")
+            .get("http://localhost:8080/products")
             .then(response => {
                 this.loading = false
                 this.products = response.data                                       
