@@ -1,33 +1,35 @@
 <template>
         <div class="container pt-lg-md">
-            <form>
+            <form v-on:submit.prevent="doRegister">
                 <div class="container-login">
                     <img src="img/brand/logo.png" alt="logo" style="width:250px;" class="center">
                     <hr>
                     <h1 style="text-align:center">회원가입</h1>
                     <p>※ 아래 양식을 입력해주세요</p>
                     <label for="email"><b>이메일</b></label>
-                    <input type="text" placeholder="이메일 입력" name="email" required>
+                    <input type="text" placeholder="이메일 입력" id="email" name="email" ref="email" required>
 
                     <label for="name"><b>이름</b></label>
-                    <input type="text" placeholder="이름 입력" name="name" required>
+                    <input type="text" placeholder="이름 입력" id="name" name="name" ref="name" required>
 
                     <label for="password"><b>비밀번호</b></label>
-                    <input type="password" placeholder="비밀번호 입력" name="password" required>
+                    <input type="password" placeholder="비밀번호 입력" id="password" name="password" ref="password" required>
 
                     <label for="pspasswordw-repeat"><b>비밀번호 재확인</b></label>
                     <input type="password" placeholder="비밀번호 확인" name="password-repeat" required>
 
                     <label for="address"><b>주소</b></label>
-                    <input type="text" placeholder="주소 입력" name="address" required>
+                    <input type="text" placeholder="주소 입력" id="address" name="address" ref="address" required>
 
                     <label for="phone"><b>전화번호</b></label>
-                    <input type="text" placeholder="전화번호 입력" name="phone" required>
+                    <input type="text" placeholder="전화번호 입력" id="phone" name="phone" ref="phone" required>
                     <hr>
                     <!-- 팝업창 띄우기 -->
                     <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
 
-                    <button type="submit" class="registerbtn">Register</button>
+                    <button type="submit" class="registerbtn">
+                    Register
+                    </button>                   
                 </div>
                 
                 <div class="container-signin">
@@ -37,7 +39,40 @@
         </div>
 </template>
 <script>
-export default {};
+import axios from "axios"
+import router from "../router"
+
+export default {
+    methods: {
+        // 회원가입 시도
+        doRegister: function() {
+
+        var email = this.$refs.email.value
+        var password = this.$refs.password.value
+        var name = this.$refs.name.value
+        var address = this.$refs.address.value
+        var phone = this.$refs.phone.value
+
+        axios.post("http://localhost:9306/users", {
+            email: email,
+            password: password,
+            name: name,
+            address: address,
+            phone: phone
+        })
+            .then(res => {
+              alert(res.status)
+              alert("회원가입이 정상적으로 완료되었습니다.")
+              router.push({ name: "home" })
+            })
+            .catch(err => {
+              alert('서버 오류')
+              // commit("loginError")
+              console.log(err)
+            })
+        },
+      }
+};
 </script>
 <style>
 
