@@ -74,7 +74,7 @@ export default {
         // 상품 정보요청(All)
         getProducts() {            
             axios
-            .get("http://localhost:8080/products")
+            .get("http://localhost:9306/products")
             .then(response => {
                 this.loading = false
                 this.products = response.data                                       

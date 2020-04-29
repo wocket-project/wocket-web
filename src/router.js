@@ -20,7 +20,7 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "components",
+      name: "home",
       components: {
         header: AppHeader,
         default: Components,
@@ -49,7 +49,6 @@ export default new Router({
       path: "/register",
       name: "register",
       components: {
-        header: AppHeader,
         default: Register,
         footer: AppFooter
       }

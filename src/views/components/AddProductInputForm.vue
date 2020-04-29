@@ -56,7 +56,7 @@ export default {
       var manufacturer = this.$refs.productManufacturer.value
       var description = this.$refs.productDescription.value
 
-      axios.post('http://localhost:8080/products', {
+      axios.post('http://localhost:9306/products', {
         name: name,
         category: category,
         price: price,
@@ -72,7 +72,7 @@ export default {
         var formData = new FormData()
         formData.append('productImage', productImage) // this.productImage가 아닌 productImage를 사용해야함... 삽질...
 
-        axios.post('http://localhost:8080/upload/' + productId, formData, {
+        axios.post('http://localhost:9306/upload/' + productId, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
