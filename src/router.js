@@ -10,6 +10,7 @@ import Profile from "./views/Profile.vue";
 import Products from "./views/Products.vue";
 import ProductDetail from "./views/ProductDetail.vue";
 import AddProduct from "./views/AddProduct.vue";
+import MyPage from "./views/MyPage.vue";
 
 Vue.use(Router);
 
@@ -42,6 +43,15 @@ export default new Router({
       components: {
         header: AppHeader,
         default: Login,
+        footer: AppFooter
+      }
+    },
+    {
+      path: "/mypage",
+      name: "mypage",
+      components: {
+        header: AppHeader,
+        default: MyPage,
         footer: AppFooter
       }
     },

@@ -1,14 +1,6 @@
 <template>
     <section class="section section-shaped section-lg my-0">
         <div class="shape shape-style-1 bg-gradient-default">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
         </div>
         <div class="container pt-lg-md">
             <div class="row justify-content-center">
@@ -19,40 +11,38 @@
                           class="border-0">
                         <template>
                             <div class="text-muted text-center mb-3">
-                                <small>Sign in with</small>
+                                <img src="img/brand/main_logo.png" alt="logo" style="width:200px;" class="center">
                             </div>
-                            <div class="btn-wrapper text-center">
-                                <base-button type="neutral">
-                                    <img slot="icon" src="img/icons/common/github.svg">
-                                    Github
-                                </base-button>
-
+                            <!-- <div class="btn-wrapper text-center">
                                 <base-button type="neutral">
                                     <img slot="icon" src="img/icons/common/google.svg">
                                     Google
                                 </base-button>
-                            </div>
+                            </div> -->
                         </template>
                         <template>
-                            <div class="text-center text-muted mb-4">
-                                <small>Or sign in with credentials</small>
-                            </div>
-                            <form role="form">
-                                <base-input alternative
-                                            class="mb-3"
-                                            placeholder="Email"
-                                            addon-left-icon="ni ni-email-83">
-                                </base-input>
-                                <base-input alternative
+                            <form>
+                                <div class="form-group">
+                                    <input alternative
+                                            type="text"
+                                            v-model="email"
+                                            class="form-control"
+                                            placeholder="이메일"
+                                            addon-left-icon="ni ni-email-83"/>
+                                </div>
+                                <div class="form-group">
+                                <input alternative
+                                            class="form-control"
+                                            v-model="password"
                                             type="password"
-                                            placeholder="Password"
-                                            addon-left-icon="ni ni-lock-circle-open">
-                                </base-input>
+                                            placeholder="비밀번호"
+                                            addon-left-icon="ni ni-lock-circle-open"/>
+                                </div>
                                 <base-checkbox>
                                     Remember me
                                 </base-checkbox>
                                 <div class="text-center">
-                                    <base-button type="primary" class="my-4">Sign In</base-button>
+                                    <base-button type="primary" class="my-4" @click="doLogin({email, password})">로그인</base-button>
                                 </div>
                             </form>
                         </template>
@@ -64,7 +54,7 @@
                             </a>
                         </div>
                         <div class="col-6 text-right">
-                            <a href="#" class="text-light">
+                            <a href="/register" class="text-light">
                                 <small>Create new account</small>
                             </a>
                         </div>
@@ -75,7 +65,32 @@
     </section>
 </template>
 <script>
-export default {};
+import {mapState, mapActions} from "vuex"
+
+export default {
+    data() {
+        return {
+            email: null,
+            password: null,            
+        }
+    },
+    computed: {
+        ...mapState(["isLogin", "isLoginError"])
+    },
+    methods: {
+        ...mapActions(["doLogin"]),
+    }
+}
 </script>
 <style>
+/* Full-width input fields */
+/* input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 3px 0 3px 0;
+  display: inline-block;
+  border: none;
+  background: #c72424;
+} */
+
 </style>

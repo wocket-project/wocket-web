@@ -59,7 +59,7 @@
                 </div>
                 
                 <div class="container-signin">
-                    <p>Already have an account? <a href="http://localhost:9306/login">Sign in</a>.</p>
+                    <p>Already have an account? <a href="http://localhost:9306/login">로그인</a>.</p>
                 </div>
             </form>
         </div>

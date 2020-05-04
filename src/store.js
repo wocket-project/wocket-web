@@ -42,6 +42,7 @@ export default new Vuex.Store({
       axios.post("http://localhost:9002/login", loginObj)
         .then(res => {
           alert("로그인에 성공했습니다.")
+          alert(res.data.accessToken)
           // 성공 시 토큰을 헤더에 포함시켜서 유저정보 요청          
           localStorage.setItem("accessToken", res.data.accessToken)
           dispatch("getMemberInfo")
@@ -79,8 +80,6 @@ export default new Vuex.Store({
                 email: response.data.email,
                 phone: response.data.phone,
                 address: response.data.address,
-                level: response.data.level,
-                active: response.data.active,
               }
 
               commit("loginSuccess", userInfo)
