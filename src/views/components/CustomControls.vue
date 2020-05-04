@@ -83,7 +83,7 @@
                                 <div class="row" slot="content-header" slot-scope="{closeMenu}">
                                     <div class="col-6 collapse-brand">
                                         <a href="./index.html">
-                                            <img src="img/brand/logo.png">
+                                            <img src="img/brand/main_logo.png">
                                         </a>
                                     </div>
                                     <div class="col-6 collapse-close">

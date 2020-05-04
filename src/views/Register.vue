@@ -1,34 +1,60 @@
 <template>
         <div class="container pt-lg-md">
-            <form v-on:submit.prevent="doRegister">
+            <form @submit.prevent="handleSubmit">
                 <div class="container-login">
-                    <img src="img/brand/logo.png" alt="logo" style="width:250px;" class="center">
+                    <img src="img/brand/register_logo.png" alt="logo" style="width:250px;" class="center">
                     <hr>
                     <h1 style="text-align:center">회원가입</h1>
-                    <p>※ 아래 양식을 입력해주세요</p>
-                    <label for="email"><b>이메일</b></label>
-                    <input type="text" placeholder="이메일 입력" id="email" name="email" ref="email" required>
+                    <p>※ 아래 양식을 입력해주세요.</p>
+                    <div class="form-group">
+                        <label for="email">이메일</label>
+                        <input type="text" v-model="user.email" id="email" name="email" class="form-control" :class="{ 'is-invalid': submitted && $v.user.email.$error }" />
+                        <div v-if="submitted && $v.user.email.$error" class="invalid-feedback">
+                            <span v-if="!$v.user.email.required">이메일은 필수입력 항목입니다.</span>
+                            <span v-if="!$v.user.email.email">이메일 형식이 아닙니다.</span>
+                        </div>
+                    </div>
 
-                    <label for="name"><b>이름</b></label>
-                    <input type="text" placeholder="이름 입력" id="name" name="name" ref="name" required>
+                    <div class="form-group">
+                        <label for="name">이름</label>
+                        <input type="text" v-model="user.name" id="name" name="name" class="form-control" :class="{ 'is-invalid': submitted && $v.user.name.$error }" />
+                        <span v-if="submitted && !$v.user.name.required" class="invalid-feedback">이름은 필수입력 항목입니다.</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">비밀번호</label>
+                        <input type="password" v-model="user.password" id="password" name="password" class="form-control" :class="{ 'is-invalid': submitted && $v.user.password.$error }" />
+                        <div v-if="submitted && $v.user.password.$error" class="invalid-feedback">
+                            <span v-if="!$v.user.password.required">비밀번호는 필수 입력사항입니다.</span>
+                            <span v-if="!$v.user.password.minLength">비밀번호는 최소 8자리 이상 입력해주세요.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">비밀번호 확인</label>
+                        <input type="password" v-model="user.confirmPassword" id="confirmPassword" name="confirmPassword" class="form-control" :class="{ 'is-invalid': submitted && $v.user.confirmPassword.$error }" />
+                        <div v-if="submitted && $v.user.confirmPassword.$error" class="invalid-feedback">
+                            <span v-if="!$v.user.confirmPassword.required">비밀번호 확인은 필수 입력사항입니다.</span>
+                            <span v-else-if="!$v.user.confirmPassword.sameAsPassword">비밀번호가 일치하지 않습니다.</span>
+                        </div>
+                    </div>
 
-                    <label for="password"><b>비밀번호</b></label>
-                    <input type="password" placeholder="비밀번호 입력" id="password" name="password" ref="password" required>
+                    <div class="form-group">
+                        <label for="address">주소</label>
+                        <input type="text" v-model="user.address" id="address" name="address" class="form-control" :class="{ 'is-invalid': submitted && $v.user.address.$error }" />
+                        <div v-if="submitted && !$v.user.address.required" class="invalid-feedback">주소는 필수입력 항목입니다.</div>
+                    </div>
 
-                    <label for="pspasswordw-repeat"><b>비밀번호 재확인</b></label>
-                    <input type="password" placeholder="비밀번호 확인" name="password-repeat" required>
-
-                    <label for="address"><b>주소</b></label>
-                    <input type="text" placeholder="주소 입력" id="address" name="address" ref="address" required>
-
-                    <label for="phone"><b>전화번호</b></label>
-                    <input type="text" placeholder="전화번호 입력" id="phone" name="phone" ref="phone" required>
+                    <div class="form-group">
+                        <label for="phone">전화번호</label>
+                        <input type="text" v-model="user.phone" id="phone" name="phone" class="form-control" :class="{ 'is-invalid': submitted && $v.user.phone.$error }" />
+                        <div v-if="submitted && !$v.user.phone.required" class="invalid-feedback">전화번호는 필수입력 항목입니다.</div>
+                    </div>
                     <hr>
                     <!-- 팝업창 띄우기 -->
                     <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
 
                     <button type="submit" class="registerbtn">
-                    Register
+                    회원가입
                     </button>                   
                 </div>
                 
@@ -41,27 +67,50 @@
 <script>
 import axios from "axios"
 import router from "../router"
+import {required, email, minLength, sameAs} from "vuelidate/lib/validators"
+
+// extend('required', {
+//     ...required,
+//     message: '이 필드는 필수 입력란입니다.'
+// })
 
 export default {
+    name: 'app',
+    data() {
+      return {
+          user: {
+            email: "",
+            password: "",
+            name: "",
+            address: "",
+            phone: "",
+            confirmPassword: "",
+          },          
+          submitted: false
+      }
+    },
+    validations: {
+        user: {
+          email: {required, email},
+          password: {required, minLength: minLength(8)},
+          name: {required},
+          address: {required},
+          phone: {required},
+          confirmPassword: {required, sameAsPassword: sameAs('password')},
+        }
+    },
     methods: {
         // 회원가입 시도
-        doRegister: function() {
-
-        var email = this.$refs.email.value
-        var password = this.$refs.password.value
-        var name = this.$refs.name.value
-        var address = this.$refs.address.value
-        var phone = this.$refs.phone.value
+        doRegister: function() {        
 
         axios.post("http://localhost:9306/users", {
-            email: email,
-            password: password,
-            name: name,
-            address: address,
-            phone: phone
+            email: this.user.email,
+            password: this.user.password,
+            name: this.user.name,
+            address: this.user.address,
+            phone: this.user.phone
         })
-            .then(res => {
-              alert(res.status)
+            .then(res => {              
               alert("회원가입이 정상적으로 완료되었습니다.")
               router.push({ name: "home" })
             })
@@ -71,8 +120,21 @@ export default {
               console.log(err)
             })
         },
-      }
+         handleSubmit(e) {
+            this.submitted = true;
+
+            // stop here if form is invalid
+            this.$v.$touch();
+            if (this.$v.$invalid) {
+                return;
+            }
+
+            this.doRegister(); 
+        }
+    }
 };
+
+
 </script>
 <style>
 
@@ -94,7 +156,7 @@ body {
 input[type=text], input[type=password] {
   width: 100%;
   padding: 15px;
-  margin: 5px 0 22px 0;
+  margin: 3px 0 3px 0;
   display: inline-block;
   border: none;
   background: #f1f1f1;
@@ -109,6 +171,10 @@ input[type=text]:focus, input[type=password]:focus {
 hr {
   border: 1px solid #f1f1f1;
   margin-bottom: 25px;
+}
+
+label {
+  margin-top: 20px;
 }
 
 /* Set a style for the submit button */
