@@ -9,6 +9,7 @@ import Register from "./views/Register.vue";
 import Profile from "./views/Profile.vue";
 import Products from "./views/Products.vue";
 import ProductDetail from "./views/ProductDetail.vue";
+import Categories from "./views/Categories.vue";
 import AddProduct from "./views/AddProduct.vue";
 import MyPage from "./views/MyPage.vue";
 
@@ -98,7 +99,16 @@ export default new Router({
         default: ProductDetail,       
         footer: AppFooter
       }
-    }
+    },
+    {
+      path: "/categories/:id",
+      name: "categories",
+      components: {
+        header: AppHeader,
+        default: Categories,       
+        footer: AppFooter
+      }
+    },
   ],
   scrollBehavior: to => {
     if (to.hash) {
