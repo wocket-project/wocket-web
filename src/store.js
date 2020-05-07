@@ -42,10 +42,10 @@ export default new Vuex.Store({
       axios.post("http://localhost:9002/login", loginObj)
         .then(res => {
           alert("로그인에 성공했습니다.")
-          alert(res.data.accessToken)
+          // alert(res.data.accessToken)
           // 성공 시 토큰을 헤더에 포함시켜서 유저정보 요청          
           localStorage.setItem("accessToken", res.data.accessToken)
-          dispatch("getMemberInfo")
+          dispatch("getMemberInfo", true)          
         })
         .catch(err => {
           alert('이메일 또는 비밀번호를 확인하세요.')
@@ -57,11 +57,12 @@ export default new Vuex.Store({
     // 로그아웃 시도
     doLogout({ commit }) {
       commit("logout")
+      alert("정상적으로 로그아웃 되었습니다.")
       router.push({ name: "home" })
     },
 
     // 유저정보 요청
-    getMemberInfo({ commit }) {
+    getMemberInfo({ commit }, isFirst) {
       let token = localStorage.getItem("accessToken")
       if (token != null) {
 
@@ -81,9 +82,10 @@ export default new Vuex.Store({
                 phone: response.data.phone,
                 address: response.data.address,
               }
-
               commit("loginSuccess", userInfo)
-              router.push({ name: "mypage" })
+              if(isFirst === true) {
+                  router.push({ name: "home" })
+              }
             })
           .catch(error => {
             alert('유저정보를 가져올 수 없습니다.')

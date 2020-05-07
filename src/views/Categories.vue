@@ -10,11 +10,11 @@
             </div>  -->
             <div class="container">
                 <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6">
-                        <h2>패션·뷰티</h2> 
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <h2 style="text-align:center">패션·뷰티</h2> 
                     </div>
-                    <div class="col-md-3"></div>
+                    <div class="col-md-4"></div>
                 </div>                        
             </div>                       
         </section>

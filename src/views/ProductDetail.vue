@@ -15,11 +15,20 @@
                     </div>
                     <div class="col-md-6">
                         <h3>{{product.name}}</h3>
-                        <p>가격 : {{ product.price | currency}}원</p>
+                        <hr>
                         <p>제조사 : {{product.manufacturer}}</p>
                         <p>재고 : {{product.stock}}</p>
                         <p>카테고리 : {{product.category}}</p>
-                        <p>상품설명 : {{product.description}}</p>   
+                        <p>상품설명 : {{product.description}}</p>
+                        <hr>
+                        <h3>가격 : {{ product.price | currency}}원</h3>
+                        <cartButton></cartButton>
+                        <purchase-button></purchase-button>
+                    </div>
+                    <div class="col-md-6">                        
+                    </div>
+                    <div class="col-md-6 order-btn">
+                        
                     </div>
                 </div>                        
             </div>                       
@@ -29,8 +38,14 @@
 <script>
 import axios from "axios"
 import router from "../router"
+import CartButton from "../views/components/ProductDetail/CartButton"
+import PurchaseButton from "../views/components/ProductDetail/PurchaseButton"
 
 export default {
+    components: {
+        CartButton,
+        PurchaseButton,
+    },
     data() {
         return {
             loading: true, 

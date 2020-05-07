@@ -12,8 +12,19 @@ import ProductDetail from "./views/ProductDetail.vue";
 import Categories from "./views/Categories.vue";
 import AddProduct from "./views/AddProduct.vue";
 import MyPage from "./views/MyPage.vue";
+import store from "./store";
 
 Vue.use(Router);
+
+const onlyAuthUser = (to, from, next) => {
+  if(store.state.userInfo === null) {
+    alert("로그인이 필요한 페이지입니다. ")
+    // alert(store.state.userInfo)
+    next("/login")
+  } else {
+    next()
+  }
+}
 
 export default new Router({
   linkExactActiveClass: "active", // CSS적용
@@ -50,6 +61,7 @@ export default new Router({
     {
       path: "/mypage",
       name: "mypage",
+      beforeEnter: onlyAuthUser,
       components: {
         header: AppHeader,
         default: MyPage,

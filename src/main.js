@@ -15,5 +15,8 @@ Vue.use(Vuelidate)
 new Vue({
   router,
   store,
+  beforeCreate() {
+    this.$store.dispatch("getMemberInfo", false)
+  },
   render: h => h(App)
 }).$mount("#app");
