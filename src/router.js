@@ -12,6 +12,7 @@ import ProductDetail from "./views/ProductDetail.vue";
 import Categories from "./views/Categories.vue";
 import AddProduct from "./views/AddProduct.vue";
 import MyPage from "./views/MyPage.vue";
+import MyCartInfo from "./views/MyCart.vue";
 import store from "./store";
 
 Vue.use(Router);
@@ -65,6 +66,16 @@ export default new Router({
       components: {
         header: AppHeader,
         default: MyPage,
+        footer: AppFooter
+      }
+    },
+    {
+      path: "/myCartInfo",
+      name: "myCartInfo",
+      beforeEnter: onlyAuthUser,
+      components: {
+        header: AppHeader,
+        default: MyCartInfo,
         footer: AppFooter
       }
     },

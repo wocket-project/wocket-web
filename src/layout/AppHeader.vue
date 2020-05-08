@@ -30,10 +30,17 @@
                         </a>                
                     </div>
                 </base-dropdown>
-                <a slot="title" href="/mypage" class="nav-link" data-toggle="dropdown" role="button">
-                    <i class="ni ni-single-02"></i>
-                    <span class="nav-link-inner--text">마이 위드어스</span>
-                </a>                    
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link" data-toggle="dropdown" role="button">
+                        <i class="ni ni-collection d-lg-none"></i>
+                        <span class="nav-link-inner--text">마이위드</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <router-link to="/landing" class="dropdown-item">구매내역</router-link>
+                        <router-link to="/myCartInfo" class="dropdown-item">장바구니</router-link>
+                        <router-link to="/login" class="dropdown-item">마이캐시</router-link>                        
+                    </div>
+                </li>                   
                 <a v-if="isLogin === false" slot="title" href="/login" class="nav-link button" data-toggle="dropdown" role="button">
                     <i class="ni ni-button-power"></i>
                     <span class="nav-link-inner--text">로그인</span>
