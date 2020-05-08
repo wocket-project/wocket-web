@@ -23,6 +23,9 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <tr v-if="cart.cartItems.length === 0" align="center">
+                      <td colspan="4" style="font-weight:bold;">장바구니에 담긴 상품이 없습니다.</td>
+                  </tr>  
                   <tr v-for="cartItem in cart.cartItems" :key="cartItem.id" align="center">                    
                     <td v-if="cartItem.product.imageFileName != null" scope="row">
                         <a @click="gotoProduct(cartItem.product)">
@@ -95,8 +98,8 @@ export default {
                 cartItems: [],
                 grandTotalPrice: null,
             },
-            withPoint: 2000,
-            deliveryCharge: 2500,
+            withPoint: 0,
+            deliveryCharge: 0,
         }
     },
     filters: {
@@ -109,12 +112,15 @@ export default {
         this.getCartItems()
     },
     watch: {
-        '$route': 'cart'
+        '$route': 'getCartItems'
+    },
+    mounted() {
+        this.getCartItems();
     },
     computed: {
         paymentCharge: function() {
             return this.cart.grandTotalPrice-this.withPoint+this.deliveryCharge
-        }
+        },        
     },
     methods: {
         // 상품 정보요청(All)

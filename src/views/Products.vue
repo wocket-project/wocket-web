@@ -13,7 +13,7 @@
                 <br>
                 <table class="table table-striped table-hover productTbl">
                 <thead>
-                  <tr>
+                  <tr align="center">
                     <th scope="col">Thumb</th>                    
                     <th scope="col">Name</th>
                     <th scope="col">Price</th>
@@ -22,7 +22,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="product in products" :key="product.id">                    
+                  <tr v-for="product in products" :key="product.id" align="center">                    
                     <td v-if="product.imageFileName != null" scope="row">
                         <a @click="gotoProduct(product)">
                         <img :src="require('../../public/img/uploadImage/' + product.imageFileName)" alt="productImage" width="100px">

@@ -7,7 +7,6 @@ import router from "../../../router"
 import axios from "axios"
 
 export default {
-
     computed: {
       ...mapState(["isLogin"]),      
     },
@@ -28,9 +27,9 @@ export default {
             };
             
             axios
-            .delete("http://localhost:9306/cart", bodyParameters, config)
+            .delete("http://localhost:9306/cart", config)
             .then(response => {                
-                alert("장바구니를 모두 삭제했습니다.")
+                alert("장바구니를 모두 삭제했습니다.")            
             })
             .catch(error => {
                 alert('서버 오류')
