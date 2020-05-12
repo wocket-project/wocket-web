@@ -7,6 +7,7 @@ import router from "../../../router"
 import axios from "axios"
 
 export default {
+    props:['cart'],
     // data() {
     //     return {          
     //         cart: {
@@ -23,9 +24,9 @@ export default {
         // 장바구니 추가 요청
         deleteCartAll() {
 
-          // if(this.cart.cartItems.length === 0) {
-          //   alert('삭제할 장바구니 상품이 없습니다.')
-          // } else {
+          if(this.cart.cartItems.length === 0) {
+            alert('삭제할 장바구니 상품이 없습니다.')
+          } else {
             if(this.isLogin === true) {
             let token = localStorage.getItem("accessToken")
 
@@ -47,7 +48,7 @@ export default {
             alert("로그인이 필요한 페이지 입니다.")
             router.push({ name: "login" })
           }
-          //}
+          }
         },
     }    
 }

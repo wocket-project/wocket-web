@@ -12,7 +12,7 @@
                 <h4>장바구니 목록</h4>
                 <br>
                 <div>
-                  <cartDeleteAllBtn v-on:deleteCartAll="getCartItems()"></cartDeleteAllBtn>
+                  <cartDeleteAllBtn :cart="cart" v-on:deleteCartAll="getCartItems()"></cartDeleteAllBtn>
                 </div>
                 <table class="table table-hover productTbl">
                 <thead>
