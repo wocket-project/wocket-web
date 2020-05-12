@@ -7,6 +7,14 @@ import router from "../../../router"
 import axios from "axios"
 
 export default {
+    // data() {
+    //     return {          
+    //         cart: {
+    //             cartItems: [],
+    //             grandTotalPrice: null,
+    //         },
+    //     }
+    // },
     computed: {
       ...mapState(["isLogin"]),      
     },
@@ -14,22 +22,22 @@ export default {
 
         // 장바구니 추가 요청
         deleteCartAll() {
-          
-          if(this.isLogin === true) {
+
+          // if(this.cart.cartItems.length === 0) {
+          //   alert('삭제할 장바구니 상품이 없습니다.')
+          // } else {
+            if(this.isLogin === true) {
             let token = localStorage.getItem("accessToken")
 
             const config = {
               headers: { Authorization: `Bearer ${token}` }
             };
-          
-            const bodyParameters = {
-              key: "value"
-            };
             
             axios
             .delete("http://localhost:9306/cart", config)
             .then(response => {                
-                alert("장바구니를 모두 삭제했습니다.")            
+                alert("장바구니를 모두 삭제했습니다.")
+                this.$emit('deleteCartAll')
             })
             .catch(error => {
                 alert('서버 오류')
@@ -39,6 +47,7 @@ export default {
             alert("로그인이 필요한 페이지 입니다.")
             router.push({ name: "login" })
           }
+          //}
         },
     }    
 }

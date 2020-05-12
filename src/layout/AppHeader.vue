@@ -37,8 +37,7 @@
                     </a>
                     <div class="dropdown-menu">
                         <router-link to="/landing" class="dropdown-item">구매내역</router-link>
-                        <router-link to="/myCartInfo" class="dropdown-item">장바구니</router-link>
-                        <router-link to="/login" class="dropdown-item">마이캐시</router-link>                        
+                        <router-link to="/myCartInfo" class="dropdown-item">장바구니</router-link>                        
                     </div>
                 </li>                   
                 <a v-if="isLogin === false" slot="title" href="/login" class="nav-link button" data-toggle="dropdown" role="button">
@@ -54,9 +53,13 @@
                     <span class="nav-link-inner--text">회원가입</span>
                 </a>
             </ul>
-            <div v-if="isLogin === true" class="userInfo">
+            <div v-if="isLogin === true" class="userName">
                 <i class="ni ni-circle-08"></i>
-                <span class="nav-link-inner--text">{{userInfo.name}}님 환영합니다.</span>
+                <span class="nav-link-inner--text mg">{{userInfo.name}}님 환영합니다.</span>
+            </div>            
+            <div v-if="isLogin === true" class="userPoint">
+                <i class="ni ni-shop"></i>
+                <span class="nav-link-inner--text mg">위드 포인트 : {{ userInfo.point }}</span>
             </div>
         </base-nav>
     </header>
@@ -102,7 +105,12 @@ export default {
     cursor: pointer;
 }
 
-.userInfo {
+.userName, .userPoint {
     color: white;
+    margin-left: 20px;
+}
+
+.mg {
+    margin-left: 5px;
 }
 </style>

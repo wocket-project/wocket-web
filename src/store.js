@@ -81,6 +81,7 @@ export default new Vuex.Store({
                 email: response.data.email,
                 phone: response.data.phone,
                 address: response.data.address,
+                point: response.data.point,
               }
               commit("loginSuccess", userInfo)
               if(isFirst === true) {

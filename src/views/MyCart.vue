@@ -12,7 +12,7 @@
                 <h4>장바구니 목록</h4>
                 <br>
                 <div>
-                  <cartDeleteAllBtn></cartDeleteAllBtn>
+                  <cartDeleteAllBtn v-on:deleteCartAll="getCartItems()"></cartDeleteAllBtn>
                 </div>
                 <table class="table table-hover productTbl">
                 <thead>
@@ -81,7 +81,13 @@ import CartDeleteAllBtn from "../views/components/MyCart/CartItemAllDeleteButton
 import GrandTotalPrice from "../views/components/MyCart/GrandTotalPrice"
 import GotoShoppingBtn from "../views/components/MyCart/GotoShoppingButton"
 import PurchaseBtn from "../views/components/MyCart/PurchaseButton"
+import Vue from "vue"
 
+
+// Vue.component('cartDeleteAllBtn', {
+//     props: ['propsdata'],
+
+// })
 
 export default {
     components: {
