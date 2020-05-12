@@ -497,14 +497,14 @@
 
 // Products cover
 .section-Products-cover {
-    height: 220px;
+    height: 280px;
     background-size: cover;
     background-position: center center;
 }
 
 @include media-breakpoint-down(md) {
     .section-Products-cover {
-        height: 100px;
+        height: 175px;
     }
 }
 
