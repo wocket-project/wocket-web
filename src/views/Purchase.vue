@@ -1,4 +1,4 @@
-<template>
+<template>    
     <div class="Products-page">
         <section class="section-Products-cover section-shaped my-0">
             <div class="shape shape-style-1 shape-primary shape-skew alpha-4">
@@ -9,43 +9,30 @@
                 데이터를 가져오는 중....
             </div> 
             <div class="container" v-if="!loading">
-                <div class="row">
-                    <div class="col-md-6">
-                        <img :src="require('../../public/img/uploadImage/' + product.imageFileName)"  alt="image" style="width:400px"/>
-                    </div>
-                    <div class="col-md-6">
-                        <h3>{{product.name}}</h3>
-                        <hr>
-                        <p>제조사 : {{product.manufacturer}}</p>
-                        <p>재고 : {{product.stock}}</p>
-                        <p>카테고리 : {{product.category}}</p>
-                        <p>상품설명 : {{product.description}}</p>
-                        <hr>
-                        <h3>가격 : {{ product.price | currency}}원</h3>
-                        <cartButton></cartButton>
-                        <purchase-button :product="product"></purchase-button>
-                    </div>
-                    <div class="col-md-6">                        
-                    </div>
-                    <div class="col-md-6 order-btn">
-                        
-                    </div>
-                </div>                        
-            </div>                       
+                {{ from }}
+                {{ product.id }}
+                {{ product.name }}
+                {{ product.price }}
+            </div>            
         </section>
     </div>
 </template>
 <script>
 import axios from "axios"
 import router from "../router"
-import CartButton from "../views/components/ProductDetail/CartButton"
-import PurchaseButton from "../views/components/ProductDetail/PurchaseButton"
+import VLazyImage from "v-lazy-image"
+import CartDeleteAllBtn from "../views/components/MyCart/CartItemAllDeleteButton"
+import GrandTotalPrice from "../views/components/MyCart/GrandTotalPrice"
+import GotoShoppingBtn from "../views/components/MyCart/GotoShoppingButton"
+import PurchaseBtn from "../views/components/MyCart/PurchaseButton"
+
+
+// Vue.component('cartDeleteAllBtn', {
+//     props: ['propsdata'],
+
+// })
 
 export default {
-    components: {
-        CartButton,
-        PurchaseButton,
-    },
     data() {
         return {
             loading: true, 
@@ -58,7 +45,8 @@ export default {
                 {category: null},
                 {description: null},
                 {imageFileName: null},
-            ]
+            ],
+            from: this.$route.query.from
         }
     },
     filters: {
@@ -77,7 +65,7 @@ export default {
         // 상품 정보요청(세부정보)
         getProduct() {            
             axios
-            .get("http://localhost:9306/products/"+this.$route.params.id)
+            .get("http://localhost:9306/products/"+this.$route.query.id)
             .then(response => {
                 this.loading = false
                 this.product = response.data
@@ -87,8 +75,43 @@ export default {
                 console.log(error)
             })
         },
-    }    
+    } 
 }
 </script>
 <style>
+.productTbl tr td{
+    cursor: pointer;
+    margin:auto; 
+    text-align:center;    
+}
+.price {
+    font-size: 24px;
+    text-align: right;
+    font-weight: bold;
+}
+
+dt {
+    float: left;
+    margin-left:55%;
+}
+
+.withPoint {
+    float: left;
+    margin-left:70%;
+}
+
+.deliveryCharge{
+    float: left;
+    margin-left:75%;
+}
+
+.payment-header {
+    float:left;
+    margin-right:55%;
+}
+
+.payment h1{
+    color: #6A5ACD;
+    font-weight: bold;
+}
 </style>

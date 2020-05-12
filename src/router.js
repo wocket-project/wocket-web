@@ -13,6 +13,7 @@ import Categories from "./views/Categories.vue";
 import AddProduct from "./views/AddProduct.vue";
 import MyPage from "./views/MyPage.vue";
 import MyCartInfo from "./views/MyCart.vue";
+import Purchase from "./views/Purchase.vue";
 import store from "./store";
 
 Vue.use(Router);
@@ -102,6 +103,15 @@ export default new Router({
       components: {
         header: AppHeader,
         default: Products,       
+        footer: AppFooter
+      }
+    },
+    {
+      path: "/purchase",
+      name: "purchase",
+      components: {
+        header: AppHeader,
+        default: Purchase,       
         footer: AppFooter
       }
     },

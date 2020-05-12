@@ -1,8 +1,25 @@
 <template>
-    <button type="button" class="purchase-btn">바로구매</button>
+    <button type="button" class="purchase-btn" @click="gotoPurchase()">바로구매</button>
 </template>
 <script>
-export default {};
+// import {mapState} from "vuex"
+import router from "../../../router"
+// import axios from "axios"
+
+
+
+export default {
+    props:['product'],
+    // computed: {
+    //   ...mapState(["isLogin"]),      
+    // },
+    methods: {
+        gotoPurchase: function() {
+          alert(this.$props.product.id)
+            router.push({ name: "purchase", query: {from:"direct", id : this.$props.product.id}})
+        }
+    }    
+}
 </script>
 <style>
 .purchase-btn {

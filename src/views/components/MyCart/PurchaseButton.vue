@@ -1,8 +1,22 @@
 <template>
-    <button type="button" class="purchase-btn">구매하기</button>
+    <button type="button" class="purchase-btn" @click="gotoPurchase">구매하기</button>
 </template>
 <script>
-export default {};
+// import {mapState} from "vuex"
+import router from "../../../router"
+// import axios from "axios"
+
+export default {
+
+    // computed: {
+    //   ...mapState(["isLogin"]),      
+    // },
+    methods: {
+        gotoShopping() {
+            router.push({ name: "products" })
+        }
+    }    
+}
 </script>
 <style>
 .purchase-btn {
