@@ -5,6 +5,9 @@
             </div>
         </section>
         <section class="section section-skew">
+            <div class="header-name">
+                <span>주문결제</span>                
+            </div>
             <div class="container" v-if="loading">
                <div class="spinner-border text-primary" role="status">
                     <span class="sr-only">Loading...</span>
@@ -126,6 +129,11 @@
                         </dd>                        
                     </dl>
                 </div>
+                 <hr>
+                 <div class="grandTotalPrice">
+                    <h2 style="float:left">총 결제금액</h2>
+                    <span class="payAmount">{{ payAmount | currency }}원</span>
+                </div>
                 </form>
             </div>            
         </section>
@@ -229,6 +237,13 @@ export default {
 }
 </script>
 <style>
+.header-name {
+    text-align: center;
+    margin-bottom: 3%;
+    font-size: 180%;
+    font-weight: bold;
+}
+
 .productTbl tr td{
     cursor: pointer;
     margin:auto; 
@@ -272,5 +287,12 @@ label {
 hr.divide {
     border: 1px solid;
     margin: 3px;
+}
+
+.payAmount {
+    color: #6A5ACD;
+    font-weight: bold;
+    font-size: 250%;
+    margin-left:60%;
 }
 </style>
