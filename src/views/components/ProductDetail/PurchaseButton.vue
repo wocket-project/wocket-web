@@ -14,9 +14,8 @@ export default {
     //   ...mapState(["isLogin"]),      
     // },
     methods: {
-        gotoPurchase: function() {
-          alert(this.$props.product.id)
-            router.push({ name: "purchase", query: {from:"direct", id : this.$props.product.id}})
+        gotoPurchase: function() {          
+          router.push({ name: "purchase", query: {from:"direct", id : this.$props.product.id}})
         }
     }    
 }

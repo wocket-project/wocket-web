@@ -109,6 +109,7 @@ export default new Router({
     {
       path: "/purchase",
       name: "purchase",
+      beforeEnter: onlyAuthUser,
       components: {
         header: AppHeader,
         default: Purchase,       

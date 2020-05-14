@@ -6,7 +6,9 @@
         </section>
         <section class="section section-skew">
             <div class="container" v-if="loading">
-                데이터를 가져오는 중....
+               <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
             </div> 
             <div class="container" v-if="!loading">
                 <form>
@@ -15,15 +17,15 @@
                     <hr class="divide">
                     <div>                    
                         <label for="checkName" class="col-sm-2">이름</label>
-                        <span class="col-sm-4">김한솔</span>
+                        <span class="col-sm-4">{{ userInfo.name }}</span>
                     </div>                    
                     <div>                    
                         <label for="checkName" class="col-sm-2">연락처</label>
-                        <span class="col-sm-4">010-3920-7847</span>
+                        <span class="col-sm-4">{{ userInfo.phone }}</span>
                     </div> 
                      <div>                    
                         <label for="checkName" class="col-sm-2">주소</label>
-                        <span class="col-sm-4">(14027) 경기도 안양시 만안구 삼덕로 63번길 32, 606동 1103호</span>
+                        <span class="col-sm-4">{{ userInfo.address }}</span>
                     </div>                    
                     <div>
                         <label for="checkName" class="col-sm-2">배송 메모</label>
@@ -51,37 +53,13 @@
                 <h5>위드포인트 사용 / 적립혜택</h5> 
                     <hr class="divide">
                     <div>                    
-                        <label for="checkName" class="col-sm-2">이름</label>
-                        <span class="col-sm-4">김한솔</span>
+                        <label for="usingPoint" class="col-sm-2">위드포인트 사용</label>
+                        <input @change="onChangeUsingPoint($event)" type="number" value="0"/>
                     </div>                    
                     <div>                    
-                        <label for="checkName" class="col-sm-2">연락처</label>
-                        <span class="col-sm-4">010-3920-7847</span>
-                    </div> 
-                     <div>                    
-                        <label for="checkName" class="col-sm-2">주소</label>
-                        <span class="col-sm-4">(14027) 경기도 안양시 만안구 삼덕로 63번길 32, 606동 1103호</span>
-                    </div>                    
-                    <div>
-                        <label for="checkName" class="col-sm-2">배송 메모</label>
-                        <select @change="onChangeShippingMemo($event)" class="col-sm-6" v-model="memo" required>
-                            <option value="0" hidden> 배송메모를 선택해주세요.</option>
-                            <option value="1">배송 전 연락바랍니다.</option>
-                            <option value="2">경비실에 맡겨주세요.</option>
-                            <option value="3">집앞에 놔주세요.</option>
-                            <option value="4">택배함에 놔주세요.</option>
-                            <option value="5">부재시 핸드폰으로 연락주세요.</option>
-                            <option value="6">부재시 경비실에 맡겨주세요.</option>
-                            <option value="7">부재시 집 앞에 놔주세요.</option>
-                            <option value="8">직접입력</option>
-                        </select>
-                        <br>
-                    </div>
-                    <div v-if="isDirectMemo">
-                        <label for="checkName" class="col-sm-2"></label>
-                        <textarea  class="col-sm-6" id="directMemo" rows="3">                            
-                        </textarea>  
-                    </div>  
+                        <label for="savePoint" class="col-sm-2">예정 적립포인트</label>
+                        <span class="col-sm-4">{{ savingPoint | currency }}</span>
+                    </div>    
                                      
                 <br><br><br>
                 <h5>주문상품 정보</h5> <!-- 상품정보 -->                    
@@ -130,6 +108,24 @@
                   </tr>
                 </tbody>
               </table>
+              <hr>
+                  <div class="grandTotalPrice">
+                    <h3 style="float:left">총 주문금액</h3>
+                    <dl class="price">
+                        <dt>총 상품금액</dt>
+                        <dd>
+                            <span class="productsPrice">{{ directPurchaseProduct.price | currency}}원</span>                
+                        </dd>
+                        <dt class="deliveryCharge">배송비</dt>
+                        <dd>
+                            <span>{{ 0 | currency }}원</span>
+                        </dd>
+                        <dt class="withPoint">위드포인트 사용</dt>
+                        <dd>
+                            <span>-{{ usingPoint | currency }}원</span>
+                        </dd>                        
+                    </dl>
+                </div>
                 </form>
             </div>            
         </section>
@@ -138,12 +134,7 @@
 <script>
 import axios from "axios"
 import router from "../router"
-import VLazyImage from "v-lazy-image"
-import CartDeleteAllBtn from "../views/components/MyCart/CartItemAllDeleteButton"
-import GrandTotalPrice from "../views/components/MyCart/GrandTotalPrice"
-import GotoShoppingBtn from "../views/components/MyCart/GotoShoppingButton"
-import PurchaseBtn from "../views/components/MyCart/PurchaseButton"
-
+import { mapState } from 'vuex'
 
 // Vue.component('cartDeleteAllBtn', {
 //     props: ['propsdata'],
@@ -161,6 +152,7 @@ export default {
                 quantity: 1,
                 imageFileName: null,
                 price: null,
+                deliveryCharge: 0,
             },
             products: [
                 {id: null},
@@ -177,6 +169,7 @@ export default {
             memo: 0,
             isDirectMemo: false,
             directMemo: "",
+            usingPoint: 0,
         }
     },
     filters: {
@@ -190,6 +183,15 @@ export default {
     },
     watch: {
         '$route': 'getProduct'
+    },
+    computed: {      
+      ...mapState(["userInfo"]),
+      payAmount: function() {
+          return this.directPurchaseProduct.price - this.usingPoint
+      },
+      savingPoint: function() {
+            return this.payAmount/100
+      },
     },
     methods: {
         // 상품 정보요청(세부정보)
@@ -214,6 +216,12 @@ export default {
                 this.isDirectMemo = false
             }
         },
+        onChangeUsingPoint(event) {
+            if(event.target.value > this.userInfo.point) { // 현재 가지고 있는 적립금을 초과한 경우                
+                event.target.value = this.userInfo.point                
+            } 
+            this.usingPoint = event.target.value
+        },
         gotoProduct(item) { // 상품 세부페이지로 이동            
             router.push({ name: "productDetail", params: {id : item.id}})
         },
@@ -230,21 +238,22 @@ export default {
     font-size: 24px;
     text-align: right;
     font-weight: bold;
+    
 }
 
 dt {
     float: left;
-    margin-left:55%;
+    margin-left:49%;
 }
 
 .withPoint {
     float: left;
-    margin-left:70%;
+    margin-left:65%;
 }
 
 .deliveryCharge{
     float: left;
-    margin-left:75%;
+    margin-left:65%;
 }
 
 .payment-header {
