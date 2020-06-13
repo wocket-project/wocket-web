@@ -1,4 +1,4 @@
-<template>    
+<template>
     <div class="Products-page">
         <section class="section-Products-cover section-shaped my-0">
             <div class="shape shape-style-1 shape-primary shape-skew alpha-4">
@@ -137,21 +137,23 @@
                 </form>                
                 <div>
                     <button type="button" class="cancel-btn" @click="cancel()">취소하기</button>
-                    <button type="button" class="pay-btn" @click="gotoPay()">바로구매</button>
+                    <button type="button" class="pay-btn" @click="requestPay()">바로구매</button>
                 </div>
             </div>            
         </section>
     </div>
 </template>
+
+
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
 <script>
+
 import axios from "axios"
 import router from "../router"
 import { mapState } from 'vuex'
-
-// Vue.component('cartDeleteAllBtn', {
-//     props: ['propsdata'],
-
-// })
+import Vue from "vue"
 
 export default {
     data() {
@@ -243,8 +245,32 @@ export default {
                 router.push({ name: "home" })
             }
         },
-        gotoPay() { // 
-
+        requestPay() {
+            Vue.IMP().request_pay({
+                pg: 'inicis',
+                pay_method: 'card',
+                merchant_uid: 'merchant_' + new Date().getTime(),
+                name: '에어팟',
+                amount: 100,
+                buyer_email: 'doingnow94@gmail.com',
+                buyer_name: '김한솔',
+                buyer_tel: '010-1234-5678',
+                buyer_addr: '서울특별시 강남구 삼성동',
+                buyer_postcode: '123-456'
+            }, (result_success) => {
+                //성공할 때 실행 될 콜백 함수
+                var msg = '결제가 완료되었습니다.';
+                msg += '고유ID : ' + result_success.imp_uid;
+                msg += '상점 거래ID : ' + result_success.merchant_uid;
+                msg += '결제 금액 : ' + result_success.paid_amount;
+                msg += '카드 승인번호 : ' + result_success.apply_num;
+                alert(msg);
+            }, (result_failure) => {
+                //실패시 실행 될 콜백 함수
+                var msg = '결제에 실패하였습니다.';
+                msg += '\n\n에러내용 : ' + result_failure.error_msg;
+                alert(msg);
+            })
         }
     } 
 }
