@@ -247,7 +247,7 @@ export default {
         },
         requestPay() {
             Vue.IMP().request_pay({
-                pg: 'inicis',
+                pg: 'kakaopay',
                 pay_method: 'card',
                 merchant_uid: 'merchant_' + new Date().getTime(),
                 name: '에어팟',
