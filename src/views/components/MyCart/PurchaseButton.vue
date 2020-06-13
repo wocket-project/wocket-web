@@ -20,7 +20,6 @@ export default {
 </script>
 <style>
 .purchase-btn {
-  
   background-color: #6A5ACD;
   border: 1px solid #6A5ACD;
   color: white;

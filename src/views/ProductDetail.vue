@@ -28,7 +28,6 @@
                     <div class="col-md-6">                        
                     </div>
                     <div class="col-md-6 order-btn">
-                        
                     </div>
                 </div>                        
             </div>                       

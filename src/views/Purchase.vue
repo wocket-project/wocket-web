@@ -134,7 +134,11 @@
                     <h2 style="float:left">총 결제금액</h2>
                     <span class="payAmount">{{ payAmount | currency }}원</span>
                 </div>
-                </form>
+                </form>                
+                <div>
+                    <button type="button" class="cancel-btn" @click="cancel()">취소하기</button>
+                    <button type="button" class="pay-btn" @click="gotoPay()">바로구매</button>
+                </div>
             </div>            
         </section>
     </div>
@@ -233,6 +237,15 @@ export default {
         gotoProduct(item) { // 상품 세부페이지로 이동            
             router.push({ name: "productDetail", params: {id : item.id}})
         },
+        cancel() { // 상품 세부페이지로 이동
+            var isCancel = confirm('구매를 취소하시겠습니까?')
+            if(isCancel) {
+                router.push({ name: "home" })
+            }
+        },
+        gotoPay() { // 
+
+        }
     } 
 }
 </script>
@@ -295,4 +308,33 @@ hr.divide {
     font-size: 250%;
     margin-left:60%;
 }
+
+.pay-btn {
+  background-color: #6A5ACD;
+  border: 1px solid #6A5ACD;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 12px 4px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background-color: white;
+  border: 1px solid #6A5ACD;
+  color: #6A5ACD;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 100px 4px 4px 30%;
+  cursor: pointer;
+}
+
 </style>
