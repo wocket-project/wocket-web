@@ -39,17 +39,23 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="zonecode">우편번호</label>
+                        <input type="text" v-model="user.zonecode" @click="setAddress()" style="width:35%; margin:1% 3% 1% 1%"
+                        id="zonecode" name="zonecode" class="form-control"/>
+
                         <label for="address">주소</label>
-                        <input type="text" v-model="user.address" @click="setAddress()"
+                        <input type="text" v-model="user.address" @click="setAddress()" style="width:45%; margin:1% 1% 1% 1%"
                         id="address" name="address" class="form-control" :class="{ 'is-invalid': submitted && $v.user.address.$error }" />
                         <div v-if="submitted && !$v.user.address.required" class="invalid-feedback">주소는 필수입력 항목입니다.</div>
+
+                        <label for="detailAddr">상세주소</label>
+                        <input type="text" v-model="user.detailAddr" style="width:87%; margin:1%"
+                        id="detailAddr" name="detailAddr" class="form-control" :class="{ 'is-invalid': submitted && $v.user.detailAddr.$error }" />
+                        <div v-if="submitted && !$v.user.detailAddr.required" class="invalid-feedback">상세주소는 필수입력 항목입니다.</div>
                     </div>
 
                     <div class="form-group">
-                        <label for="detailAddr">상세주소</label>
-                        <input type="text" v-model="user.detailAddr" 
-                        id="detailAddr" name="detailAddr" class="form-control" :class="{ 'is-invalid': submitted && $v.user.detailAddr.$error }" />
-                        <div v-if="submitted && !$v.user.detailAddr.required" class="invalid-feedback">상세주소는 필수입력 항목입니다.</div>
+                        
                     </div>
 
                     <div class="form-group">
@@ -153,14 +159,16 @@ export default {
             this.doRegister(); 
         },
         setAddress() {
+
+          var customer = this;  // 지역변수를 써야하는 이유 알기! (함수 내에서 this.user.address는 제대로 실행되지 않는다.)
+
           new daum.Postcode({
             oncomplete: function(data) {
                 console.log(data)
-                // this.user.address = data.address
-                // this.user.zonecode = data.zonecode
-                alert(data.address + "\n" + data.zonecode)
+                customer.user.address = data.address
+                customer.user.zonecode = data.zonecode
             }
-          }).open();
+          }).open();          
         }
     }
 };
