@@ -23,15 +23,15 @@
                         <span class="col-sm-4">{{ userInfo.name }}</span>
                     </div>                    
                     <div>                    
-                        <label for="checkName" class="col-sm-2">연락처</label>
+                        <label for="checkPhone" class="col-sm-2">연락처</label>
                         <span class="col-sm-4">{{ userInfo.phone }}</span>
                     </div> 
                      <div>                    
-                        <label for="checkName" class="col-sm-2">주소</label>
-                        <span class="col-sm-4">{{ userInfo.address }}</span>
+                        <label for="checkAddr" class="col-sm-2">주소</label>
+                        <span class="col-sm-4">({{ userInfo.zonecode }}) {{ userInfo.address }}, {{ userInfo.detailAddress }}</span>
                     </div>                    
                     <div>
-                        <label for="checkName" class="col-sm-2">배송 메모</label>
+                        <label for="checkAddrMemo" class="col-sm-2">배송 메모</label>
                         <select @change="onChangeShippingMemo($event)" class="col-sm-6" v-model="memo" required>
                             <option value="0" hidden> 배송메모를 선택해주세요.</option>
                             <option value="1">배송 전 연락바랍니다.</option>
@@ -184,6 +184,7 @@ export default {
             isDirectMemo: false,
             directMemo: "",
             usingPoint: 0,
+            productsPayAmount: 0,
         }
     },
     filters: {
@@ -246,26 +247,27 @@ export default {
             }
         },
         requestPay() {
+
             Vue.IMP().request_pay({
                 pg: 'kakaopay',
                 pay_method: 'card',
                 merchant_uid: 'merchant_' + new Date().getTime(),
-                name: '에어팟',
-                amount: 100,
+                name: this.directPurchaseProduct.name,
+                amount: this.payAmount,
                 buyer_email: this.userInfo.email,
                 buyer_name: this.userInfo.name,
                 buyer_tel: this.userInfo.phone,
                 buyer_addr: this.userInfo.address,
                 buyer_postcode: '123-456' 
-                
+
             }, (result_success) => {
                 //성공할 때 실행 될 콜백 함수
-                var msg = '결제가 완료되었습니다.';
-                msg += '고유ID : ' + result_success.imp_uid;
-                msg += '상점 거래ID : ' + result_success.merchant_uid;
-                msg += '결제 금액 : ' + result_success.paid_amount;
-                msg += '카드 승인번호 : ' + result_success.apply_num;
-                alert(msg);
+                // var msg = '결제가 완료되었습니다.'
+                // msg += '고유ID : ' + result_success.imp_uid;
+                // msg += '상점 거래ID : ' + result_success.merchant_uid;
+                // msg += '결제 금액 : ' + result_success.paid_amount;
+                // msg += '카드 승인번호 : ' + result_success.apply_num;
+                // alert(msg);
             }, (result_failure) => {
                 //실패시 실행 될 콜백 함수
                 var msg = '결제에 실패하였습니다.';

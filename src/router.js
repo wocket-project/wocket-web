@@ -14,7 +14,7 @@ import AddProduct from "./views/AddProduct.vue";
 import MyPage from "./views/MyPage.vue";
 import MyCartInfo from "./views/MyCart.vue";
 import Purchase from "./views/Purchase.vue";
-import store from "./store";
+import PaySuccess from "./views/PaySuccess.vue";
 
 Vue.use(Router);
 
@@ -140,6 +140,15 @@ export default new Router({
       components: {
         header: AppHeader,
         default: Categories,       
+        footer: AppFooter
+      }
+    },
+    {
+      path: "/paySuccess",
+      name: "PaySuccess",
+      components: {
+        header: AppHeader,
+        default: PaySuccess,
         footer: AppFooter
       }
     },
