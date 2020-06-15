@@ -40,8 +40,16 @@
 
                     <div class="form-group">
                         <label for="address">주소</label>
-                        <input type="text" v-model="user.address" id="address" name="address" class="form-control" :class="{ 'is-invalid': submitted && $v.user.address.$error }" />
+                        <input type="text" v-model="user.address" @click="setAddress()"
+                        id="address" name="address" class="form-control" :class="{ 'is-invalid': submitted && $v.user.address.$error }" />
                         <div v-if="submitted && !$v.user.address.required" class="invalid-feedback">주소는 필수입력 항목입니다.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="detailAddr">상세주소</label>
+                        <input type="text" v-model="user.detailAddr" 
+                        id="detailAddr" name="detailAddr" class="form-control" :class="{ 'is-invalid': submitted && $v.user.detailAddr.$error }" />
+                        <div v-if="submitted && !$v.user.detailAddr.required" class="invalid-feedback">상세주소는 필수입력 항목입니다.</div>
                     </div>
 
                     <div class="form-group">
@@ -83,10 +91,13 @@ export default {
             password: "",
             name: "",
             address: "",
+            zonecode: "",
+            detailAddr: "",
             phone: "",
             confirmPassword: "",
           },          
-          submitted: false
+          submitted: false,
+          isDetailAddrFlag: false
       }
     },
     validations: {
@@ -94,11 +105,21 @@ export default {
           email: {required, email},
           password: {required, minLength: minLength(8)},
           name: {required},
-          address: {required},
+          address: {required},          
+          detailAddr: {required},
           phone: {required},
           confirmPassword: {required, sameAsPassword: sameAs('password')},
         }
     },
+    // computed: {
+    //    setDetailAddrFlag: function() {
+    //       if(address !== "") {
+    //         return true
+    //       } else {
+    //         return false
+    //       }
+    //     },
+    // },
     methods: {
         // 회원가입 시도
         doRegister: function() {        
@@ -130,6 +151,16 @@ export default {
             }
 
             this.doRegister(); 
+        },
+        setAddress() {
+          new daum.Postcode({
+            oncomplete: function(data) {
+                console.log(data)
+                // this.user.address = data.address
+                // this.user.zonecode = data.zonecode
+                alert(data.address + "\n" + data.zonecode)
+            }
+          }).open();
         }
     }
 };

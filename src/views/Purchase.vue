@@ -252,10 +252,10 @@ export default {
                 merchant_uid: 'merchant_' + new Date().getTime(),
                 name: '에어팟',
                 amount: 100,
-                buyer_email: 'doingnow94@gmail.com',
-                buyer_name: '김한솔',
-                buyer_tel: '010-1234-5678',
-                buyer_addr: '서울특별시 강남구 삼성동',
+                buyer_email: this.userInfo.email,
+                buyer_name: this.userInfo.name,
+                buyer_tel: this.userInfo.phone,
+                buyer_addr: this.userInfo.address,
                 buyer_postcode: '123-456'
             }, (result_success) => {
                 //성공할 때 실행 될 콜백 함수
