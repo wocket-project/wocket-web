@@ -256,7 +256,8 @@ export default {
                 buyer_name: this.userInfo.name,
                 buyer_tel: this.userInfo.phone,
                 buyer_addr: this.userInfo.address,
-                buyer_postcode: '123-456'
+                buyer_postcode: '123-456' 
+                
             }, (result_success) => {
                 //성공할 때 실행 될 콜백 함수
                 var msg = '결제가 완료되었습니다.';

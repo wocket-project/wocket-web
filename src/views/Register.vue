@@ -40,18 +40,18 @@
 
                     <div class="form-group">
                         <label for="zonecode">우편번호</label>
-                        <input type="text" v-model="user.zonecode" @click="setAddress()" style="width:35%; margin:1% 3% 1% 1%"
+                        <input type="text" v-model="user.zonecode" @click="setAddress()" style="width:35%; margin:1% 3% 1% 1%" readonly="true"
                         id="zonecode" name="zonecode" class="form-control"/>
 
                         <label for="address">주소</label>
-                        <input type="text" v-model="user.address" @click="setAddress()" style="width:45%; margin:1% 1% 1% 1%"
+                        <input type="text" v-model="user.address" @click="setAddress()" style="width:45%; margin:1% 1% 1% 1%" readonly="true"
                         id="address" name="address" class="form-control" :class="{ 'is-invalid': submitted && $v.user.address.$error }" />
                         <div v-if="submitted && !$v.user.address.required" class="invalid-feedback">주소는 필수입력 항목입니다.</div>
 
-                        <label for="detailAddr">상세주소</label>
-                        <input type="text" v-model="user.detailAddr" style="width:87%; margin:1%"
-                        id="detailAddr" name="detailAddr" class="form-control" :class="{ 'is-invalid': submitted && $v.user.detailAddr.$error }" />
-                        <div v-if="submitted && !$v.user.detailAddr.required" class="invalid-feedback">상세주소는 필수입력 항목입니다.</div>
+                        <label for="detailAddress">상세주소</label>
+                        <input type="text" v-model="user.detailAddress" style="width:87%; margin:1%"
+                        id="detailAddress" name="detailAddress" class="form-control" :class="{ 'is-invalid': submitted && $v.user.detailAddress.$error }" />
+                        <div v-if="submitted && !$v.user.detailAddress.required" class="invalid-feedback">상세주소는 필수입력 항목입니다.</div>
                     </div>
 
                     <div class="form-group">
@@ -60,7 +60,8 @@
 
                     <div class="form-group">
                         <label for="phone">전화번호</label>
-                        <input type="text" v-model="user.phone" id="phone" name="phone" class="form-control" :class="{ 'is-invalid': submitted && $v.user.phone.$error }" />
+                        <input type="text" v-model="user.phone" id="phone" name="phone" @keyup="autoHypenPhone(user.phone)"
+                         class="form-control" :class="{ 'is-invalid': submitted && $v.user.phone.$error }" />
                         <div v-if="submitted && !$v.user.phone.required" class="invalid-feedback">전화번호는 필수입력 항목입니다.</div>
                     </div>
                     <hr>
@@ -98,7 +99,7 @@ export default {
             name: "",
             address: "",
             zonecode: "",
-            detailAddr: "",
+            detailAddress: "",
             phone: "",
             confirmPassword: "",
           },          
@@ -112,20 +113,11 @@ export default {
           password: {required, minLength: minLength(8)},
           name: {required},
           address: {required},          
-          detailAddr: {required},
+          detailAddress: {required},
           phone: {required},
           confirmPassword: {required, sameAsPassword: sameAs('password')},
         }
     },
-    // computed: {
-    //    setDetailAddrFlag: function() {
-    //       if(address !== "") {
-    //         return true
-    //       } else {
-    //         return false
-    //       }
-    //     },
-    // },
     methods: {
         // 회원가입 시도
         doRegister: function() {        
@@ -135,7 +127,9 @@ export default {
             password: this.user.password,
             name: this.user.name,
             address: this.user.address,
-            phone: this.user.phone
+            phone: this.user.phone,
+            detailAddress: this.user.detailAddress,
+            zonecode: this.user.zonecode
         })
             .then(res => {              
               alert("회원가입이 정상적으로 완료되었습니다.")
@@ -163,13 +157,38 @@ export default {
           var customer = this;  // 지역변수를 써야하는 이유 알기! (함수 내에서 this.user.address는 제대로 실행되지 않는다.)
 
           new daum.Postcode({
-            oncomplete: function(data) {
-                console.log(data)
+            oncomplete: function(data) {                
                 customer.user.address = data.address
                 customer.user.zonecode = data.zonecode
             }
           }).open();          
-        }
+        },
+        autoHypenPhone(val) {
+            var phoneNumber = val.replace(/[^0-9]/g, "");
+            var res = "";
+
+            if(phoneNumber.length < 4) {
+                return phoneNumber;
+            } else if(phoneNumber.length < 7) {
+                res += phoneNumber.substr(0, 3);
+                res += "-";
+                res += phoneNumber.substr(3);
+            } else if(phoneNumber.length < 11) {
+                res += phoneNumber.substr(0, 3);
+                res += "-";
+                res += phoneNumber.substr(3, 3);
+                res += "-";
+                res += phoneNumber.substr(6);
+            } else {
+                res += phoneNumber.substr(0, 3);
+                res += "-";
+                res += phoneNumber.substr(3, 4);
+                res += "-";
+                res += phoneNumber.substr(7);
+            }
+
+            this.user.phone = res
+        },
     }
 };
 
