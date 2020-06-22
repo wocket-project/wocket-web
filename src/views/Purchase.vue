@@ -77,38 +77,22 @@
                     <th scope="col">주문금액</th>
                   </tr>
                 </thead>
-                <tbody v-if="from === 'cart'"> 
-                  <tr v-for="product in products" :key="product.id" align="center">                    
-                    <td v-if="product.imageFileName != null" scope="row">
-                        <a @click="gotoProduct(product)">
-                        <img :src="require('../../public/img/uploadImage/' + product.imageFileName)" alt="productImage" width="100px">
+                <tbody> 
+                  <tr v-for="item in products.items" :key="item.id" align="center">                    
+                    <td v-if="item.imageFileName != null" scope="row">
+                        <a @click="gotoProduct(item)">
+                        <img :src="require('../../public/img/uploadImage/' + item.imageFileName)" alt="productImage" width="100px">
                         </a>
                     </td>
-                    <td v-if="product.imageFileName == null" scope="row">이미지 준비 중</td>
-                    <td><a @click="gotoProduct(product)">{{ product.name }}</a></td>
-                    <td>￦{{ product.price | currency}}</td>
+                    <td v-if="item.imageFileName == null" scope="row">이미지 준비 중</td>
+                    <td><a @click="gotoProduct(item)">{{ item.name }}</a></td>
+                    <td>￦{{ item.price | currency}}</td>
                     <td>0원</td>
                     <td>무료배송</td>
-                    <td> {{ product.quantity }} </td>
-                    <td>￦{{ product.price | currency}}</td>
+                    <td> {{ item.quantity }} </td>
+                    <td>￦{{ item.price | currency}}</td>
                   </tr>
              
-                </tbody>
-                <tbody v-if="from === 'direct'">
-                    <tr align="center">                    
-                    <td v-if="directPurchaseProduct.imageFileName != null" scope="row">
-                        <a @click="gotoProduct(directPurchaseProduct)">
-                        <img :src="require('../../public/img/uploadImage/' + directPurchaseProduct.imageFileName)" alt="productImage" width="100px">
-                        </a>
-                    </td>
-                    <td v-if="directPurchaseProduct.imageFileName == null" scope="row">이미지 준비 중</td>
-                    <td><a @click="gotoProduct(directPurchaseProduct)">{{ directPurchaseProduct.name }}</a></td>
-                    <td>￦{{ directPurchaseProduct.price | currency}}</td>
-                    <td>0원</td>
-                    <td>무료배송</td>
-                    <td> {{ directPurchaseProduct.quantity }} </td>
-                    <td>￦{{ directPurchaseProduct.price | currency}}</td>
-                  </tr>
                 </tbody>
               </table>
               <hr>
@@ -117,7 +101,7 @@
                     <dl class="price">
                         <dt>총 상품금액</dt>
                         <dd>
-                            <span class="productsPrice">{{ directPurchaseProduct.price | currency}}원</span>                
+                            <span class="productsPrice">{{ products.grandTotalPrice | currency}}원</span>                
                         </dd>
                         <dt class="deliveryCharge">배송비</dt>
                         <dd>
@@ -159,32 +143,25 @@ export default {
     data() {
         return {
             loading: true,
-            directPurchaseProduct: {
-                id: null,
-                name: null,
-                price: null,
-                quantity: 1,
-                imageFileName: null,
-                price: null,
-                deliveryCharge: 0,
+            // directPurchaseProduct: {
+            //     id: null,
+            //     name: null,
+            //     price: null,
+            //     quantity: 1,
+            //     imageFileName: null,            
+            //     deliveryCharge: 0,
+            // },
+            products: {
+                items: [
+                    // {quantity: 0},
+                ],
+                grandTotalPrice: null,
             },
-            products: [
-                {id: null},
-                {name: null},
-                {price: null},
-                {manufacturer: null},
-                {stock: null},
-                {category: null},
-                {description: null},
-                {imageFileName: null},
-                {quantity: 1},                
-            ],
             from: this.$route.query.from,
             memo: 0,
             isDirectMemo: false,
             directMemo: "",
             usingPoint: 0,
-            productsPayAmount: 0,
         }
     },
     filters: {
@@ -202,7 +179,7 @@ export default {
     computed: {      
       ...mapState(["userInfo"]),
       payAmount: function() {
-          return this.directPurchaseProduct.price - this.usingPoint
+          return this.products.grandTotalPrice - this.usingPoint
       },
       savingPoint: function() {
             return this.payAmount/100
@@ -210,19 +187,51 @@ export default {
     },
     methods: {
         // 상품 정보요청(세부정보)
-        getProduct() {            
-            axios
-            .get("http://localhost:9306/products/"+this.$route.query.id)
-            .then(response => {
-                console.log(response.data)
-                this.loading = false
-                this.directPurchaseProduct = response.data
-                this.directPurchaseProduct.quantity = 1
-            })
-            .catch(error => {
-                alert('서버 오류')
-                console.log(error)
-            })
+        getProduct() {
+            if(this.from === "direct") { // 상품세부 페이지에서 구매하는 경우
+                axios
+                .get("http://localhost:9306/products/"+this.$route.query.id)
+                .then(response => {
+                    console.log(response.data)
+                    this.loading = false
+                    this.products.items[0] = response.data
+                    this.products.grandTotalPrice = response.data.price
+                    this.products.items[0].quantity = 1
+                })
+                .catch(error => {
+                    alert('서버 오류')
+                    console.log(error)
+                })
+            }
+
+            if(this.from === "cart") { // 장바구니 페이지에서 구매하는 경우
+                let token = localStorage.getItem("accessToken")
+
+                const config = {
+                headers: { Authorization: `Bearer ${token}` }
+                };
+            
+                const bodyParameters = {
+                    key: "value"
+                };
+
+                axios
+                .post("http://localhost:9306/cart", bodyParameters, config)
+                .then(response => {
+                    this.loading = false                
+
+                    for(var idx=0; idx<response.data.cartItems.length; idx++) {
+                        this.products.items[idx] = response.data.cartItems[idx].product
+                        this.products.items[idx].quantity = response.data.cartItems[idx].quantity
+                    }
+                    
+                    this.products.grandTotalPrice = response.data.grandTotalPrice
+                })
+                .catch(error => {
+                    alert('서버 오류')
+                    console.log(error)
+                })
+            }
         },
         onChangeShippingMemo(event) {
             if(event.target.value == 8) { // 직접입력하는 경우
@@ -233,7 +242,7 @@ export default {
         },
         onChangeUsingPoint(event) {
             if(event.target.value > this.userInfo.point) { // 현재 가지고 있는 적립금을 초과한 경우                
-                event.target.value = this.userInfo.point                
+                event.target.value = this.userInfo.point
             } 
             this.usingPoint = event.target.value
         },
@@ -248,11 +257,19 @@ export default {
         },
         requestPay() {
 
+            var productName = ""
+
+            if(this.products.items.length > 1) {
+                productName = this.products.items[0].name + "외 " + this.products.items.length-1
+            } else {
+                productName = this.products.items[0].name
+            }
+
             Vue.IMP().request_pay({
                 pg: 'kakaopay',
                 pay_method: 'card',
                 merchant_uid: 'merchant_' + new Date().getTime(),
-                name: this.directPurchaseProduct.name,
+                name: productName,
                 amount: this.payAmount,
                 buyer_email: this.userInfo.email,
                 buyer_name: this.userInfo.name,
@@ -261,13 +278,8 @@ export default {
                 buyer_postcode: this.userInfo.zonecode, 
 
             }, (result_success) => {
-                //성공할 때 실행 될 콜백 함수
-                // var msg = '결제가 완료되었습니다.'
-                // msg += '고유ID : ' + result_success.imp_uid;
-                // msg += '상점 거래ID : ' + result_success.merchant_uid;
-                // msg += '결제 금액 : ' + result_success.paid_amount;
-                // msg += '카드 승인번호 : ' + result_success.apply_num;
-                // alert(msg);
+                
+
             }, (result_failure) => {
                 //실패시 실행 될 콜백 함수
                 var msg = '결제에 실패하였습니다.';

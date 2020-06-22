@@ -7,13 +7,12 @@ import router from "../../../router"
 // import axios from "axios"
 
 export default {
-
     // computed: {
     //   ...mapState(["isLogin"]),      
     // },
-    methods: {
-        gotoShopping() {
-            router.push({ name: "products" })
+    methods: { 
+        gotoPurchase: function() {          
+          router.push({ name: "purchase", query: {from:"cart"}})
         }
     }    
 }
