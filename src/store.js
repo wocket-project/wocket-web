@@ -77,6 +77,7 @@ export default new Vuex.Store({
           .post("http://localhost:9306/loginUser", bodyParameters, config)
           .then(response => {            
               let userInfo = {
+                id: response.data.id,
                 name: response.data.name,
                 email: response.data.email,
                 phone: response.data.phone,

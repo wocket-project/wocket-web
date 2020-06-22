@@ -32,22 +32,22 @@
                     </div>                    
                     <div>
                         <label for="checkAddrMemo" class="col-sm-2">배송 메모</label>
-                        <select @change="onChangeShippingMemo($event)" class="col-sm-6" v-model="memo" required>
+                        <select @change="onChangeShippingMemo($event)" class="col-sm-6" v-model="shippingMemo" required>
                             <option value="0" hidden> 배송메모를 선택해주세요.</option>
-                            <option value="1">배송 전 연락바랍니다.</option>
-                            <option value="2">경비실에 맡겨주세요.</option>
-                            <option value="3">집앞에 놔주세요.</option>
-                            <option value="4">택배함에 놔주세요.</option>
-                            <option value="5">부재시 핸드폰으로 연락주세요.</option>
-                            <option value="6">부재시 경비실에 맡겨주세요.</option>
-                            <option value="7">부재시 집 앞에 놔주세요.</option>
+                            <option value="배송 전 연락바랍니다.">배송 전 연락바랍니다.</option>
+                            <option value="경비실에 맡겨주세요.">경비실에 맡겨주세요.</option>
+                            <option value="집앞에 놔주세요.">집앞에 놔주세요.</option>
+                            <option value="택배함에 놔주세요.">택배함에 놔주세요.</option>
+                            <option value="부재시 핸드폰으로 연락주세요.">부재시 핸드폰으로 연락주세요.</option>
+                            <option value="부재시 경비실에 맡겨주세요.">부재시 경비실에 맡겨주세요.</option>
+                            <option value="부재시 집 앞에 놔주세요.">부재시 집 앞에 놔주세요.</option>
                             <option value="8">직접입력</option>
                         </select>
                         <br>
                     </div>
                     <div v-if="isDirectMemo">
                         <label for="checkName" class="col-sm-2"></label>
-                        <textarea  class="col-sm-6" id="directMemo" rows="3">                            
+                        <textarea  class="col-sm-6" id="shippingDirectMemo" v-model="shippingDirectMemo" rows="3">
                         </textarea>  
                     </div>  
                 <br><br><br>
@@ -143,25 +143,17 @@ export default {
     data() {
         return {
             loading: true,
-            // directPurchaseProduct: {
-            //     id: null,
-            //     name: null,
-            //     price: null,
-            //     quantity: 1,
-            //     imageFileName: null,            
-            //     deliveryCharge: 0,
-            // },
             products: {
-                items: [
-                    // {quantity: 0},
-                ],
+                items: [],
                 grandTotalPrice: null,
             },
             from: this.$route.query.from,
             memo: 0,
             isDirectMemo: false,
-            directMemo: "",
+            shippingMemo: "",
+            shippingDirectMemo: "",
             usingPoint: 0,
+            purchaseItem: []
         }
     },
     filters: {
@@ -241,7 +233,7 @@ export default {
             }
         },
         onChangeUsingPoint(event) {
-            if(event.target.value > this.userInfo.point) { // 현재 가지고 있는 적립금을 초과한 경우                
+            if(event.target.value > this.userInfo.point) { // 현재 가지고 있는 적립금을 초과한 경우
                 event.target.value = this.userInfo.point
             } 
             this.usingPoint = event.target.value
@@ -260,7 +252,10 @@ export default {
             var productName = ""
 
             if(this.products.items.length > 1) {
-                productName = this.products.items[0].name + "외 " + this.products.items.length-1
+                productName = this.products.items[0].name
+                productName += "외 "
+                productName += this.products.items.length-1
+                productName += "개 상품"
             } else {
                 productName = this.products.items[0].name
             }
@@ -277,8 +272,47 @@ export default {
                 buyer_addr: this.userInfo.address,
                 buyer_postcode: this.userInfo.zonecode, 
 
-            }, (result_success) => {
-                
+            }, (result_success) => { // 결제정보 서버 전송
+
+                // let token = localStorage.getItem("accessToken")
+
+                // const config = {
+                //     headers: { Authorization: `Bearer ${token}` }
+                // };
+            
+                // const bodyParameters = {
+                //     key: "value"
+                // };
+
+                for(var i=0; i<this.products.items.length; i++) { // purchaseItem Bundle Mapping
+                    var productId = this.products.items[i].id
+                    var quantity = this.products.items[i].quantity
+                    this.purchaseItem[i] = {productId, quantity}
+                }
+
+                if(this.isDirectMemo = true) { // 배송메모를 직접 입력한 경우
+                    this.shippingMemo = this.shippingDirectMemo
+                }
+
+                axios
+                .post("http://localhost:9306/purchase", {
+                    userId: this.userInfo.id,
+                    totalPrice: this.products.grandTotalPrice,
+                    usingPoint: this.usingPoint,
+                    payAmount: this.payAmount,
+                    shippingAddress: this.userInfo.address,
+                    shippingMemo: this.shippingMemo,
+                    phone: this.userInfo.phone,
+                    purchaseItems: this.purchaseItem
+                })
+
+                .then(response => {
+                    router.push({ name: "PaySuccess" })
+                })
+                .catch(error => {
+                    alert('서버 오류')
+                    console.log(error)
+                })
 
             }, (result_failure) => {
                 //실패시 실행 될 콜백 함수
