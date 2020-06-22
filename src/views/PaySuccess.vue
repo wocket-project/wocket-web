@@ -13,7 +13,8 @@
                 </div>
                 <hr>
                 <div>
-                    <gotoShoppingBtn></gotoShoppingBtn>                
+                    <gotoShoppingBtn></gotoShoppingBtn>
+                    <GotoPurchaseHistoryBtn></GotoPurchaseHistoryBtn>
                 </div>
             </div>
         </section>
@@ -23,6 +24,7 @@
 import router from "../router"
 import axios from "axios"
 import GotoShoppingBtn from "../views/components/MyCart/GotoShoppingButton"
+import GotoPurchaseHistoryBtn from "../views/components/PaySuccess/GotoPurchaseHistoryBtn"
 import Vue from "vue"
 
 
@@ -34,6 +36,7 @@ import Vue from "vue"
 export default {
     components: {
         GotoShoppingBtn,
+        GotoPurchaseHistoryBtn,
     },
     data() {
         return {

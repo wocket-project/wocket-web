@@ -258,7 +258,7 @@ export default {
                 buyer_name: this.userInfo.name,
                 buyer_tel: this.userInfo.phone,
                 buyer_addr: this.userInfo.address,
-                buyer_postcode: '123-456' 
+                buyer_postcode: this.userInfo.zonecode, 
 
             }, (result_success) => {
                 //성공할 때 실행 될 콜백 함수
