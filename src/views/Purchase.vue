@@ -184,7 +184,7 @@ export default {
                 axios
                 .get("http://localhost:9306/products/"+this.$route.query.id)
                 .then(response => {
-                    console.log(response.data)
+                    // console.log(response.data)
                     this.loading = false
                     this.products.items[0] = response.data
                     this.products.grandTotalPrice = response.data.price
@@ -305,7 +305,7 @@ export default {
                 .post("http://localhost:9306/purchase", bodyParameters, config)
 
                 .then(response => {
-                    alert(response.data)
+                    // alert(response.data)
                     var purchaseId = response.data
                     router.push({ name: "PaySuccess", params: {purchaseId : purchaseId}})
                 })

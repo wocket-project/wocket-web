@@ -144,7 +144,7 @@ export default new Router({
       }
     },
     {
-      path: "/paySuccess",
+      path: "/paySuccess/:purchaseId",
       name: "PaySuccess",
       components: {
         header: AppHeader,
