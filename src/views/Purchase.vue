@@ -200,7 +200,7 @@ export default {
                 let token = localStorage.getItem("accessToken")
 
                 const config = {
-                headers: { Authorization: `Bearer ${token}` }
+                    headers: { Authorization: `Bearer ${token}` }
                 };
             
                 const bodyParameters = {
@@ -274,15 +274,22 @@ export default {
 
             }, (result_success) => { // 결제정보 서버 전송
 
-                // let token = localStorage.getItem("accessToken")
+                let token = localStorage.getItem("accessToken")
 
-                // const config = {
-                //     headers: { Authorization: `Bearer ${token}` }
-                // };
+                const config = {
+                    headers: { Authorization: `Bearer ${token}` }
+                };
             
-                // const bodyParameters = {
-                //     key: "value"
-                // };
+                const bodyParameters = {
+                    userId: this.userInfo.id,
+                    totalPrice: this.products.grandTotalPrice,
+                    usingPoint: this.usingPoint,
+                    payAmount: this.payAmount,
+                    shippingAddress: this.userInfo.address,
+                    shippingMemo: this.shippingMemo,
+                    phone: this.userInfo.phone,
+                    purchaseItems: this.purchaseItem
+                };
 
                 for(var i=0; i<this.products.items.length; i++) { // purchaseItem Bundle Mapping
                     var productId = this.products.items[i].id
@@ -295,19 +302,12 @@ export default {
                 }
 
                 axios
-                .post("http://localhost:9306/purchase", {
-                    userId: this.userInfo.id,
-                    totalPrice: this.products.grandTotalPrice,
-                    usingPoint: this.usingPoint,
-                    payAmount: this.payAmount,
-                    shippingAddress: this.userInfo.address,
-                    shippingMemo: this.shippingMemo,
-                    phone: this.userInfo.phone,
-                    purchaseItems: this.purchaseItem
-                })
+                .post("http://localhost:9306/purchase", bodyParameters, config)
 
                 .then(response => {
-                    router.push({ name: "PaySuccess" })
+                    alert(response.data)
+                    var purchaseId = response.data
+                    router.push({ name: "PaySuccess", params: {purchaseId : purchaseId}})
                 })
                 .catch(error => {
                     alert('서버 오류')

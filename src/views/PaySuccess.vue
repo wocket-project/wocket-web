@@ -25,6 +25,7 @@ import router from "../router"
 import axios from "axios"
 import GotoShoppingBtn from "../views/components/MyCart/GotoShoppingButton"
 import GotoPurchaseHistoryBtn from "../views/components/PaySuccess/GotoPurchaseHistoryBtn"
+import { mapState } from 'vuex'
 import Vue from "vue"
 
 
@@ -40,17 +41,13 @@ export default {
     },
     data() {
         return {
-            payInfo:{
-                payNumber:"", // 주문번호
-                payAmount:"", // 결제금액
-                userInfo: {
-                    name:"", // 주문자 이름
-                    phone:"", // 주문자 전화번호
-                    address:"", // 배송지 주소
-                    detailAddress: "", // 배송지 상세주소
-                    zonecode: "", // 배송지 우편번호
-                }
-            }
+            purchaseInfo:{
+                id: null,
+                totalPrice: null,
+                usingPoint: null,
+                payAmount: null
+            },
+            loading: true,
         }
     },
     filters: {
@@ -62,28 +59,35 @@ export default {
     // created () {
     //     this.getCartItems()
     // },
-    // watch: {
-    //     '$route': 'getCartItems'
-    // },
+    watch: {
+        '$route': 'getPaymentInfo'
+    },
     // mounted() {
     //     this.getCartItems();
     // },
     computed: {
-    
+        ...mapState(["userInfo"]),
     },
     methods: {
-        gotoAddProduct() { // 상품 추가페이지로 이동            
+        gotoAddProduct() { // 상품 추가페이지로 이동
             router.push({ name: "addProduct", })
         },
+
         // 결제 완료 정보요청
-        getPaymentInfo() {            
+        getPaymentInfo() {
+
+            let token = localStorage.getItem("accessToken")
+
+            const config = {
+                headers: { Authorization: `Bearer ${token}` }
+            };
+
             axios
-            .get("http://localhost:9306/payment/"+this.$route.query.id)
+            .get("http://localhost:9306/purchase/"+this.$route.params.purchaseId, config)
             .then(response => {
                 console.log(response.data)
                 this.loading = false
-                this.directPurchaseProduct = response.data
-                this.directPurchaseProduct.quantity = 1
+
             })
             .catch(error => {
                 alert('서버 오류')

@@ -77,7 +77,7 @@ export default {
             .get("http://localhost:9306/products")
             .then(response => {
                 this.loading = false
-                this.products = response.data                                       
+                this.products = response.data
             })
             .catch(error => {
                 alert('서버 오류')
