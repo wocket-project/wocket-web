@@ -290,7 +290,7 @@ export default {
                     this.purchaseItem[i] = {productId, quantity}
                 }
 
-                if(this.isDirectMemo = true) { // 배송메모를 직접 입력한 경우
+                if(this.isDirectMemo == true) { // 배송메모를 직접 입력한 경우
                     this.shippingMemo = this.shippingDirectMemo
                 }
 

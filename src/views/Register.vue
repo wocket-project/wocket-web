@@ -157,7 +157,7 @@ export default {
           var customer = this;  // 지역변수를 써야하는 이유 알기! (함수 내에서 this.user.address는 제대로 실행되지 않는다.)
 
           new daum.Postcode({
-            oncomplete: function(data) {                
+            oncomplete: function(data) {
                 customer.user.address = data.address
                 customer.user.zonecode = data.zonecode
             }
