@@ -95,7 +95,7 @@
              
                 </tbody>
               </table>
-              <hr>
+              <hr class="main-hr">
                   <div class="grandTotalPrice">
                     <h3 style="float:left">총 주문금액</h3>
                     <dl class="price">
@@ -412,4 +412,7 @@ hr.divide {
   cursor: pointer;
 }
 
+.main-hr {    
+    border-top: 2px solid #6A5ACD;
+}
 </style>
