@@ -81,10 +81,14 @@
                   <tr v-for="item in products.items" :key="item.id" align="center">                    
                     <td v-if="item.imageFileName != null" scope="row">
                         <a @click="gotoProduct(item)">
-                        <img :src="require('../../public/img/uploadImage/' + item.imageFileName)" alt="productImage" width="100px">
+                            <img :src="require('../../public/img/uploadImage/' + item.imageFileName)" alt="productImage" width="100px" height="100px">
                         </a>
                     </td>
-                    <td v-if="item.imageFileName == null" scope="row">이미지 준비 중</td>
+                    <td v-if="item.imageFileName == null" scope="row">
+                        <a @click="gotoProduct(item)">
+                            <img src='../../public/img/uploadImage/no-image.png' alt="productImage" width="100px" height="100px">
+                        </a>
+                    </td>
                     <td><a @click="gotoProduct(item)">{{ item.name }}</a></td>
                     <td>￦{{ item.price | currency}}</td>
                     <td>0원</td>
@@ -99,7 +103,7 @@
                   <div class="grandTotalPrice">
                     <h3 style="float:left">총 주문금액</h3>
                     <dl class="price">
-                        <dt>총 상품금액</dt>
+                        <dt class="totalPrice">총 상품금액</dt>
                         <dd>
                             <span class="productsPrice">{{ products.grandTotalPrice | currency}}원</span>                
                         </dd>
@@ -337,6 +341,7 @@ export default {
     margin:auto; 
     text-align:center;    
 }
+
 .price {
     font-size: 24px;
     text-align: right;
@@ -359,15 +364,16 @@ dt {
     margin-left:65%;
 }
 
-.payment-header {
-    float:left;
-    margin-right:55%;
+.totalPrice{
+    float: left;
+    margin-left:50%;
 }
 
 .payment h1{
     color: #6A5ACD;
     font-weight: bold;
 }
+
 label {
     font-weight: bold;
 }
