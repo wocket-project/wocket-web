@@ -11,7 +11,12 @@
             <div class="container" v-if="!loading">
                 <div class="row">
                     <div class="col-md-6">
-                        <img :src="require('../../public/img/uploadImage/' + product.imageFileName)"  alt="image" style="width:400px"/>
+                        <div v-if="product.imageFileName == null" style="border-style: groove; width:400px; height:400px">
+                            <img src='../../public/img/uploadImage/no-image.png' alt="productImage" style="width:400px; height:400px;">
+                        </div>
+                        <div v-if="product.imageFileName != null">
+                            <img :src="require('../../public/img/uploadImage/' + product.imageFileName)"  alt="image" style="width:400px"/>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <h3>{{product.name}}</h3>
