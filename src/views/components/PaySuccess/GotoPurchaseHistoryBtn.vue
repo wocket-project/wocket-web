@@ -14,7 +14,7 @@ export default {
     // },
     methods: {
         gotoPurchaseHistory: function() {          
-          router.push({ name: "purchaseHistory"})
+          router.push({ name: "PurchaseHistory"})
         }
     }    
 }
