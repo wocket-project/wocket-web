@@ -193,35 +193,6 @@ export default {
     text-align: center;
 }
 
-.purchase-id {
-    text-align: center;
-    vertical-align: middle;
-    background: #EFEFEF;
-    font-weight: bold;
-    font-size: 120%;
-}
-
-.purchase-payAmount {
-    font-weight: bold;
-    color: #6A5ACD;
-}
-
-.purchase-payAmount-tr {
-    font-weight: bold;
-    font-size: 200%;
-    background: #DDD;
-}
-
-.purchase-totalPrice {
-    font-weight: bold;
-    font-size: 120%;
-}
-
-.purchase-usingPoint {
-    font-weight: bold;
-    font-size: 120%;
-}
-
 .purchase-info {
     margin-top: 5%;
     margin-bottom: 5%
@@ -229,14 +200,6 @@ export default {
 
 dt {
     float: right;
-}
-
-.main-hr {    
-    border-top: 2px solid #6A5ACD;
-}
-
-.purchase-success-message {
-    text-align: center;
 }
 
 .product-image {
