@@ -1,20 +1,21 @@
-import Vue from "vue";
-import Router from "vue-router";
-import AppHeader from "./layout/AppHeader";
-import AppFooter from "./layout/AppFooter";
-import Components from "./views/Components.vue";
-import Landing from "./views/Landing.vue";
-import Login from "./views/Login.vue";
-import Register from "./views/Register.vue";
-import Profile from "./views/Profile.vue";
-import Products from "./views/Products.vue";
-import ProductDetail from "./views/ProductDetail.vue";
-import Categories from "./views/Categories.vue";
-import AddProduct from "./views/AddProduct.vue";
-import MyPage from "./views/MyPage.vue";
-import MyCartInfo from "./views/MyCart.vue";
-import Purchase from "./views/Purchase.vue";
-import PaySuccess from "./views/PaySuccess.vue";
+import Vue from "vue"
+import Router from "vue-router"
+import AppHeader from "./layout/AppHeader"
+import AppFooter from "./layout/AppFooter"
+import Components from "./views/Components.vue"
+import Landing from "./views/Landing.vue"
+import Login from "./views/Login.vue"
+import Register from "./views/Register.vue"
+import Profile from "./views/Profile.vue"
+import Products from "./views/Products.vue"
+import ProductDetail from "./views/ProductDetail.vue"
+import Categories from "./views/Categories.vue"
+import AddProduct from "./views/AddProduct.vue"
+import MyPage from "./views/MyPage.vue"
+import MyCartInfo from "./views/MyCart.vue"
+import Purchase from "./views/Purchase.vue"
+import PaySuccess from "./views/PaySuccess.vue"
+import PurchaseHistory from "./views/PurchaseHistory.vue"
 
 Vue.use(Router);
 
@@ -149,6 +150,16 @@ export default new Router({
       components: {
         header: AppHeader,
         default: PaySuccess,
+        footer: AppFooter
+      }
+    },
+    {
+      path: "/purchaseHistory",
+      name: "PurchaseHistory",
+      beforeEnter: onlyAuthUser,
+      components: {
+        header: AppHeader,
+        default: PurchaseHistory,
         footer: AppFooter
       }
     },
