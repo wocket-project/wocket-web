@@ -43,27 +43,29 @@
                                     </td>
                                     <td>
                                         <!-- 상품 이미지 -->
-                                        <div v-if="purchaseInfo.purchaseItems[0].product.imageFileName == null">
-                                            이미지 준비중
+                                        <div v-if="purchaseInfo.purchaseItems[0].product.imageFileName == null" class="product-image">
                                             <!-- 이미지가 없는 경우 default이미지 사용-->
+                                            <img src='../../public/img/uploadImage/no-image.png' alt="productImage" width="150px" height="150px">                                            
                                         </div>
-                                        <div v-if="purchaseInfo.purchaseItems[0].product.imageFileName != null">
-                                            <div class="product-image">
-                                                <a @click="gotoProduct(purchaseInfo.purchaseItems[0].product)" style="cursor: pointer;">
-                                                    <img :src="require('../../public/img/uploadImage/' + purchaseInfo.purchaseItems[0].product.imageFileName)" alt="productImage" width="150px" height="150px">
-                                                </a>
-                                            </div>                                            
+                                        <div v-if="purchaseInfo.purchaseItems[0].product.imageFileName != null" class="product-image">
+                                            <a @click="gotoProduct(purchaseInfo.purchaseItems[0].product)" style="cursor: pointer;">
+                                                <img :src="require('../../public/img/uploadImage/' + purchaseInfo.purchaseItems[0].product.imageFileName)" alt="productImage" width="150px" height="150px">
+                                            </a>
                                         </div>
-                                        <!-- 상품 이름 -->
+
+                                        <!-- 상품 이름 (여러 개인 경우)-->
                                         <div class="product-contents" v-if="purchaseInfo.purchaseItems.length > 1">
-                                                {{purchaseInfo.purchaseItems[0].product.name}} 외 {{purchaseInfo.purchaseItems.length - 1}}개 상품
-                                            </div>
-                                            <div class="product-contents" v-if="purchaseInfo.purchaseItems.length == 1">
-                                                {{purchaseInfo.purchaseItems[0].product.name}}
-                                            </div>
-                                            <!-- 상품 가격 -->
-                                            <div class="product-contents">
-                                                {{purchaseInfo.payAmount | currency}}원
+                                            {{purchaseInfo.purchaseItems[0].product.name}} 외 {{purchaseInfo.purchaseItems.length - 1}}개 상품
+                                        </div>
+
+                                        <!-- 상품 이름 (단일 상품인 경우)-->
+                                        <div class="product-contents" v-if="purchaseInfo.purchaseItems.length == 1">
+                                            {{purchaseInfo.purchaseItems[0].product.name}}
+                                        </div>
+
+                                        <!-- 상품 가격 -->
+                                        <div class="product-contents">
+                                            {{purchaseInfo.payAmount | currency}}원
                                         </div>
                                     </td>
                                     <td style="border: 1px solid #DDD; text-align:center;">배송중</td>
