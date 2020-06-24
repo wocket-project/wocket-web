@@ -36,7 +36,7 @@
                         <span class="nav-link-inner--text">마이위드</span>
                     </a>
                     <div class="dropdown-menu">
-                        <router-link to="/landing" class="dropdown-item">구매내역</router-link>
+                        <router-link to="/purchaseHistory" class="dropdown-item">구매내역</router-link>
                         <router-link to="/myCartInfo" class="dropdown-item">장바구니</router-link>                        
                     </div>
                 </li>                   

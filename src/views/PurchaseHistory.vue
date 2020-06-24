@@ -45,7 +45,7 @@
                                         <!-- 상품 이미지 -->
                                         <div v-if="purchaseInfo.purchaseItems[0].product.imageFileName == null" class="product-image">
                                             <!-- 이미지가 없는 경우 default이미지 사용-->
-                                            <img src='../../public/img/uploadImage/no-image.png' alt="productImage" width="150px" height="150px">                                            
+                                            <img src='../../public/img/uploadImage/no-image.png' alt="productImage" width="150px" height="150px">
                                         </div>
                                         <div v-if="purchaseInfo.purchaseItems[0].product.imageFileName != null" class="product-image">
                                             <a @click="gotoProduct(purchaseInfo.purchaseItems[0].product)" style="cursor: pointer;">
@@ -68,8 +68,14 @@
                                             {{purchaseInfo.payAmount | currency}}원
                                         </div>
                                     </td>
-                                    <td style="border: 1px solid #DDD; text-align:center;">배송중</td>
-                                    <td style="text-align:center;">리뷰쓰기</td>
+                                    <td style="border: 1px solid #DDD; text-align:center;">
+                                        <div v-if="purchaseInfo.isComplete === 0">배송 준비중</div>
+                                        <div v-if="purchaseInfo.isComplete === 1">배송중</div>
+                                        <div v-if="purchaseInfo.isComplete === 2">배송완료</div>
+                                    </td>
+                                    <td style="text-align:center;">
+                                        <button type="button" class="write-review-btn">리뷰쓰기</button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan="3" class="customer-info">사용자 정보 : {{userInfo.name}} ({{userInfo.phone}})</td>
@@ -247,6 +253,18 @@ dt {
     font-size:80%;
     height: 20%;
     background-color:#EEE;
+}
+
+.write-review-btn {
+  background-color: #6A5ACD;
+  border: none;
+  color: #FFF;
+  text-align: center;
+  display: inline-block;
+  font-size: 90%;
+  font-weight: bold;
+  padding: 10%;
+  cursor: pointer;
 }
 
 </style>
