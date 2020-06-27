@@ -33,7 +33,7 @@
                 </div>
             `   <div class="tabmenu">
                     <ul>
-                        <li id="description" class="btnCon"><a class="first" href="#description">상품설명</a>
+                        <li id="description" class="btnCon"><a class="on" href="#description">상품설명</a>
                         <div class="tabCon">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
                         
                         </li>
@@ -84,13 +84,14 @@ export default {
     },
     created () {
         this.getProduct()
+        this.defaultLocation()
     },
     watch: {
         '$route': 'getProduct'
     },
     methods: {
         // 상품 정보요청(세부정보)
-        getProduct() {            
+        getProduct() {
             axios
             .get("http://localhost:9306/products/"+this.$route.params.id)
             .then(response => {
@@ -102,6 +103,10 @@ export default {
                 console.log(error)
             })
         },
+
+        defaultLocation() {
+            location.href = "#description"
+        }
     }    
 }
 </script>
@@ -121,7 +126,8 @@ ul{list-style:none;}
   text-align:center; 
   background :#c5c5c5;
 }
-.tabmenu ul li a{
+
+.tabmenu a{
   display:block;
   height:40px;
   text-decoration:none; 
@@ -129,8 +135,13 @@ ul{list-style:none;}
   font-weight: bold;
   padding: 3%;
   border-bottom: 2px solid #6A5ACD;
-  
 }
+
+.tabmenu a:hover {
+    color: black;
+    transition-duration: 2s;
+}
+
 .tabCon{
   display:none; 
   text-align:left; 
@@ -140,9 +151,12 @@ ul{list-style:none;}
   box-sizing: border-box; 
   border-bottom: 1px solid #6A5ACD;
 }
+
+
 .btnCon:target  {
   background : #6A5ACD;
 }
+
 .btnCon:target .tabCon{
   display: block;
 }
