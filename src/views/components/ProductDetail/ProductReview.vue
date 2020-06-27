@@ -24,45 +24,53 @@
             </div>
         </div>
         <hr>
-        <div class="review-list-box">
-            <div class="review-contents-header">
-                에어팟 평점 : 5점
-            </div>
-            <div class="review-contents">
-                음질 최고 짱짱맨~~~~~
-            </div>
-            <div class="review-contents-footer">
-                김한* | 2020-06-27 20:41:22 | 신고
-            </div>
-        </div>
-        <hr>
-                <div class="review-list-box">
-            <div class="review-contents-header">
-                에어팟 평점 : 5점
-            </div>
-            <div class="review-contents">
-                음질 최고 짱짱맨~~~~~
-            </div>
-            <div class="review-contents-footer">
-                김한* | 2020-06-27 20:41:22 | 신고
-            </div>
-        </div>
-        <hr>
-                <div class="review-list-box">
-            <div class="review-contents-header">
-                에어팟 평점 : 5점
-            </div>
-            <div class="review-contents">
-                음질 최고 짱짱맨~~~~~
-            </div>
-            <div class="review-contents-footer">
-                김한* | 2020-06-27 20:41:22 | 신고
-            </div>
-        </div>
-        <hr>
     </div>
 </div>
 </template>
+
+<script>
+import axios from "axios"
+import router from "../../../router"
+
+export default {
+    data() {
+        return {
+            loading: true, 
+            reviews: []
+        }
+    },
+    filters: {
+        currency: function (value) {
+            var num = new Number(value);
+            return num.toFixed(0).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
+        }
+    },
+    created () {
+        this.getReviews()
+    },
+    watch: {
+        '$route': 'getReviews'
+    },
+    methods: {
+        // 상품 리뷰정보 요청
+        getReviews() {
+            axios
+            .get("http://localhost:9306/products/"+this.$route.params.id+"/reviews")
+            .then(response => {
+                this.loading = false
+                this.reviews = response.data
+            })
+            .catch(error => {
+                alert('서버 오류')
+                console.log(error)
+            })
+        },
+        writeReview() {
+            router.push({ name: "PurchaseHistory"})
+        }
+    }    
+}
+</script>
 
 <style scoped>
 .review {

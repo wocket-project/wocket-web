@@ -33,7 +33,7 @@
                 </div>
             `   <div class="tabmenu">
                     <ul>
-                        <li id="description" :selected="true" class="btnCon active"><a class="active" href="#description">상품설명</a>
+                        <li id="description" class="btnCon active"><a href="#description">상품설명</a>
                             <!-- 상품 설명란 -->
                             <section class="tabCon">
                                 <product-description></product-description>
@@ -45,7 +45,7 @@
                                 <product-qna-section></product-qna-section>
                             </section>
                             </li>
-                        <li id="review" class="btnCon"><a href="#review">상품리뷰</a>
+                        <li id="review" class="btnCon"><a href="#review">상품리뷰 (3)</a>
                             <!-- 상품 문의란 -->
                             <section class="tabCon">
                                 <product-review></product-review>
