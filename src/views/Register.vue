@@ -70,7 +70,7 @@
 
                     <button type="submit" class="registerbtn">
                     회원가입
-                    </button>                   
+                    </button>
                 </div>
                 
                 <div class="container-signin">

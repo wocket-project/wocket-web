@@ -33,16 +33,23 @@
                 </div>
             `   <div class="tabmenu">
                     <ul>
-                        <li id="description" class="btnCon"><a class="on" href="#description">상품설명</a>
-                        <div class="tabCon">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
-                        
+                        <li id="description" :selected="true" class="btnCon active"><a class="active" href="#description">상품설명</a>
+                            <!-- 상품 설명란 -->
+                            <section class="tabCon">
+                                <product-description></product-description>
+                            </section>                        
                         </li>
                         <li id="qna-section" class="btnCon"><a href="#qna-section">상품문의</a>
-                        <div class="tabCon">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</div>
-                        
-                        </li>    
+                            <!-- 상품 문의란 -->
+                            <section class="tabCon">
+                                <product-qna-section></product-qna-section>
+                            </section>
+                            </li>
                         <li id="review" class="btnCon"><a href="#review">상품리뷰</a>
-                        <div class="tabCon"></div>
+                            <!-- 상품 문의란 -->
+                            <section class="tabCon">
+                                <product-review></product-review>
+                            </section>
                         </li>
                     </ul>
                 </div>
@@ -55,11 +62,17 @@ import axios from "axios"
 import router from "../router"
 import CartButton from "../views/components/ProductDetail/CartButton"
 import PurchaseButton from "../views/components/ProductDetail/PurchaseButton"
+import ProductDescription from "../views/components/ProductDetail/ProductDescription"
+import ProductQnaSection from "../views/components/ProductDetail/ProductQnaSection"
+import ProductReview from "../views/components/ProductDetail/ProductReview"
 
 export default {
     components: {
         CartButton,
         PurchaseButton,
+        ProductDescription,
+        ProductQnaSection,
+        ProductReview,
     },
     data() {
         return {
@@ -83,7 +96,7 @@ export default {
         }
     },
     created () {
-        this.getProduct()
+        this.getProduct(),
         this.defaultLocation()
     },
     watch: {
@@ -115,10 +128,12 @@ export default {
 ul{list-style:none;}
 
 .tabmenu{ 
-  max-width:100%; 
+  max-height:100%;
   margin: 0 auto; 
-  position:relative; 
+  position:relative;
+  min-height: 100vh;
 }
+
 .tabmenu ul li{
   display:  inline-block;
   width:33.33%; 
@@ -148,8 +163,10 @@ ul{list-style:none;}
   padding: 20px;
   position:absolute; 
   left:4%; 
-  box-sizing: border-box; 
-  border-bottom: 1px solid #6A5ACD;
+  box-sizing: border-box;
+  width: 96%;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 
