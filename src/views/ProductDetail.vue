@@ -30,12 +30,23 @@
                         <cartButton></cartButton>
                         <purchase-button :product="product"></purchase-button>
                     </div>
-                    <div class="col-md-6">                        
-                    </div>
-                    <div class="col-md-6 order-btn">
-                    </div>
-                </div>                        
-            </div>                       
+                </div>
+            `   <div class="tabmenu">
+                    <ul>
+                        <li id="description" class="btnCon"><a class="first" href="#description">상품설명</a>
+                        <div class="tabCon">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
+                        
+                        </li>
+                        <li id="qna-section" class="btnCon"><a href="#qna-section">상품문의</a>
+                        <div class="tabCon">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</div>
+                        
+                        </li>    
+                        <li id="review" class="btnCon"><a href="#review">상품리뷰</a>
+                        <div class="tabCon"></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </section>
     </div>
 </template>
@@ -95,4 +106,45 @@ export default {
 }
 </script>
 <style>
+
+ul{list-style:none;}
+
+.tabmenu{ 
+  max-width:100%; 
+  margin: 0 auto; 
+  position:relative; 
+}
+.tabmenu ul li{
+  display:  inline-block;
+  width:33.33%; 
+  float:left;  
+  text-align:center; 
+  background :#c5c5c5;
+}
+.tabmenu ul li a{
+  display:block;
+  height:40px;
+  text-decoration:none; 
+  color: white;
+  font-weight: bold;
+  padding: 3%;
+  border-bottom: 2px solid #6A5ACD;
+  
+}
+.tabCon{
+  display:none; 
+  text-align:left; 
+  padding: 20px;
+  position:absolute; 
+  left:4%; 
+  box-sizing: border-box; 
+  border-bottom: 1px solid #6A5ACD;
+}
+.btnCon:target  {
+  background : #6A5ACD;
+}
+.btnCon:target .tabCon{
+  display: block;
+}
+
 </style>
