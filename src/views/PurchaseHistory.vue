@@ -149,8 +149,6 @@ export default {
                 this.purchaseHistory = response.data
             })
             .catch(error => {
-                alert("잘못된 접근 경로입니다.")
-                router.push({ name: "home" })
                 console.log(error)
             })
         },
