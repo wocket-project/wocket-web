@@ -48,7 +48,7 @@
                         <li id="review" class="btnCon"><a href="#review">상품리뷰 ({{ reviewCount }})</a>
                             <!-- 상품 문의란 -->
                             <section class="tabCon">
-                                <product-review v-on:getReviewCnt="getReviewCount"></product-review>
+                                <product-review v-on:getReviewCnt="getReviewCount" v-bind:productName="product.name"></product-review>
                             </section>
                         </li>
                     </ul>

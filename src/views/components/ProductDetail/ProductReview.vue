@@ -10,11 +10,45 @@
     </div>
     <div class="review-rating">
         <h1>평점 : {{ ratingAvr }}점</h1>
+        <div id="review-rating-star">
+            <span v-if="ratingAvr < 0.3" class="fa fa-star-o"></span>
+            <span v-if="ratingAvr >= 0.3 && ratingAvr < 0.8" class="fa fa-star-half-o checked"></span>
+            <span  v-if="ratingAvr >= 0.8" class="fa fa-star checked"></span>
+            <span v-if="ratingAvr < 0.3" class="fa fa-star-o"></span>
+            <span v-if="ratingAvr >= 1.3 && ratingAvr < 1.8" class="fa fa-star-half-o checked"></span>
+            <span  v-if="ratingAvr >= 1.8" class="fa fa-star checked"></span>
+            <span v-if="ratingAvr < 0.3" class="fa fa-star-o"></span>
+            <span v-if="ratingAvr >= 2.3 && ratingAvr < 2.8" class="fa fa-star-half-o checked"></span>
+            <span  v-if="ratingAvr >= 2.8" class="fa fa-star checked"></span>
+            <span v-if="ratingAvr < 0.3" class="fa fa-star-o"></span>
+            <span v-if="ratingAvr >= 3.3 && ratingAvr < 3.8" class="fa fa-star-half-o checked"></span>
+            <span  v-if="ratingAvr >= 3.8" class="fa fa-star checked"></span>
+            <span v-if="ratingAvr < 4.3" class="fa fa-star-o"></span>
+            <span v-if="ratingAvr >= 4.3 && ratingAvr < 4.8" class="fa fa-star-half-o checked"></span>
+            <span  v-if="ratingAvr >= 4.8" class="fa fa-star checked"></span>
+        </div>
     </div>
     <div v-for="review in reviews" :key="review.id" class="review-list">
         <div class="review-list-box">
             <div class="review-contents-header">
-                 평점 : {{ review.rating }}점
+                 <div class="review-contents-header-msg">{{ productName }}</div>
+                 <div class="review-contents-rating-star">
+                    <span v-if="review.rating < 0.3" class="fa fa-star-o"></span>
+                    <span v-if="review.rating >= 0.3 && review.rating < 0.8" class="fa fa-star-half-o checked"></span>
+                    <span  v-if="review.rating >= 0.8" class="fa fa-star checked"></span>
+                    <span v-if="review.rating < 0.3" class="fa fa-star-o"></span>
+                    <span v-if="review.rating >= 1.3 && review.rating < 1.8" class="fa fa-star-half-o checked"></span>
+                    <span  v-if="review.rating >= 1.8" class="fa fa-star checked"></span>
+                    <span v-if="review.rating < 0.3" class="fa fa-star-o"></span>
+                    <span v-if="review.rating >= 2.3 && review.rating < 2.8" class="fa fa-star-half-o checked"></span>
+                    <span  v-if="review.rating >= 2.8" class="fa fa-star checked"></span>
+                    <span v-if="review.rating < 0.3" class="fa fa-star-o"></span>
+                    <span v-if="review.rating >= 3.3 && review.rating < 3.8" class="fa fa-star-half-o checked"></span>
+                    <span  v-if="review.rating >= 3.8" class="fa fa-star checked"></span>
+                    <span v-if="review.rating < 4.3" class="fa fa-star-o"></span>
+                    <span v-if="review.rating >= 4.3 && review.rating < 4.8" class="fa fa-star-half-o checked"></span>
+                    <span  v-if="review.rating >= 4.8" class="fa fa-star checked"></span>
+                </div> 
             </div>
             <div class="review-contents">
                 {{ review.description }}
@@ -32,7 +66,9 @@
 import axios from "axios"
 import router from "../../../router"
 
+
 export default {
+    props: ['productName'],
     data() {
         return {
             loading: true, 
@@ -47,10 +83,14 @@ export default {
     },
     computed: {
         ratingAvr: function() {
-           var sum = 0;
-           var avr = 0;
+           var sum = 0
+           var avr = 0
+
           for(var i=0; i<this.reviews.length; i++) {
               sum += this.reviews[i].rating
+          }
+          if(sum == 0) {
+              return 0
           }
           avr = sum/this.reviews.length
           return avr
@@ -79,7 +119,23 @@ export default {
         },
         writeReview() {
             router.push({ name: "PurchaseHistory"})
-        }
+        },
+        // addStarRatingAvr() {
+
+        //     var node = document.getElementById("review-rating-star");
+        //     console.log(this.ratingAvr)
+
+        //     for(var idx=0; idx<5; idx++) {
+        //         console.log(idx)
+        //         if(this.ratingAvr < idx+0.3) { // 비어있는 star
+        //             node.innerHTML += "<span class='fa fa-star-o'></span>"
+        //         } else if(this.ratingAvr >= idx+0.3 && this.ratingAvr < idx+0.8) { // 반쪽짜리 star
+        //             node.innerHTML += "<span class='fa fa-star-half-o'></span>"
+        //         } else if(this.ratingAvr >= idx+0.8) { // 꽉 찬 star
+        //             node.innerHTML += "<span class='fa fa-star-checked'></span>"
+        //         }
+        //     }
+        // }
     }    
 }
 </script>
@@ -116,7 +172,7 @@ export default {
     text-align: center;
     margin-top: 7%;
     margin-left: 1%;
-    padding: 5%;
+    padding: 3%;
     border: 1px solid #CCC;
 }
 
@@ -126,7 +182,7 @@ export default {
         text-align: center;
         margin-top: 12%;
         margin-left: 1%;
-        padding: 5%;
+        padding: 2%;
         border: 1px solid #CCC;
     }
 }
@@ -163,5 +219,22 @@ export default {
 
 .review-contents-footer {
     font-size: 90%;
+}
+
+.review-contents-rating-star .fa {
+    font-size: 15px;
+}
+
+.review-contents-header-msg{
+    float: left;
+    margin-right: 2%;
+}
+.fa {
+  font-size: 25px;
+  color: #6A5ACD;
+}
+
+.checked {
+  color: #6A5ACD;
 }
 </style>
