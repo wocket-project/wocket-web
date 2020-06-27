@@ -45,10 +45,10 @@
                                 <product-qna-section></product-qna-section>
                             </section>
                             </li>
-                        <li id="review" class="btnCon"><a href="#review">상품리뷰 (3)</a>
+                        <li id="review" class="btnCon"><a href="#review">상품리뷰 ({{ reviewCount }})</a>
                             <!-- 상품 문의란 -->
                             <section class="tabCon">
-                                <product-review></product-review>
+                                <product-review v-on:getReviewCnt="getReviewCount"></product-review>
                             </section>
                         </li>
                     </ul>
@@ -65,6 +65,7 @@ import PurchaseButton from "../views/components/ProductDetail/PurchaseButton"
 import ProductDescription from "../views/components/ProductDetail/ProductDescription"
 import ProductQnaSection from "../views/components/ProductDetail/ProductQnaSection"
 import ProductReview from "../views/components/ProductDetail/ProductReview"
+import { mapState } from 'vuex'
 
 export default {
     components: {
@@ -86,7 +87,8 @@ export default {
                 {category: null},
                 {description: null},
                 {imageFileName: null},
-            ]
+            ],
+            reviewCount: null,
         }
     },
     filters: {
@@ -95,7 +97,7 @@ export default {
             return num.toFixed(0).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
         }
     },
-    created () {
+    created() {
         this.getProduct(),
         this.defaultLocation()
     },
@@ -119,6 +121,9 @@ export default {
 
         defaultLocation() {
             location.href = "#description"
+        },
+        getReviewCount(count) { // 하위 컴포넌트로 부터 리뷰 갯수 전달받음
+            this.reviewCount = count
         }
     }    
 }

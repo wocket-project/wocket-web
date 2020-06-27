@@ -2,25 +2,25 @@
 <div class="review">
     <!-- 상품리뷰 및 개수 표기 -->
     <div class="review-header">
-        <h4>상품리뷰( <strong>3</strong> )</h4>
+        <h4>상품리뷰( <strong>{{ reviews.length }}</strong> )</h4>
     </div>
     <div class="review-header-message">
         <p>* 리뷰작성 완료 시<strong> 10포인트가 지급</strong>됩니다.</p>
         <button type="button" class="write-review" @click="writeReview()">리뷰 작성하기 ></button>
     </div>
     <div class="review-rating">
-        <h1>평점 : 5.0</h1>
+        <h1>평점 : {{ ratingAvr }}점</h1>
     </div>
-    <div class="review-list">
+    <div v-for="review in reviews" :key="review.id" class="review-list">
         <div class="review-list-box">
             <div class="review-contents-header">
-                에어팟 평점 : 5점
+                 평점 : {{ review.rating }}점
             </div>
             <div class="review-contents">
-                음질 최고 짱짱맨~~~~~
+                {{ review.description }}
             </div>
             <div class="review-contents-footer">
-                김한* | 2020-06-27 20:41:22 | 신고
+                {{ review.writer }} | {{ review.creationDate }} | 신고
             </div>
         </div>
         <hr>
@@ -45,6 +45,17 @@ export default {
             return num.toFixed(0).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
         }
     },
+    computed: {
+        ratingAvr: function() {
+           var sum = 0;
+           var avr = 0;
+          for(var i=0; i<this.reviews.length; i++) {
+              sum += this.reviews[i].rating
+          }
+          avr = sum/this.reviews.length
+          return avr
+      },
+    },
     created () {
         this.getReviews()
     },
@@ -59,6 +70,7 @@ export default {
             .then(response => {
                 this.loading = false
                 this.reviews = response.data
+                this.$emit('getReviewCnt', this.reviews.length)
             })
             .catch(error => {
                 alert('서버 오류')
