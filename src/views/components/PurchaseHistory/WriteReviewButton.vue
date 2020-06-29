@@ -14,7 +14,7 @@ export default {
     // },
     methods: {
         onWriteReviewWindow: function() {          
-            window.open("/writeReview", "_blank", "toolbar=yes, scrollbars=yes, width=450, height=600");
+            window.open("/writeReview", "_blank", "toolbar=yes, scrollbars=yes, width=650, height=780");
         }
     }    
 }
@@ -31,5 +31,4 @@ export default {
   padding: 10%;
   cursor: pointer;
 }
-
 </style>
