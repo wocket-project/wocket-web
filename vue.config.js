@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const { axios } = require('axios');
 
 module.exports = {
   configureWebpack: {
@@ -27,3 +28,5 @@ module.exports = {
       proxy: 'http://localhost:9002', // server address       
   }
 }
+
+// axios.default.port = 9306;

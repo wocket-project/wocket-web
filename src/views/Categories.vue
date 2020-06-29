@@ -47,7 +47,7 @@ export default {
     //     // 상품 정보요청(세부정보)
     //     getCategory() {            
     //         axios
-    //         .get("http://localhost:9306/categories/"+this.$route.params.id)
+    //         .get("http://localhost/categories/"+this.$route.params.id)
     //         .then(response => {
     //             this.loading = false
     //             this.products = response.data 

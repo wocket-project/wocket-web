@@ -16,6 +16,7 @@ import MyCartInfo from "./views/MyCart.vue"
 import Purchase from "./views/Purchase.vue"
 import PaySuccess from "./views/PaySuccess.vue"
 import PurchaseHistory from "./views/PurchaseHistory.vue"
+import WriteReview from "./views/components/PurchaseHistory/WriteReviewPopup.vue"
 
 Vue.use(Router);
 
@@ -161,6 +162,13 @@ export default new Router({
         header: AppHeader,
         default: PurchaseHistory,
         footer: AppFooter
+      }
+    },
+    {
+      path: "/writeReview",
+      name: "WriteReview",
+      components: {
+        default: WriteReview,
       }
     },
   ],

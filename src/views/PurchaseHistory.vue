@@ -74,7 +74,8 @@
                                         <div v-if="purchaseInfo.isComplete === 2">배송완료</div>
                                     </td>
                                     <td style="text-align:center;">
-                                        <button type="button" class="write-review-btn">리뷰쓰기</button>
+                                        <!-- Review Component 사용 -->
+                                        <write-review-btn></write-review-btn>
                                     </td>
                                 </tr>
                                 <tr>
@@ -94,6 +95,7 @@ import router from "../router"
 import axios from "axios"
 import GotoShoppingBtn from "../views/components/MyCart/GotoShoppingButton"
 import GotoPurchaseHistoryBtn from "../views/components/PaySuccess/GotoPurchaseHistoryBtn"
+import WriteReviewBtn from "../views/components/PurchaseHistory/WriteReviewButton"
 import { mapState } from 'vuex'
 import Vue from "vue"
 
@@ -107,6 +109,7 @@ export default {
     components: {
         GotoShoppingBtn,
         GotoPurchaseHistoryBtn,
+        WriteReviewBtn,
     },
     data() {
         return {
@@ -144,7 +147,6 @@ export default {
             axios
             .get("http://localhost:9306/purchase/history", config)
             .then(response => {
-                console.log(response.data)
                 this.loading = false
                 this.purchaseHistory = response.data
             })
@@ -215,17 +217,4 @@ dt {
     height: 20%;
     background-color:#EEE;
 }
-
-.write-review-btn {
-  background-color: #6A5ACD;
-  border: none;
-  color: #FFF;
-  text-align: center;
-  display: inline-block;
-  font-size: 90%;
-  font-weight: bold;
-  padding: 10%;
-  cursor: pointer;
-}
-
 </style>
