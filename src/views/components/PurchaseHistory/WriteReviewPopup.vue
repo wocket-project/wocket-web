@@ -49,7 +49,7 @@
     </div>
 
     <div class="review-write-btn">
-        <button type="button" role="cancel" class="btn-review-cancel">취소</button>
+        <button type="button" role="cancel" class="btn-review-cancel" @click="closePopup()">취소</button>
         <button type="button" role="register" class="btn-review-register">등록</button>
     </div>
 </div>
@@ -57,6 +57,12 @@
 <script>
 export default {
     
+
+    methods: {
+        closePopup : function() {
+            window.close();
+        },
+    }
 }
 </script>
 <style scoped>
