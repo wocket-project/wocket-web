@@ -126,7 +126,7 @@ export default {
     computed: {
         paymentCharge: function() {
             return this.cart.grandTotalPrice-this.withPoint+this.deliveryCharge
-        },        
+        },
     },
     methods: {
         // 상품 정보요청(All)

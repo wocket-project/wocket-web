@@ -39,19 +39,28 @@
     <h1 class="review-write-subtitle">상품 평가하기</h1>
     <div class="review-rating-box">
         <strong class="productInfo-name">상품 만족도</strong>
-        <div class="review-rating-btn">
-            <button type="button" class="btn-star-rating" value="1"/>
-            <button type="button" class="btn-star-rating" value="2"/>
-            <button type="button" class="btn-star-rating" value="3"/>
-            <button type="button" class="btn-star-rating" value="4"/>
-            <button type="button" class="btn-star-rating" value="5"/>
+        <div class="star-box">
+            <span class="star star_left"></span>
+            <span class="star star_right"></span>
+
+            <span class="star star_left"></span>
+            <span class="star star_right"></span>
+
+            <span class="star star_left"></span>
+            <span class="star star_right"></span>
+
+            <span class="star star_left"></span>
+            <span class="star star_right"></span>
+
+            <span class="star star_left"></span>
+            <span class="star star_right"></span>
             <span class="review-rating-text">선택해주세요</span>
         </div>
     </div>
 
     <!-- 리뷰 작성하기 -->
     <h1 class="review-write-subtitle">리뷰 작성하기</h1>
-    <span class="textCnt">0/500</span>
+    <span class="textCnt">{{ textCount }}/500</span>
     <div class="review-write-textarea">
         <textarea v-model="reviewContents" id="reviewContents" name="reviewContents" maxlength="500" 
         placeholder="리뷰는 최소 10자 이상 입력해 주세요."></textarea>
@@ -62,7 +71,7 @@
 
     <div class="review-write-btn">
         <button type="button" role="cancel" class="btn-review-cancel" @click="closePopup()">취소</button>
-        <button type="button" role="register" class="btn-review-register">등록</button>
+        <button type="button" role="register" class="btn-review-register" @click="registerReview()">등록</button>
     </div>
 </div>
 </template>
@@ -83,8 +92,14 @@ export default {
                 {description: null},
                 {imageFileName: null},
             ],
-            reviewContents: null,
+            rating: 3.0,
+            reviewContents: "",
         }
+    },
+    computed: {
+        textCount: function() {
+            return this.reviewContents.length
+        },
     },
     created() {
         this.getProduct()
@@ -93,7 +108,7 @@ export default {
         '$route': 'getProduct'
     },
     methods: {
-        closePopup : function() {
+        closePopup() {
             window.close();
         },
         // 상품 정보요청(세부정보)
@@ -101,7 +116,6 @@ export default {
             axios
             .get("http://localhost:9306/products/"+this.$route.query.productId)
             .then(response => {
-                console.log(response.data)
                 this.loading = false
                 this.product = response.data
             })
@@ -110,6 +124,41 @@ export default {
                 console.log(error)
             })
         },
+        // 리뷰 등록요청
+        registerReview() {
+            if(this.textCount < 10) {
+                alert("최소 10자 이상 입력해주세요. ")
+                return
+            } 
+
+            let token = localStorage.getItem("accessToken")
+
+            const config = {
+                headers: { Authorization: `Bearer ${token}` }
+            };
+
+            const bodyParameters = {
+                rating: this.rating,
+                description: this.reviewContents
+            };
+
+            axios
+            .post("http://localhost:9306/products/"+this.$route.query.productId+"/reviews", bodyParameters, config)
+            .then(response => {
+                alert("리뷰 등록이 완료되었습니다")
+                window.close();
+            })
+            .catch(error => {
+                alert('서버 오류')
+                console.log(error)
+            })
+        },
+        // $(".star").on('click',function(){
+        // var idx = $(this).index();
+        // $(".star").removeClass("on");
+        //     for(var i=0; i<=idx; i++){
+        //         $(".star").eq(i).addClass("on");
+        // }
     }
 }
 </script>
@@ -217,5 +266,23 @@ export default {
     height: 100px;
 }
 
-
+.star{
+  display:inline-block;
+  width: 30px;
+  height: 60px;
+  cursor: pointer;
+}
+.star_left{
+  background: url(http://gahyun.wooga.kr/main/img/testImg/star.png) no-repeat 0 0; 
+  background-size: 60px; 
+  margin-right: -3px;
+}
+.star_right{
+  background: url(http://gahyun.wooga.kr/main/img/testImg/star.png) no-repeat -30px 0; 
+  background-size: 60px; 
+  margin-left: -3px;
+}
+.star.on{
+  background-image: url(http://gahyun.wooga.kr/main/img/testImg/star_on.png);
+}
 </style>
