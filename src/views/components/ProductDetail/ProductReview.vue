@@ -10,7 +10,7 @@
     </div>
     <div class="review-rating">
         <h1>평점 : {{ ratingAvr }}점</h1>
-        <div id="review-rating-star">
+        <div class="review-rating-star">
             <span v-if="ratingAvr < 0.3" class="fa fa-star-o"></span>
             <span v-if="ratingAvr >= 0.3 && ratingAvr < 0.8" class="fa fa-star-half-o checked"></span>
             <span  v-if="ratingAvr >= 0.8" class="fa fa-star checked"></span>
@@ -20,7 +20,7 @@
             <span v-if="ratingAvr < 0.3" class="fa fa-star-o"></span>
             <span v-if="ratingAvr >= 2.3 && ratingAvr < 2.8" class="fa fa-star-half-o checked"></span>
             <span  v-if="ratingAvr >= 2.8" class="fa fa-star checked"></span>
-            <span v-if="ratingAvr < 0.3" class="fa fa-star-o"></span>
+            <span v-if="ratingAvr < 3.3" class="fa fa-star-o"></span>
             <span v-if="ratingAvr >= 3.3 && ratingAvr < 3.8" class="fa fa-star-half-o checked"></span>
             <span  v-if="ratingAvr >= 3.8" class="fa fa-star checked"></span>
             <span v-if="ratingAvr < 4.3" class="fa fa-star-o"></span>
@@ -42,7 +42,7 @@
                     <span v-if="review.rating < 0.3" class="fa fa-star-o"></span>
                     <span v-if="review.rating >= 2.3 && review.rating < 2.8" class="fa fa-star-half-o checked"></span>
                     <span  v-if="review.rating >= 2.8" class="fa fa-star checked"></span>
-                    <span v-if="review.rating < 0.3" class="fa fa-star-o"></span>
+                    <span v-if="review.rating < 3.3" class="fa fa-star-o"></span>
                     <span v-if="review.rating >= 3.3 && review.rating < 3.8" class="fa fa-star-half-o checked"></span>
                     <span  v-if="review.rating >= 3.8" class="fa fa-star checked"></span>
                     <span v-if="review.rating < 4.3" class="fa fa-star-o"></span>
@@ -230,7 +230,7 @@ export default {
     margin-right: 2%;
 }
 .fa {
-  font-size: 25px;
+  font-size: 50px;
   color: #6A5ACD;
 }
 

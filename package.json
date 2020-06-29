@@ -16,6 +16,7 @@
     "register-service-worker": "^1.5.2",
     "v-lazy-image": "^1.4.0",
     "vue": "^2.6.6",
+    "vue-dynamic-star-rating": "^1.0.8",
     "vue-flatpickr-component": "^8.1.1",
     "vue-iamport": "^0.1.2",
     "vue-lazyload": "^1.2.6",
