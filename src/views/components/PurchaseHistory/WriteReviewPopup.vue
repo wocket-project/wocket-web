@@ -14,16 +14,28 @@
     <!-- 상품 정보 box -->
     <div class="productInfo-box">
         <!-- 상품 이미지 -->
-        <div class="product-image">
-
+        <div v-if="product.imageFileName == null" class="product-image">
+            <img src='../../../../public/img/uploadImage/no-image.png'
+             width="100px" height="100px" alt="productImage">
         </div>
-        <!-- 상품 이름 -->
+        <div v-if="product.imageFileName != null" class="product-image"> 
+            <img :src="require('../../../../public/img/uploadImage/' + product.imageFileName)" 
+            width="100px" height="100px" alt="image"/>
+        </div>
+        
         <div class="productInfo">
-            <strong class="productInfo-name">에어팟</strong>
+            <!-- 상품 이름 -->
+            <strong class="productInfo-name">{{ product.name }}</strong>
         </div>
-        <!-- 상품 평가하기 -->
+        <div class="productInfo">
+            <!-- 상품 설명 -->
+            <strong class="productInfo-description">{{ product.description }}</strong>
+        </div>
     </div>
+
     <hr class="review-write-hr">
+
+    <!-- 상품 평가하기 -->
     <h1 class="review-write-subtitle">상품 평가하기</h1>
     <div class="review-rating-box">
         <strong class="productInfo-name">상품 만족도</strong>
@@ -41,7 +53,7 @@
     <h1 class="review-write-subtitle">리뷰 작성하기</h1>
     <span class="textCnt">0/500</span>
     <div class="review-write-textarea">
-        <textarea id="reviewContents" name="reviewContents" maxlength="500" 
+        <textarea v-model="reviewContents" id="reviewContents" name="reviewContents" maxlength="500" 
         placeholder="리뷰는 최소 10자 이상 입력해 주세요."></textarea>
         <div class="review-textarea-placeholder">
             <span class="review-textarea-placeholder-text"></span>
@@ -55,12 +67,48 @@
 </div>
 </template>
 <script>
-export default {
-    
+import axios from "axios"
 
+export default {
+    data() {
+        return {
+            loading: true, 
+            product: [
+                {id: null},
+                {name: null},
+                {price: null},
+                {manufacturer: null},
+                {stock: null},
+                {category: null},
+                {description: null},
+                {imageFileName: null},
+            ],
+            reviewContents: null,
+        }
+    },
+    created() {
+        this.getProduct()
+    },
+    watch: {
+        '$route': 'getProduct'
+    },
     methods: {
         closePopup : function() {
             window.close();
+        },
+        // 상품 정보요청(세부정보)
+        getProduct() {
+            axios
+            .get("http://localhost:9306/products/"+this.$route.query.productId)
+            .then(response => {
+                console.log(response.data)
+                this.loading = false
+                this.product = response.data
+            })
+            .catch(error => {
+                alert('서버 오류')
+                console.log(error)
+            })
         },
     }
 }
@@ -93,6 +141,11 @@ export default {
     font-size: 100%;
     font-weight: bolder;
     color:black;
+}
+
+.productInfo-description{
+    font-size: 80%;
+    color:#b8bfc8;
 }
 
 .review-write-subtitle {
@@ -154,4 +207,15 @@ export default {
   margin: 1%;
   cursor: pointer;
 }
+
+.product-image {
+    float: left;
+    margin-right: 2%;
+}
+
+.productInfo-box {
+    height: 100px;
+}
+
+
 </style>

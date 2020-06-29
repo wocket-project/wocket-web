@@ -167,6 +167,7 @@ export default new Router({
     {
       path: "/writeReview",
       name: "WriteReview",
+      beforeEnter: onlyAuthUser,
       components: {
         default: WriteReview,
       }

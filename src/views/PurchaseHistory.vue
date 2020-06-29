@@ -75,7 +75,7 @@
                                     </td>
                                     <td style="text-align:center;">
                                         <!-- Review Component 사용 -->
-                                        <write-review-btn></write-review-btn>
+                                        <write-review-btn v-bind:productId="purchaseInfo.purchaseItems[0].product.id"></write-review-btn>
                                     </td>
                                 </tr>
                                 <tr>
