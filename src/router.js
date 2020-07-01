@@ -8,6 +8,7 @@ import Login from "./views/Login.vue"
 import Register from "./views/Register.vue"
 import Profile from "./views/Profile.vue"
 import Products from "./views/Products.vue"
+import AllProducts from "./views/AllProducts.vue"
 import ProductDetail from "./views/ProductDetail.vue"
 import Categories from "./views/Categories.vue"
 import AddProduct from "./views/AddProduct.vue"
@@ -105,6 +106,15 @@ export default new Router({
       components: {
         header: AppHeader,
         default: Products,       
+        footer: AppFooter
+      }
+    },
+    {
+      path: "/allProducts",
+      name: "AllProducts",
+      components: {
+        header: AppHeader,
+        default: AllProducts,
         footer: AppFooter
       }
     },

@@ -154,16 +154,12 @@ export default {
                 console.log(error)
             })
         },
-        gotoProduct(item) { // 상품 세부페이지로 이동            
+        gotoProduct(item) { // 상품 세부페이지로 이동
             router.push({ name: "productDetail", params: {id : item.id}})
         },
-        gotoAddProduct() { // 상품 추가페이지로 이동            
+        gotoAddProduct() { // 상품 추가페이지로 이동
             router.push({ name: "addProduct", })
         },
-        // getImageUrl(image) {
-        //     var image = require.context('../../public/img/uploadImage/' + false, /\.png$/)
-        //     return image('./' + image + ".png")
-        // }
     }    
 }
 </script>

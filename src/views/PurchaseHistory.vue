@@ -10,6 +10,7 @@
             </div>
             <div class="container" v-if="!loading">
                 <h1>구매내역</h1>
+                <excel-download-btn></excel-download-btn>
                 <hr class="main-hr">
                 <div class="contents">
                     <div class="purchase-info">
@@ -96,6 +97,7 @@ import axios from "axios"
 import GotoShoppingBtn from "../views/components/MyCart/GotoShoppingButton"
 import GotoPurchaseHistoryBtn from "../views/components/PaySuccess/GotoPurchaseHistoryBtn"
 import WriteReviewBtn from "../views/components/PurchaseHistory/WriteReviewButton"
+import ExcelDownloadBtn from "../views/components/PurchaseHistory/ExcelDownloadButton"
 import { mapState } from 'vuex'
 import Vue from "vue"
 
@@ -110,12 +112,12 @@ export default {
         GotoShoppingBtn,
         GotoPurchaseHistoryBtn,
         WriteReviewBtn,
+        ExcelDownloadBtn
     },
     data() {
         return {
             purchaseHistory: [],
-            loading: null,
-
+            loading: true,
         }
     },
     filters: {

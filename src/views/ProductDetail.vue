@@ -98,8 +98,7 @@ export default {
         }
     },
     created() {
-        this.getProduct(),
-        this.defaultLocation()
+        this.getProduct()
     },
     watch: {
         '$route': 'getProduct'
@@ -119,9 +118,9 @@ export default {
             })
         },
 
-        defaultLocation() {
-            location.href = "#description"
-        },
+        // defaultLocation() {
+        //     location.href = "#description"
+        // },
         getReviewCount(count) { // 하위 컴포넌트로 부터 리뷰 갯수 전달받음
             this.reviewCount = count
         }
