@@ -17,10 +17,10 @@
                                     <!-- product thumb -->
                                     <div class="thumb">
                                         <td v-if="product.imageFileName != null" scope="row">
-                                            <img :src="require('../../public/img/uploadImage/' + product.imageFileName)" alt="productImage" width="200px" height="200px">
+                                            <img :src="require('../../public/img/uploadImage/' + product.imageFileName)" alt="productImage" width="100%" height="220px">
                                         </td>
                                         <td v-if="product.imageFileName == null" scope="row">
-                                            <img src='../../public/img/uploadImage/no-image.png' alt="productImage" width="200px" height="200px">
+                                            <img src='../../public/img/uploadImage/no-image.png' alt="productImage" width="100%" height="220px">
                                         </td>
                                     </div>
                                     <!-- product description-->
@@ -103,6 +103,7 @@ export default {
     border-top: 0;
     border-bottom: 0;
     padding: 10%;
+    background: white;
 }
 
 li {

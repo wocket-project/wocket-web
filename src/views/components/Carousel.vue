@@ -12,7 +12,7 @@
             <div class="row justify-content-between align-items-center">
                 <div class="col-lg-5 mb-5 mb-lg-0">
                     <h2 class="text-white font-weight-light">오늘의 주요 상품</h2>
-                    <p class="lead text-white mt-4">가정의 달 선물 최대 50% 할인</p>
+                    <p class="lead text-white mt-4">Summer 브레이크 여름 할인 최대 70%</p>
                     <a href="http://localhost:9306/allProducts"
                        class="btn btn-white mt-4">모든상품 보러가기</a>
                 </div>
@@ -24,7 +24,7 @@
                             <!-- Text slides with image -->
                             <b-carousel-slide img-src="img/theme/애플 맥북프로 16형 2019년형.jpg"></b-carousel-slide>
                             <b-carousel-slide img-src="img/theme/에어팟 프로.jpg"></b-carousel-slide>
-                            <b-carousel-slide img-src="img/theme/몽블랑 5525 머니클립 지갑.jpg"></b-carousel-slide>                            
+                            <b-carousel-slide img-src="img/theme/몽블랑 5525 머니클립 지갑.jpg"></b-carousel-slide>
                         </b-carousel>
                     </div>
                 </div>
