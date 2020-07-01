@@ -131,7 +131,8 @@ li {
 }
 
 .product-price {
-    font-size: 100%;
+    font-family: "'Noto Sans KR'";
+    font-size: 140%;
     font-weight: bold;
     color: #6A5ACD;
 }
