@@ -107,7 +107,6 @@ export default {
 
 .userName, .userPoint {
     color: white;
-    font-weight: bold;
     margin-left: 20px;
 }
 
