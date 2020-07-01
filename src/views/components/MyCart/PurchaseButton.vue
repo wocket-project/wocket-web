@@ -2,16 +2,17 @@
     <button type="button" class="purchase-btn" @click="gotoPurchase">구매하기</button>
 </template>
 <script>
-// import {mapState} from "vuex"
 import router from "../../../router"
-// import axios from "axios"
 
 export default {
-    // computed: {
-    //   ...mapState(["isLogin"]),      
-    // },
+    props: ['isCartItem'],
     methods: { 
-        gotoPurchase: function() {          
+        gotoPurchase: function() {
+
+          if(this.$props.isCartItem === 0) {
+            alert('구매할 상품이 없습니다.')
+            return
+          }
           router.push({ name: "purchase", query: {from:"cart"}})
         }
     }    

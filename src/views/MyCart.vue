@@ -67,9 +67,9 @@
               <hr>
               <div>
                 <gotoShoppingBtn></gotoShoppingBtn>
-                <purchaseBtn></purchaseBtn>                
+                <purchaseBtn v-bind:isCartItem="cart.cartItems.length"></purchaseBtn>
               </div>
-            </div>            
+            </div>
         </section>
     </div>
 </template>
@@ -99,7 +99,7 @@ export default {
     },
     data() {
         return {
-            loading: true,                      
+            loading: true,
             cart: {
                 cartItems: [],
                 grandTotalPrice: null,
@@ -147,7 +147,7 @@ export default {
             .then(response => {
                 this.loading = false
                 console.log(response.data)
-                this.cart = response.data                                       
+                this.cart = response.data
             })
             .catch(error => {
                 alert('서버 오류')
