@@ -13,7 +13,7 @@ export default {
     // },
     methods: {
         gotoShopping() {
-            router.push({ name: "products" })
+            router.push({ name: "AllProducts" })
         }
     }    
 }
