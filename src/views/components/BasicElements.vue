@@ -14,11 +14,11 @@
                     <div class="thumb">
                         <td v-if="product.imageFileName != null" scope="row">
                             <img :src="require('../../../public/img/uploadImage/' + product.imageFileName)" 
-                            alt="productImage" width="100%" height="250px">
+                            alt="productImage" width="100%" height="300px">
                         </td>
                         <td v-if="product.imageFileName == null" scope="row">
                             <img src='../../../public/img/uploadImage/no-image.png' 
-                            alt="productImage" width="100%" height="250px">
+                            alt="productImage" width="100%" height="300px">
                         </td>
                     </div>
                     <!-- product description-->
@@ -51,8 +51,7 @@
                         <span v-if="product.rating < 4.3" class="fa fa-star-o"></span>
                         <span v-if="product.rating >= 4.3 && product.rating < 4.8" class="fa fa-star-half-o checked"></span>
                         <span  v-if="product.rating >= 4.8" class="fa fa-star checked"></span>
-                        |
-                        ({{product.reviewCount}})
+                        | ({{product.reviewCount}})
                     </div>
                 </div>
             </a>
@@ -122,8 +121,8 @@ export default {
 }
 
 .recommend-product-list {
-    width: 1300px;
-    margin-left: 7%;
+   width: 75%;
+   margin-left:11%;
 }
 
 .recommend-border {

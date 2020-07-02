@@ -94,7 +94,7 @@ export default {
       ...mapState(["userInfo"])
   },
   methods: {
-        gotoCategory(item) { // 상품 세부페이지로 이동            
+        gotoCategory(item) { // 상품 세부페이지로 이동 
             router.push({ name: "categories", params: {id : item.id}})
         },
   }
