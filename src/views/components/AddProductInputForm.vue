@@ -8,11 +8,11 @@
   <div class="form-group">
     <label for="productCategory">상품 카테고리</label>
     <select class="form-control" id="productCategory" ref="productCategory">
-      <option>패션·뷰티</option>
-      <option>식품·생활</option>
-      <option>스포츠·자동차</option>
-      <option>가전·디지털</option>
-      <option>도서·취미</option>
+      <option value="1">패션·뷰티</option>
+      <option value="2">식품·생활</option>
+      <option value="3">스포츠·자동차</option>
+      <option value="4">가전·디지털</option>
+      <option value="5">도서·취미</option>
     </select>
   </div>
   <div class="form-group">
@@ -62,7 +62,7 @@ export default {
     methods: {
     registerProduct() {
       var name = this.$refs.productName.value
-      var category = this.$refs.productCategory.value
+      var categoryId = this.$refs.productCategory.value
       var price = this.$refs.productPrice.value
       var stock = this.$refs.productStock.value
       var manufacturer = this.$refs.productManufacturer.value
@@ -78,7 +78,7 @@ export default {
 
       axios.post('http://localhost:9306/products', {
         name: name,
-        category: category,
+        categoryId: categoryId,
         price: price,
         manufacturer: manufacturer,
         stock: stock,
