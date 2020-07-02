@@ -1,7 +1,7 @@
 <template>
     <div>
-    <div class="main-container" v-if="loading">
-        데이터를 가져오는 중....
+    <div class="recommend-container" v-if="loading">
+        <div class="loader"></div>
     </div> 
     <div class="recommend-container" v-if="!loading">
       <h3 class="recommend-header">오늘의 추천 상품</h3>
@@ -50,7 +50,7 @@ export default {
     },
     data() {
         return {
-            loading: true,                      
+            loading: true,
             products: [],
         }
     },
@@ -130,5 +130,22 @@ export default {
     font-weight: bold;
     color: #6A5ACD;
     margin:5%;
+}
+
+.loader {
+  border: 8px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 8px solid #6A5ACD;
+  width: 50px;
+  height: 50px;
+  -webkit-animation: spin 1s linear infinite; 
+  animation: spin 1s linear infinite;
+  margin-left: 50%;
+  margin-top: 5%;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 </style>

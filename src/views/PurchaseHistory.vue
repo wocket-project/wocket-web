@@ -6,7 +6,7 @@
         </section>
         <section class="section section-skew">
             <div class="container" v-if="loading">
-                로딩중...
+                <div class="loader"></div>
             </div>
             <div class="container" v-if="!loading">
                 <h1>구매내역</h1>
