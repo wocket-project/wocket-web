@@ -9,29 +9,29 @@
         <button type="button" class="write-review" @click="writeReview()">리뷰 작성하기 ></button>
     </div>
     <div class="review-rating">
-        <h1>평점 : {{ ratingAvr }}점</h1>
+        <h1>평점 : {{ product.rating }}점</h1>
         <div class="review-rating-star">
-            <span v-if="ratingAvr < 0.3" class="fa fa-star-o"></span>
-            <span v-if="ratingAvr >= 0.3 && ratingAvr < 0.8" class="fa fa-star-half-o checked"></span>
-            <span  v-if="ratingAvr >= 0.8" class="fa fa-star checked"></span>
-            <span v-if="ratingAvr < 0.3" class="fa fa-star-o"></span>
-            <span v-if="ratingAvr >= 1.3 && ratingAvr < 1.8" class="fa fa-star-half-o checked"></span>
-            <span  v-if="ratingAvr >= 1.8" class="fa fa-star checked"></span>
-            <span v-if="ratingAvr < 0.3" class="fa fa-star-o"></span>
-            <span v-if="ratingAvr >= 2.3 && ratingAvr < 2.8" class="fa fa-star-half-o checked"></span>
-            <span  v-if="ratingAvr >= 2.8" class="fa fa-star checked"></span>
-            <span v-if="ratingAvr < 3.3" class="fa fa-star-o"></span>
-            <span v-if="ratingAvr >= 3.3 && ratingAvr < 3.8" class="fa fa-star-half-o checked"></span>
-            <span  v-if="ratingAvr >= 3.8" class="fa fa-star checked"></span>
-            <span v-if="ratingAvr < 4.3" class="fa fa-star-o"></span>
-            <span v-if="ratingAvr >= 4.3 && ratingAvr < 4.8" class="fa fa-star-half-o checked"></span>
-            <span  v-if="ratingAvr >= 4.8" class="fa fa-star checked"></span>
+            <span v-if="product.rating < 0.3" class="fa fa-star-o"></span>
+            <span v-if="product.rating >= 0.3 && product.rating < 0.8" class="fa fa-star-half-o checked"></span>
+            <span  v-if="product.rating >= 0.8" class="fa fa-star checked"></span>
+            <span v-if="product.rating < 0.3" class="fa fa-star-o"></span>
+            <span v-if="product.rating >= 1.3 && product.rating < 1.8" class="fa fa-star-half-o checked"></span>
+            <span  v-if="product.rating >= 1.8" class="fa fa-star checked"></span>
+            <span v-if="product.rating < 0.3" class="fa fa-star-o"></span>
+            <span v-if="product.rating >= 2.3 && product.rating < 2.8" class="fa fa-star-half-o checked"></span>
+            <span  v-if="product.rating >= 2.8" class="fa fa-star checked"></span>
+            <span v-if="product.rating < 3.3" class="fa fa-star-o"></span>
+            <span v-if="product.rating >= 3.3 && product.rating < 3.8" class="fa fa-star-half-o checked"></span>
+            <span  v-if="product.rating >= 3.8" class="fa fa-star checked"></span>
+            <span v-if="product.rating < 4.3" class="fa fa-star-o"></span>
+            <span v-if="product.rating >= 4.3 && product.rating < 4.8" class="fa fa-star-half-o checked"></span>
+            <span  v-if="product.rating >= 4.8" class="fa fa-star checked"></span>
         </div>
     </div>
     <div v-for="review in reviews" :key="review.id" class="review-list">
         <div class="review-list-box">
             <div class="review-contents-header">
-                 <div class="review-contents-header-msg">{{ productName }}</div>
+                 <div class="review-contents-header-msg">{{ product.name }}</div>
                  <div class="review-contents-rating-star">
                     <span v-if="review.rating < 0.3" class="fa fa-star-o"></span>
                     <span v-if="review.rating >= 0.3 && review.rating < 0.8" class="fa fa-star-half-o checked"></span>
@@ -68,7 +68,7 @@ import router from "../../../router"
 
 
 export default {
-    props: ['productName'],
+    props: ['product'],
     data() {
         return {
             loading: true, 
@@ -82,19 +82,6 @@ export default {
         }
     },
     computed: {
-        ratingAvr: function() {
-           var sum = 0
-           var avr = 0
-
-          for(var i=0; i<this.reviews.length; i++) {
-              sum += this.reviews[i].rating
-          }
-          if(sum == 0) {
-              return 0
-          }
-          avr = sum/this.reviews.length
-          return avr
-      },
     },
     created () {
         this.getReviews()
@@ -221,13 +208,14 @@ export default {
 }
 
 .review-contents-rating-star .fa {
-    font-size: 15px;
+    font-size: 15px !important;
 }
 
 .review-contents-header-msg{
     float: left;
     margin-right: 2%;
 }
+
 .fa {
   font-size: 50px;
   color: #6A5ACD;

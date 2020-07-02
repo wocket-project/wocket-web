@@ -69,7 +69,7 @@
                         <li id="review" class="btnCon"><a href="#review">상품리뷰 ({{ product.reviewCount }})</a>
                             <!-- 상품 문의란 -->
                             <section class="tabCon">
-                                <product-review v-bind:productName="product.name"></product-review>
+                                <product-review v-bind:product="product"></product-review>
                             </section>
                         </li>
                     </ul>

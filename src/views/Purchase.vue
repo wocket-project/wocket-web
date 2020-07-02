@@ -5,15 +5,13 @@
             </div>
         </section>
         <section class="section section-skew">
-            <div class="header-name">
-                <span>주문결제</span>                
-            </div>
             <div class="container" v-if="loading">
-               <div class="spinner-border text-primary" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
+                <div class="loader"></div>
             </div> 
             <div class="container" v-if="!loading">
+                <div class="header-name">
+                    <span>주문결제</span>
+                </div>
                 <form>
                     <!-- 배송지 정보 -->
                     <h5>배송지 정보</h5> <!-- 이름, 연락처, 주소정보 요구 -->
@@ -356,12 +354,12 @@ dt {
 
 .withPoint {
     float: left;
-    margin-left:65%;
+    margin-left:63%;
 }
 
 .deliveryCharge{
     float: left;
-    margin-left:65%;
+    margin-left:63%;
 }
 
 .totalPrice{

@@ -92,7 +92,7 @@ export default {
                 {description: null},
                 {imageFileName: null},
             ],
-            rating: 3.0,
+            rating: 4.0,
             reviewContents: "",
         }
     },
