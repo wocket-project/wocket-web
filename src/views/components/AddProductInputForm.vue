@@ -1,5 +1,5 @@
 <template>
-<div class="jumbotron"> 
+<div class="jumbotron" style="padding:3%;"> 
   <form v-on:submit.prevent="registerProduct()" enctype="multipart/form-data">
   <div class="form-group">
     <label for="productName">상품 이름</label>
@@ -17,11 +17,17 @@
   </div>
   <div class="form-group">
     <label for="productPrice">상품 가격</label>
-    <input class="form-control" type="number" value="20000" id="productPrice" ref="productPrice">
+    <input class="form-control" type="number" value="20000" id="productPrice" ref="productPrice" min="1">
   </div>
   <div class="form-group">
     <label for="productStock">상품 재고</label>
-    <input class="form-control" type="number" value="100" id="productStock" ref="productStock">
+    <input class="form-control" type="number" value="100" id="productStock" ref="productStock" min="1">
+  </div>
+  <div class="form-group">
+    <label for="productStock">1인당 구매횟수 제한</label>
+    <input class="checkbox" type="checkbox" id="checkbox" v-model="isLimitedQuantity">
+    <input v-if="isLimitedQuantity === true" class="form-control" type="number" value="1" id="limitedQuantity" ref="limitedQuantity" min="1">
+    <input v-if="isLimitedQuantity === false" class="form-control" type="number" value="0" id="limitedQuantity" ref="limitedQuantity" disabled="disabled">
   </div>
   <div class="form-group">
     <label for="productManufacturer">제조사</label>
@@ -29,7 +35,7 @@
   </div>  
   <div class="form-group">
     <label for="productDescription">상품 설명 입력</label>
-    <textarea class="form-control" id="productDescription" rows="3" ref="productDescription"></textarea>
+    <textarea class="form-control" id="productDescription" rows="3" ref="productDescription" style="height:100px; resize:none;"/>
   </div>
   <div class="form-group">
     <label for="productImage">상품 이미지 등록</label>
@@ -42,11 +48,17 @@
 </form>
 </div>
 </template>
+
 <script>
 import axios from "axios"
 import router from "../../router"
 
 export default {
+    data() {
+        return {
+            isLimitedQuantity: false,
+        }
+    },
     methods: {
     registerProduct() {
       var name = this.$refs.productName.value
@@ -55,14 +67,23 @@ export default {
       var stock = this.$refs.productStock.value
       var manufacturer = this.$refs.productManufacturer.value
       var description = this.$refs.productDescription.value
+      var limitedQuantity = this.$refs.limitedQuantity.value
+
+      alert(name)
+
+      if(name === null || name === '' || name === undefined) {
+        alert('상품 이름을 입력해주세요')
+        return
+      }
 
       axios.post('http://localhost:9306/products', {
         name: name,
         category: category,
         price: price,
         manufacturer: manufacturer,
-        stock: stock,        
-        description: description
+        stock: stock,
+        description: description,
+        limitedQuantity: limitedQuantity,
 
       }).then(response => {
 
@@ -80,7 +101,6 @@ export default {
         .then(response => {
             alert('상품을 등록했습니다.')
         }).catch(error=> {
-            alert('이미지 업로드에 실패했습니다.')
             console.log(error)
       })
 
@@ -94,3 +114,9 @@ export default {
   }
 }
 </script>
+<style>
+.checkbox {
+  margin-left:1%;
+  cursor: pointer;
+}
+</style>

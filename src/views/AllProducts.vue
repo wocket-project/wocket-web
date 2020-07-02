@@ -102,7 +102,7 @@ export default {
     border: 1px solid #e3e5e8;
     border-top: 0;
     border-bottom: 0;
-    padding: 10%;
+    padding: 7%;
     background: white;
 }
 

@@ -102,7 +102,7 @@ export default {
 
 .recommend-product-list {
     width: 1300px;
-    margin-left: 14%;
+    margin-left: 7%;
 }
 
 .recommend-border {

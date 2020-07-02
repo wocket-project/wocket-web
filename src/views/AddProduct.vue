@@ -4,10 +4,10 @@
             <div class="shape shape-style-1 shape-primary shape-skew alpha-4">
             </div>
         </section>
-        <section class="section section-skew">
+        <section class="section section-skew">            
             <div class="container">
-                상품 추가 페이지입니다
-                <AddProductInputForm></AddProductInputForm>            
+                <h1 class="header">상품 추가</h1>
+                <AddProductInputForm></AddProductInputForm>
             </div>            
         </section>
     </div>
@@ -22,4 +22,10 @@ export default {
 };
 </script>
 <style>
+.header {
+    text-align: center;
+    font-size: 200%;
+    margin-bottom: 3%;
+}
+
 </style>
