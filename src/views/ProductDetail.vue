@@ -17,16 +17,37 @@
                         <div v-if="product.imageFileName != null">
                             <img :src="require('../../public/img/uploadImage/' + product.imageFileName)"  alt="image" style="width:400px"/>
                         </div>
+                        <div class="product-rating">
+                            <span v-if="product.rating < 0.3" class="fa fa-star-o"></span>
+                            <span v-if="product.rating >= 0.3 && product.rating < 0.8" class="fa fa-star-half-o checked"></span>
+                            <span  v-if="product.rating >= 0.8" class="fa fa-star checked"></span>
+                            <span v-if="product.rating < 0.3" class="fa fa-star-o"></span>
+                            <span v-if="product.rating >= 1.3 && product.rating < 1.8" class="fa fa-star-half-o checked"></span>
+                            <span  v-if="product.rating >= 1.8" class="fa fa-star checked"></span>
+                            <span v-if="product.rating < 0.3" class="fa fa-star-o"></span>
+                            <span v-if="product.rating >= 2.3 && product.rating < 2.8" class="fa fa-star-half-o checked"></span>
+                            <span  v-if="product.rating >= 2.8" class="fa fa-star checked"></span>
+                            <span v-if="product.rating < 3.3" class="fa fa-star-o"></span>
+                            <span v-if="product.rating >= 3.3 && product.rating < 3.8" class="fa fa-star-half-o checked"></span>
+                            <span  v-if="product.rating >= 3.8" class="fa fa-star checked"></span>
+                            <span v-if="product.rating < 4.3" class="fa fa-star-o"></span>
+                            <span v-if="product.rating >= 4.3 && product.rating < 4.8" class="fa fa-star-half-o checked"></span>
+                            <span  v-if="product.rating >= 4.8" class="fa fa-star checked"></span>
+                        </div>
+                        <div class="product-reviewCount">
+                            <h4>리뷰 개수 : {{product.reviewCount}}개</h4>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <h3>{{product.name}}</h3>
                         <hr>
                         <p>제조사 : {{product.manufacturer}}</p>
-                        <p>재고 : {{product.stock}}</p>
                         <p>카테고리 : {{product.category}}</p>
                         <p>상품설명 : {{product.description}}</p>
                         <hr>
                         <h3>가격 : {{ product.price | currency}}원</h3>
+                        <div v-if="product.limitedQuantity >= 1" class="product-stock">{{product.stock}}개 남음 | 최대 {{product.limitedQuantity}}개 구매가능</div>
+                        <div v-if="product.limitedQuantity < 1" class="product-stock">{{product.stock}}개 남음 | 구매개수 제한없음</div>
                         <cartButton></cartButton>
                         <purchase-button :product="product"></purchase-button>
                     </div>
@@ -45,10 +66,10 @@
                                 <product-qna-section></product-qna-section>
                             </section>
                             </li>
-                        <li id="review" class="btnCon"><a href="#review">상품리뷰 ({{ reviewCount }})</a>
+                        <li id="review" class="btnCon"><a href="#review">상품리뷰 ({{ product.reviewCount }})</a>
                             <!-- 상품 문의란 -->
                             <section class="tabCon">
-                                <product-review v-on:getReviewCnt="getReviewCount" v-bind:productName="product.name"></product-review>
+                                <product-review v-bind:productName="product.name"></product-review>
                             </section>
                         </li>
                     </ul>
@@ -86,9 +107,10 @@ export default {
                 {stock: null},
                 {category: null},
                 {description: null},
+                {rating: null},
+                {reviewCount: null},
                 {imageFileName: null},
             ],
-            reviewCount: null,
         }
     },
     filters: {
@@ -117,14 +139,7 @@ export default {
                 console.log(error)
             })
         },
-
-        // defaultLocation() {
-        //     location.href = "#description"
-        // },
-        getReviewCount(count) { // 하위 컴포넌트로 부터 리뷰 갯수 전달받음
-            this.reviewCount = count
-        }
-    }    
+    }
 }
 </script>
 <style>
@@ -173,13 +188,39 @@ ul{list-style:none;}
   overflow-y: scroll;
 }
 
-
 .btnCon:target  {
   background : #6A5ACD;
 }
 
 .btnCon:target .tabCon{
   display: block;
+}
+
+.product-stock {
+    color: #AAA;
+    font-size: 90%;
+    margin-bottom: 5%;
+}
+
+.product-rating {
+    margin-top: 5%;
+    text-align: center;
+}
+
+.fa {
+  font-size: 30px !important;
+  color: #6A5ACD;
+}
+
+.checked {
+  color: #6A5ACD;
+}
+
+.product-reviewCount h4 {
+    text-align: center;
+    color: #AAA;
+    font-size: 90%;
+    margin-top:3%;
 }
 
 </style>

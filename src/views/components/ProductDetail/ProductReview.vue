@@ -110,7 +110,6 @@ export default {
             .then(response => {
                 this.loading = false
                 this.reviews = response.data
-                this.$emit('getReviewCnt', this.reviews.length)
             })
             .catch(error => {
                 alert('서버 오류')
