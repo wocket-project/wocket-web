@@ -33,6 +33,27 @@
                     <div class="recommend-product-price">
                         <span>{{ product.price | currency }}원</span>
                     </div>
+                    <hr class="recommend-hr">
+                    <!-- product review -->
+                    <div class="recommend-product-review">
+                        <span v-if="product.rating < 0.3" class="fa fa-star-o"></span>
+                        <span v-if="product.rating >= 0.3 && product.rating < 0.8" class="fa fa-star-half-o checked"></span>
+                        <span  v-if="product.rating >= 0.8" class="fa fa-star checked"></span>
+                        <span v-if="product.rating < 0.3" class="fa fa-star-o"></span>
+                        <span v-if="product.rating >= 1.3 && product.rating < 1.8" class="fa fa-star-half-o checked"></span>
+                        <span  v-if="product.rating >= 1.8" class="fa fa-star checked"></span>
+                        <span v-if="product.rating < 0.3" class="fa fa-star-o"></span>
+                        <span v-if="product.rating >= 2.3 && product.rating < 2.8" class="fa fa-star-half-o checked"></span>
+                        <span  v-if="product.rating >= 2.8" class="fa fa-star checked"></span>
+                        <span v-if="product.rating < 3.3" class="fa fa-star-o"></span>
+                        <span v-if="product.rating >= 3.3 && product.rating < 3.8" class="fa fa-star-half-o checked"></span>
+                        <span  v-if="product.rating >= 3.8" class="fa fa-star checked"></span>
+                        <span v-if="product.rating < 4.3" class="fa fa-star-o"></span>
+                        <span v-if="product.rating >= 4.3 && product.rating < 4.8" class="fa fa-star-half-o checked"></span>
+                        <span  v-if="product.rating >= 4.8" class="fa fa-star checked"></span>
+                        |
+                        ({{product.reviewCount}})
+                    </div>
                 </div>
             </a>
         </li>
@@ -116,12 +137,14 @@ export default {
     color: #CCC;
     font-size: 80%;
     margin-left:5%;
+    min-height: 45px;
 }
 
 .recommend-product-name {
     color: black;
     font-size: 100%;
     margin-left:5%;
+    min-height: 50px;
 }
 
 .recommend-product-price {
@@ -129,7 +152,7 @@ export default {
     font-size: 140%;
     font-weight: bold;
     color: #6A5ACD;
-    margin:5%;
+    margin:0% 5% 5% 5%;
 }
 
 .loader {
@@ -147,5 +170,21 @@ export default {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.recommend-hr {
+    margin: 2% 5% 5% 5%;
+}
+
+.recommend-product-review{
+    margin-left: 5%;
+    margin-bottom:2%;
+    color:#CCC;
+    font-size: 80%;
+    
+}
+
+.recommend-product-review .fa{
+    font-size: 15px !important;
 }
 </style>
