@@ -40,21 +40,37 @@
     <div class="review-rating-box">
         <strong class="productInfo-name">상품 만족도</strong>
         <div class="star-box">
-            <span class="star star_left"></span>
-            <span class="star star_right"></span>
+            <button v-if="rating < 1" type="button" class="fa fa-star-o btn-star" 
+            @click="selectRating(1)" value="1"></button>
+            <button v-if="rating >= 1" type="button" class="fa fa-star checked btn-star" 
+            @click="selectRating(1)" value="1"></button>
 
-            <span class="star star_left"></span>
-            <span class="star star_right"></span>
+            <button v-if="rating < 2" type="button" class="fa fa-star-o btn-star" 
+            @click="selectRating(2)" value="2"></button>
+            <button v-if="rating >= 2" type="button" class="fa fa-star checked btn-star" 
+            @click="selectRating(2)" value="2"></button>
 
-            <span class="star star_left"></span>
-            <span class="star star_right"></span>
+            <button v-if="rating < 3" type="button" class="fa fa-star-o btn-star" 
+            @click="selectRating(3)" value="3"></button>
+            <button v-if="rating >= 3" type="button" class="fa fa-star checked btn-star"
+             @click="selectRating(3)" value="3"></button>
 
-            <span class="star star_left"></span>
-            <span class="star star_right"></span>
+            <button v-if="rating < 4" type="button" class="fa fa-star-o btn-star" 
+            @click="selectRating(4)" value="4"></button>
+            <button v-if="rating >= 4" type="button" class="fa fa-star checked btn-star" 
+            @click="selectRating(4)" value="4"></button>
 
-            <span class="star star_left"></span>
-            <span class="star star_right"></span>
-            <span class="review-rating-text">선택해주세요</span>
+            <button v-if="rating < 5" type="button" class="fa fa-star-o btn-star" 
+            @click="selectRating(5)" value="5"></button>
+            <button v-if="rating >= 5" type="button" class="fa fa-star checked btn-star" 
+            @click="selectRating(5)" value="5"></button>
+
+            <span v-if="rating === 0" class="review-rating-text">선택해주세요</span>
+            <span v-if="rating === 1" class="review-rating-text">실망이예요</span>
+            <span v-if="rating === 2" class="review-rating-text">별로예요</span>
+            <span v-if="rating === 3" class="review-rating-text">괜찮아요</span>
+            <span v-if="rating === 4" class="review-rating-text">좋아요</span>
+            <span v-if="rating === 5" class="review-rating-text">최고예요</span>
         </div>
     </div>
 
@@ -92,7 +108,7 @@ export default {
                 {description: null},
                 {imageFileName: null},
             ],
-            rating: 4.0,
+            rating: 0,
             reviewContents: "",
         }
     },
@@ -153,18 +169,16 @@ export default {
                 console.log(error)
             })
         },
-        // $(".star").on('click',function(){
-        // var idx = $(this).index();
-        // $(".star").removeClass("on");
-        //     for(var i=0; i<=idx; i++){
-        //         $(".star").eq(i).addClass("on");
-        // }
+        selectRating: function(rating) {
+            this.rating = rating
+        }
     }
 }
 </script>
 <style scoped>
 .review-write-popup {
     padding: 5%;
+    background: white;
 }
 
 .review-write-title {
@@ -211,7 +225,7 @@ export default {
 
 .review-rating-text {
     margin: 3%;
-    font-size: 80%;
+    font-size: 100%;
 }
 
 .textCnt {
@@ -266,23 +280,11 @@ export default {
     height: 100px;
 }
 
-.star{
-  display:inline-block;
-  width: 30px;
-  height: 60px;
-  cursor: pointer;
-}
-.star_left{
-  background: url(http://gahyun.wooga.kr/main/img/testImg/star.png) no-repeat 0 0; 
-  background-size: 60px; 
-  margin-right: -3px;
-}
-.star_right{
-  background: url(http://gahyun.wooga.kr/main/img/testImg/star.png) no-repeat -30px 0; 
-  background-size: 60px; 
-  margin-left: -3px;
-}
-.star.on{
-  background-image: url(http://gahyun.wooga.kr/main/img/testImg/star_on.png);
+button {
+    border: none;
+    outline: none !important;
+    border-radius: 0;
+    background: white;
+    cursor: pointer;
 }
 </style>
