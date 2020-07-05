@@ -19,6 +19,7 @@ import PaySuccess from "./views/PaySuccess.vue"
 import PurchaseHistory from "./views/PurchaseHistory.vue"
 import WriteReview from "./views/components/PurchaseHistory/WriteReviewPopup.vue"
 import RegisterAuth from "./views/RegisterAuth.vue"
+import RegisterConfirm from "./views/RegisterConfirm.vue"
 
 Vue.use(Router);
 
@@ -188,6 +189,13 @@ export default new Router({
       name: "RegisterAuth",
       components: {
         default: RegisterAuth,
+      }
+    },
+    {
+      path: "/registerConfirm",
+      name: "RegisterConfirm",
+      components: {
+        default: RegisterConfirm,
       }
     },
   ],
