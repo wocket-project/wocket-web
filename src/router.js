@@ -18,6 +18,7 @@ import Purchase from "./views/Purchase.vue"
 import PaySuccess from "./views/PaySuccess.vue"
 import PurchaseHistory from "./views/PurchaseHistory.vue"
 import WriteReview from "./views/components/PurchaseHistory/WriteReviewPopup.vue"
+import RegisterAuth from "./views/RegisterAuth.vue"
 
 Vue.use(Router);
 
@@ -180,6 +181,13 @@ export default new Router({
       beforeEnter: onlyAuthUser,
       components: {
         default: WriteReview,
+      }
+    },
+    {
+      path: "/registerAuth",
+      name: "RegisterAuth",
+      components: {
+        default: RegisterAuth,
       }
     },
   ],

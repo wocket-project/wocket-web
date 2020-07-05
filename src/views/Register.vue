@@ -112,7 +112,7 @@ export default {
           email: {required, email},
           password: {required, minLength: minLength(8)},
           name: {required},
-          address: {required},          
+          address: {required},
           detailAddress: {required},
           phone: {required},
           confirmPassword: {required, sameAsPassword: sameAs('password')},
@@ -131,9 +131,9 @@ export default {
             detailAddress: this.user.detailAddress,
             zonecode: this.user.zonecode
         })
-            .then(res => {              
-              alert("회원가입이 정상적으로 완료되었습니다.")
-              router.push({ name: "home" })
+            .then(res => {
+              // alert("회원가입이 정상적으로 완료되었습니다.")
+              router.push({ name: "RegisterAuth" })
             })
             .catch(err => {
               alert('서버 오류')
