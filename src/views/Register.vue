@@ -69,16 +69,21 @@
                         <div v-if="submitted && !$v.user.phone.required" class="invalid-feedback">전화번호는 필수입력 항목입니다.</div>
                     </div>
                     <hr>
-                    <!-- 팝업창 띄우기 -->
-                    <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+                    
+                    <div class="terms-and-conditions">
+                      <input type="checkbox" v-model="toggle" true-value="yes" false-value="no">
+                      <p>본인은 만 14세 이상이며, 위드어스 이용약관, 
+                        전자금융거래이용약관, 개인정보 수집 및 이용, 개인정보 제공 내용을 확인 하였으며, 동의합니다.</p>
+                    </div>
 
                     <button type="submit" class="registerbtn">
                     회원가입
-                    </button>
+                    </button>                    
+                    <p class="right-reserved">©With-Us Corp. All rights reserved.</p>
                 </div>
                 
                 <div class="container-signin">
-                    <p>Already have an account? <a href="http://localhost:9306/login">로그인</a>.</p>
+                    <p>이미 계정이 있습니까? <a href="http://localhost:9306/login">로그인</a>.</p>
                 </div>
             </form>
         </div>
@@ -108,7 +113,8 @@ export default {
             confirmPassword: "",
           },          
           submitted: false,
-          isDetailAddrFlag: false
+          isDetailAddrFlag: false,
+          toggle: false,
       }
     },
     validations: {
@@ -124,7 +130,12 @@ export default {
     },
     methods: {
         // 회원가입 시도
-        doRegister: function() {        
+        doRegister: function() {
+
+        if(this.toggle === "no") {
+          alert("이용약관에 동의해주세요.")
+          return
+        }
 
         axios.post("http://localhost:9306/users", {
             email: this.user.email,
@@ -261,14 +272,30 @@ a {
 }
 
 /* Set a grey background color and center the text of the "sign in" section */
-.signin {
-  background-color: #f1f1f1;
-  text-align: center;
+.container-signin {
+  margin-top : 2%;
+  text-align: left;
 }
 
 img {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.right-reserved{
+  margin: 2% 0% 0% 0%;
+  text-align: center;
+}
+.terms-and-conditions input[type="checkbox"]{
+  float: left;
+  margin: 0% 2% 0% 2%;
+  font-size: 12px;
+  width: 21px;
+  height: 21px;
+}
+
+.terms-and-conditions p{
+  font-size:80%;
 }
 </style>
