@@ -17,10 +17,10 @@ export default {
         // 이메일 인증
         checkEmailAuth() {
 
-          alert($route.query.email)
+          alert(this.$route.query.email)
 
-        axios.get("http://localhost:9306/users/registerConfirm?uid=" + $route.query.uid
-        + "&email=" + $route.query.email + "&authKey=" + $route.query.authKey
+        axios.get("http://localhost:9306/users/registerConfirm?uid=" + this.$route.query.uid
+        + "&email=" + this.$route.query.email + "&authKey=" + this.$route.query.authKey
         )
         .then(res => {
           alert("회원가입이 완료되었습니다.")
