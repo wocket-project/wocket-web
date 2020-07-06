@@ -8,7 +8,8 @@
                     <p>※ 아래 양식을 입력해주세요.</p>
                     <div class="form-group">
                         <label for="email">이메일</label>
-                        <input type="text" v-model="user.email" id="email" name="email" class="form-control" :class="{ 'is-invalid': submitted && $v.user.email.$error }" />
+                        <input type="text" v-model="user.email" id="email" name="email" class="form-control"
+                         :class="{ 'is-invalid': submitted && $v.user.email.$error }" maxlength="30" />
                         <div v-if="submitted && $v.user.email.$error" class="invalid-feedback">
                             <span v-if="!$v.user.email.required">이메일은 필수입력 항목입니다.</span>
                             <span v-if="!$v.user.email.email">이메일 형식이 아닙니다.</span>
@@ -17,13 +18,15 @@
 
                     <div class="form-group">
                         <label for="name">이름</label>
-                        <input type="text" v-model="user.name" id="name" name="name" class="form-control" :class="{ 'is-invalid': submitted && $v.user.name.$error }" />
+                        <input type="text" v-model="user.name" id="name" name="name" class="form-control" :class="{ 'is-invalid': submitted && $v.user.name.$error }" 
+                        maxlength="20"/>
                         <span v-if="submitted && !$v.user.name.required" class="invalid-feedback">이름은 필수입력 항목입니다.</span>
                     </div>
                     
                     <div class="form-group">
                         <label for="password">비밀번호</label>
-                        <input type="password" v-model="user.password" id="password" name="password" class="form-control" :class="{ 'is-invalid': submitted && $v.user.password.$error }" />
+                        <input type="password" v-model="user.password" id="password" name="password" class="form-control" 
+                        :class="{ 'is-invalid': submitted && $v.user.password.$error }" maxlength="16" />
                         <div v-if="submitted && $v.user.password.$error" class="invalid-feedback">
                             <span v-if="!$v.user.password.required">비밀번호는 필수 입력사항입니다.</span>
                             <span v-if="!$v.user.password.minLength">비밀번호는 최소 8자리 이상 입력해주세요.</span>
@@ -31,7 +34,8 @@
                     </div>
                     <div class="form-group">
                         <label for="confirmPassword">비밀번호 확인</label>
-                        <input type="password" v-model="user.confirmPassword" id="confirmPassword" name="confirmPassword" class="form-control" :class="{ 'is-invalid': submitted && $v.user.confirmPassword.$error }" />
+                        <input type="password" v-model="user.confirmPassword" id="confirmPassword" name="confirmPassword" class="form-control" 
+                        :class="{ 'is-invalid': submitted && $v.user.confirmPassword.$error }" maxlength="16"/>
                         <div v-if="submitted && $v.user.confirmPassword.$error" class="invalid-feedback">
                             <span v-if="!$v.user.confirmPassword.required">비밀번호 확인은 필수 입력사항입니다.</span>
                             <span v-else-if="!$v.user.confirmPassword.sameAsPassword">비밀번호가 일치하지 않습니다.</span>
@@ -40,7 +44,7 @@
 
                     <div class="form-group">
                         <label for="zonecode">우편번호</label>
-                        <input type="text" v-model="user.zonecode" @click="setAddress()" style="width:35%; margin:1% 3% 1% 1%" readonly="true"
+                        <input type="text" v-model="user.zonecode" @click="setAddress()" style="width:38%; margin:1% 3% 1% 1%" readonly="true"
                         id="zonecode" name="zonecode" class="form-control"/>
 
                         <label for="address">주소</label>
@@ -49,7 +53,7 @@
                         <div v-if="submitted && !$v.user.address.required" class="invalid-feedback">주소는 필수입력 항목입니다.</div>
 
                         <label for="detailAddress">상세주소</label>
-                        <input type="text" v-model="user.detailAddress" style="width:87%; margin:1%"
+                        <input type="text" v-model="user.detailAddress" style="width:90%; margin:1%"
                         id="detailAddress" name="detailAddress" class="form-control" :class="{ 'is-invalid': submitted && $v.user.detailAddress.$error }" />
                         <div v-if="submitted && !$v.user.detailAddress.required" class="invalid-feedback">상세주소는 필수입력 항목입니다.</div>
                     </div>
@@ -197,7 +201,7 @@ export default {
 <style>
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Nanum Gothic", Arial, Helvetica, sans-serif !important;
 }
 
 * {
