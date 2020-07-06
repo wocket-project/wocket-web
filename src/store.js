@@ -47,10 +47,17 @@ export default new Vuex.Store({
           localStorage.setItem("accessToken", res.data.accessToken)
           dispatch("getMemberInfo", true)          
         })
-        .catch(err => {
-          alert('이메일 또는 비밀번호를 확인하세요.')
-          // commit("loginError")
-          console.log(err)
+        .catch(err => { // error code별 로직 세분화
+
+          // 401 -> 인증되지 않은 경우
+          if(err.response.status === 401) {
+            alert('인증되지 않은 이메일입니다.')
+            router.push({ name: "home" })
+          }
+
+          if(err.response.status === 404) {
+            alert('이메일 또는 비밀번호를 확인하세요.')
+          }
         })
     },
 

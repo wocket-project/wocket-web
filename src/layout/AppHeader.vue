@@ -59,7 +59,7 @@
             </div>            
             <div v-if="isLogin === true" class="userPoint">
                 <i class="ni ni-shop"></i>
-                <span class="nav-link-inner--text mg">위드 포인트 : {{ userInfo.point }}</span>
+                <span class="nav-link-inner--text mg">위드 포인트 : {{ userInfo.point | currency }}</span>
             </div>
         </base-nav>
     </header>
@@ -89,6 +89,12 @@ export default {
     CloseButton,
     BaseDropdown
   },
+    filters: {
+        currency: function (value) {
+            var num = new Number(value);
+            return num.toFixed(0).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
+        }
+    },
   computed: {
       ...mapState(["isLogin"]),
       ...mapState(["userInfo"])
