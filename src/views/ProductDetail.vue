@@ -43,8 +43,7 @@
                     <div class="col-md-6">
                         <h3>{{product.name}}</h3>
                         <hr>
-                        <p>제조사 : {{product.manufacturer}}</p>
-                        <p>카테고리 : {{product.category}}</p>
+                        <p>제조사 : {{product.manufacturer}}</p>                        
                         <p>상품설명 : {{product.description}}</p>
                         <hr>
                         <h3>가격 : {{ product.price | currency}}원</h3>

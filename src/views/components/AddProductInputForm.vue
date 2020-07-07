@@ -9,10 +9,10 @@
     <label for="productCategory">상품 카테고리</label>
     <select class="form-control" id="productCategory" ref="productCategory">
       <option value="1">패션·뷰티</option>
-      <option value="2">식품·생활</option>
-      <option value="3">스포츠·자동차</option>
-      <option value="4">가전·디지털</option>
-      <option value="5">도서·취미</option>
+      <option value="2">식품·생활</option>      
+      <option value="3">가전·디지털</option>
+      <option value="4">도서·취미</option>
+      <option value="5">스포츠·자동차</option>
     </select>
   </div>
   <div class="form-group">
@@ -67,9 +67,7 @@ export default {
       var stock = this.$refs.productStock.value
       var manufacturer = this.$refs.productManufacturer.value
       var description = this.$refs.productDescription.value
-      var limitedQuantity = this.$refs.limitedQuantity.value
-
-      alert(name)
+      var limitedQuantity = this.$refs.limitedQuantity.value      
 
       if(name === null || name === '' || name === undefined) {
         alert('상품 이름을 입력해주세요')
