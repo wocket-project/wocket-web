@@ -82,15 +82,9 @@ export default {
     }
 }
 </script>
-<style>
-/* Full-width input fields */
-/* input[type=text], input[type=password] {
-  width: 100%;
-  padding: 15px;
-  margin: 3px 0 3px 0;
-  display: inline-block;
-  border: none;
-  background: #c72424;
-} */
+<style scoped>
+.container {
+  font-family: "Nanum Gothic" !important;
+}
 
 </style>

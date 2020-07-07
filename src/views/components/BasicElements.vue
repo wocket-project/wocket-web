@@ -9,14 +9,16 @@
         <ul class="item-list">
         <li class="item" v-for="product in products" :key="product.id">
             <a @click="gotoProduct(product)">
-                <div class="recommend-border">
+                <div class="recommend-border">                    
                     <!-- product thumb -->
-                    <div class="thumb">
+                    <div class="thumb">                        
                         <td v-if="product.imageFileName != null" scope="row">
+                            <badge class="badge" type="danger">NEW</badge>
                             <img :src="require('../../../public/img/uploadImage/' + product.imageFileName)" 
                             alt="productImage" width="100%" height="300px">
                         </td>
                         <td v-if="product.imageFileName == null" scope="row">
+                            <badge class="badge" type="danger">NEW</badge>
                             <img src='../../../public/img/uploadImage/no-image.png' 
                             alt="productImage" width="100%" height="300px">
                         </td>
@@ -185,5 +187,12 @@ export default {
 
 .recommend-product-review .fa{
     font-size: 15px !important;
+}
+
+.badge{
+    float: left;
+    z-index: 0;    
+    position: absolute;
+    background: none !important;
 }
 </style>

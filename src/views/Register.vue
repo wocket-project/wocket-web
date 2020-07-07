@@ -209,11 +209,7 @@ export default {
 
 
 </script>
-<style>
-
-body {
-  font-family: "Nanum Gothic", Arial, Helvetica, sans-serif !important;
-}
+<style scoped>
 
 * {
   box-sizing: border-box;
@@ -223,6 +219,7 @@ body {
 .container-login {
   padding: 16px;
   background-color: white;
+  font-family: "Nanum Gothic" !important;
 }
 
 /* Full-width input fields */
