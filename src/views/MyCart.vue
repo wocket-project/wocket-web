@@ -29,10 +29,14 @@
                   <tr v-for="cartItem in cart.cartItems" :key="cartItem.id" align="center">                    
                     <td v-if="cartItem.product.imageFileName != null" scope="row">
                         <a @click="gotoProduct(cartItem.product)">
-                        <img :src="require('../../public/img/uploadImage/' + cartItem.product.imageFileName)" alt="productImage" width="100px">
+                            <img v-bind:src="'http://localhost:9002/img/' + cartItem.product.imageFileName" alt="productImage" width="100px">
                         </a>
                     </td>
-                    <td v-if="cartItem.product.imageFileName == null" scope="row">이미지 준비 중</td>
+                    <td v-if="cartItem.product.imageFileName == null" scope="row">
+                        <a @click="gotoProduct(cartItem.product)">
+                            <img v-bind:src="'http://localhost:9002/img/no-image.png'" alt="productImage" width="100px">
+                        </a>
+                    </td>
                     <td><a @click="gotoProduct(cartItem.product)">{{ cartItem.product.name }}</a></td>
                     <td>￦{{ cartItem.product.price | currency}}</td>
                     <td>착불배송</td>                    

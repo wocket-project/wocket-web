@@ -14,12 +14,12 @@
                     <div class="thumb">                        
                         <td v-if="product.imageFileName != null" scope="row">
                             <badge class="badge" type="danger">NEW</badge>
-                            <img :src="require('../../../public/img/uploadImage/' + product.imageFileName)" 
+                            <img v-bind:src="'http://localhost:9002/img/' + product.imageFileName"
                             alt="productImage" width="100%" height="300px">
                         </td>
                         <td v-if="product.imageFileName == null" scope="row">
                             <badge class="badge" type="danger">NEW</badge>
-                            <img src='../../../public/img/uploadImage/no-image.png' 
+                            <img v-bind:src="'http://localhost:9002/img/no-image.png'"
                             alt="productImage" width="100%" height="300px">
                         </td>
                     </div>

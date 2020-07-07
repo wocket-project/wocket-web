@@ -18,10 +18,10 @@
                             <!-- product thumb -->
                             <div class="thumb">
                                 <td v-if="product.imageFileName != null" scope="row">
-                                    <img :src="require('../../public/img/uploadImage/' + product.imageFileName)" alt="productImage" width="100%" height="220px">
+                                    <img v-bind:src="'http://localhost:9002/img/' + product.imageFileName" alt="productImage" width="100%" height="220px">
                                 </td>
                                 <td v-if="product.imageFileName == null" scope="row">
-                                    <img src='../../public/img/uploadImage/no-image.png' alt="productImage" width="100%" height="220px">
+                                    <img v-bind:src="'http://localhost:9002/img/no-image.png'" alt="productImage" width="100%" height="220px">
                                 </td>
                             </div>
                             <!-- product description-->

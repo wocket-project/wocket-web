@@ -16,7 +16,7 @@
                             style="border:groove; width:400px; height:400px;">
                         </div>
                         <div v-if="product.imageFileName !== null">
-                            <img :src="require('../../public/img/uploadImage/' + product.imageFileName)"  
+                            <img v-bind:src="'http://localhost:9002/img/no-image.png'" 
                             alt="image" style="width:400px"/>
                         </div>
                         <div class="product-rating">

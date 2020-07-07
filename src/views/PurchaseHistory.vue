@@ -46,11 +46,13 @@
                                         <!-- 상품 이미지 -->
                                         <div v-if="purchaseInfo.purchaseItems[0].product.imageFileName == null" class="product-image">
                                             <!-- 이미지가 없는 경우 default이미지 사용-->
-                                            <img src='../../public/img/uploadImage/no-image.png' alt="productImage" width="150px" height="150px">
+                                            <img v-bind:src="'http://localhost:9002/img/' + product.imageFileName"
+                                             alt="productImage" width="150px" height="150px">
                                         </div>
                                         <div v-if="purchaseInfo.purchaseItems[0].product.imageFileName != null" class="product-image">
                                             <a @click="gotoProduct(purchaseInfo.purchaseItems[0].product)" style="cursor: pointer;">
-                                                <img :src="require('../../public/img/uploadImage/' + purchaseInfo.purchaseItems[0].product.imageFileName)" alt="productImage" width="150px" height="150px">
+                                                <img v-bind:src="'http://localhost:9002/img/' + purchaseInfo.purchaseItems[0].product.imageFileName" 
+                                                alt="productImage" width="150px" height="150px">
                                             </a>
                                         </div>
 

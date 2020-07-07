@@ -15,11 +15,11 @@
     <div class="productInfo-box">
         <!-- 상품 이미지 -->
         <div v-if="product.imageFileName == null" class="product-image">
-            <img src='../../../../public/img/uploadImage/no-image.png'
+            <img v-bind:src="'http://localhost:9002/img/no-image.png'"
              width="100px" height="100px" alt="productImage">
         </div>
         <div v-if="product.imageFileName != null" class="product-image"> 
-            <img :src="require('../../../../public/img/uploadImage/' + product.imageFileName)" 
+            <img v-bind:src="'http://localhost:9002/img/' + product.imageFileName"
             width="100px" height="100px" alt="image"/>
         </div>
         
