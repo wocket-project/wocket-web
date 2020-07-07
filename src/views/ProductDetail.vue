@@ -12,12 +12,12 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div v-if="product.imageFileName === null">
-                            <img v-bind:src="'http://localhost:9002/img/' + product.imageFileName" alt="productImage" 
-                            style="border:groove; width:400px; height:400px;">
+                            <img v-bind:src="'http://localhost:9002/img/no-image.png'" alt="productImage" 
+                            style="border:groove; width:80%; height:80%; margin-left:10%">
                         </div>
                         <div v-if="product.imageFileName !== null">
-                            <img v-bind:src="'http://localhost:9002/img/no-image.png'" 
-                            alt="image" style="width:400px"/>
+                            <img v-bind:src="'http://localhost:9002/img/' + product.imageFileName"
+                            alt="image" style="width:80%; margin-left:10%"/>
                         </div>
                         <div class="product-rating">
                             <span v-if="product.rating < 0.3" class="fa fa-star-o"></span>

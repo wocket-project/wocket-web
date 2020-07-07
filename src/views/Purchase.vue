@@ -79,12 +79,14 @@
                   <tr v-for="item in products.items" :key="item.id" align="center">                    
                     <td v-if="item.imageFileName != null" scope="row">
                         <a @click="gotoProduct(item)">
-                            <img :src="require('../../public/img/uploadImage/' + item.imageFileName)" alt="productImage" width="100px" height="100px">
+                            <img  v-bind:src="'http://localhost:9002/img/' + item.imageFileName"
+                            alt="productImage" width="100px" height="100px">
                         </a>
                     </td>
                     <td v-if="item.imageFileName == null" scope="row">
                         <a @click="gotoProduct(item)">
-                            <img src='../../public/img/uploadImage/no-image.png' alt="productImage" width="100px" height="100px">
+                            <img v-bind:src="'http://localhost:9002/img/no-image.png'"
+                             alt="productImage" width="100px" height="100px">
                         </a>
                     </td>
                     <td><a @click="gotoProduct(item)">{{ item.name }}</a></td>

@@ -138,6 +138,7 @@ export default {
     color: #CCC;
     font-size: 80%;
     margin-left:5%;
+    margin-right:5%;
     min-height: 45px;
 }
 
@@ -145,6 +146,7 @@ export default {
     color: black;
     font-size: 100%;
     margin-left:5%;
+    margin-right:5%;
     min-height: 50px;
 }
 

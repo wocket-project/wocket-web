@@ -27,12 +27,12 @@
                       <td colspan="4" style="font-weight:bold;">장바구니에 담긴 상품이 없습니다.</td>
                   </tr>  
                   <tr v-for="cartItem in cart.cartItems" :key="cartItem.id" align="center">                    
-                    <td v-if="cartItem.product.imageFileName != null" scope="row">
+                    <td v-if="cartItem.product.imageFileName !== null" scope="row">
                         <a @click="gotoProduct(cartItem.product)">
                             <img v-bind:src="'http://localhost:9002/img/' + cartItem.product.imageFileName" alt="productImage" width="100px">
                         </a>
                     </td>
-                    <td v-if="cartItem.product.imageFileName == null" scope="row">
+                    <td v-if="cartItem.product.imageFileName === null" scope="row">
                         <a @click="gotoProduct(cartItem.product)">
                             <img v-bind:src="'http://localhost:9002/img/no-image.png'" alt="productImage" width="100px">
                         </a>
