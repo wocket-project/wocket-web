@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div v-if="product.imageFileName === null">
-                            <img src='../../public/img/uploadImage/no-image.png' alt="productImage" 
+                            <img v-bind:src="'http://localhost:9002/img/' + product.imageFileName" alt="productImage" 
                             style="border:groove; width:400px; height:400px;">
                         </div>
                         <div v-if="product.imageFileName !== null">
