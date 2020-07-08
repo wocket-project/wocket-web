@@ -54,7 +54,8 @@ export default {
         this.getQnas()
     },
     watch: {
-        '$route': 'getQnas'
+        '$route': 'getQnas',
+        '$route': 'replaceWriter'
     },
     methods: {
         // 상품 문의정보 요청
@@ -64,7 +65,7 @@ export default {
             .then(response => {
                 this.loading = false
                 this.qnas = response.data
-                console.log(response.data)
+                this.replaceWriter()
             })
             .catch(error => {
                 alert('서버 오류')
@@ -85,6 +86,20 @@ export default {
         writeQuestion() {
             
         },
+        replaceWriter() {  // 작성자 데이터 치환 : 김한솔 -> 김*솔로 변경
+            var replaceChar = '*'
+            var position = 2 // 2번째 문자 *으로 치환
+
+            for(var i=0; i<this.qnas.length; i++) {
+                this.qnas[i].questionWriter = this.qnas[i].questionWriter.substring(0, position-1) 
+                + replaceChar + this.qnas[i].questionWriter.substring(position, this.qnas[i].questionWriter.length)
+
+                if(this.qnas[i].answerWriter !== null) {
+                    this.qnas[i].answerWriter = this.qnas[i].answerWriter.substring(0, position-1) 
+                    + replaceChar + this.qnas[i].answerWriter.substring(position, this.qnas[i].answerWriter.length)
+                }
+            }
+        }
     }    
 }
 </script>
