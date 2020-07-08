@@ -6,12 +6,12 @@
     </div>
     <hr class="qna-hr">
     <div class="review-header-message">
-        <p>* 상품과 관계없는 글, 양도, 광고성, 욕설, 비방, 도배 등의 글은 예고없이 삭제됩니다.</p>        
+        <p>* 상품과 관계없는 글, 양도, 광고성, 욕설, 비방, 도배 등의 글은 예고없이 삭제됩니다.</p>
     </div>
     <div class="qna-textarea">
         <textarea class="form-control" v-model="question" name="question" rows="4" 
-        cols="80" placeholder="상품에 대해 궁금한 점을 물어보세요."></textarea>
-        <button type="button" class="write-qna-btn" @click="deleteCartAll()">등록하기</button>
+        cols="80" placeholder="상품에 대해 궁금한 점을 물어보세요." @click="loginCheck()"></textarea>
+        <button type="button" class="write-qna-btn" v-on:click="writeQuestion()">등록하기</button>
     </div>
 
     <div v-for="qna in qnas" :key="qna.id" class="qna-list">
@@ -38,17 +38,20 @@
 <script>
 import axios from "axios"
 import router from "../../../router"
-
+import {mapState} from "vuex"
 
 export default {
-    props: ['product'],
+    props: ['productId'],
     data() {
         return {
             loading: true, 
             qnas: [],
-            question: null,
+            question: "",
             isAnswerFlag: false,
         }
+    },
+    computed: {
+      ...mapState(["isLogin"]),
     },
     created () {
         this.getQnas()
@@ -84,7 +87,32 @@ export default {
             }
         },
         writeQuestion() {
-            
+            if(this.question.length < 10) {
+                alert("최소 10자 이상 입력해주세요. ")
+                return
+            } 
+
+            let token = localStorage.getItem("accessToken")
+
+            const config = {
+                headers: { Authorization: `Bearer ${token}` }
+            };
+
+            const bodyParameters = {
+                productId: this.$props.productId,
+                question: this.question
+            };
+
+            axios
+            .post("http://localhost:9306/write/question", bodyParameters, config)
+            .then(response => {
+                this.getQnas()
+                this.question = ""
+            })
+            .catch(error => {
+                alert('서버 오류')
+                console.log(error)
+            })
         },
         replaceWriter() {  // 작성자 데이터 치환 : 김한솔 -> 김*솔로 변경
             var replaceChar = '*'
@@ -93,11 +121,11 @@ export default {
             for(var i=0; i<this.qnas.length; i++) {
                 this.qnas[i].questionWriter = this.qnas[i].questionWriter.substring(0, position-1) 
                 + replaceChar + this.qnas[i].questionWriter.substring(position, this.qnas[i].questionWriter.length)
-
-                if(this.qnas[i].answerWriter !== null) {
-                    this.qnas[i].answerWriter = this.qnas[i].answerWriter.substring(0, position-1) 
-                    + replaceChar + this.qnas[i].answerWriter.substring(position, this.qnas[i].answerWriter.length)
-                }
+            }
+        },
+        loginCheck() {
+            if(this.isLogin === false) {
+                router.push({ name: "login" })
             }
         }
     }    

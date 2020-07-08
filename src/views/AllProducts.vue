@@ -106,7 +106,7 @@ export default {
                 console.log(error)
             })
         },
-        gotoProduct(item) { // 상품 세부페이지로 이동            
+        gotoProduct(item) { // 상품 세부페이지로 이동
             router.push({ name: "productDetail", params: {id : item.id}})
         },
     }    
@@ -154,7 +154,7 @@ li {
 .product-description {
     color: #CCC;
     font-size: 80%;
-    min-height: 45px;
+    min-height: 60px;
 }
 
 .product-name {

@@ -64,7 +64,7 @@
                         <li id="qna-section" class="btnCon"><a href="#qna-section">상품문의</a>
                             <!-- 상품 문의란 -->
                             <section class="tabCon">
-                                <product-qna-section></product-qna-section>
+                                <product-qna-section v-bind:productId="product.id"></product-qna-section>
                             </section>
                             </li>
                         <li id="review" class="btnCon"><a href="#review">상품리뷰 ({{ product.reviewCount }})</a>
