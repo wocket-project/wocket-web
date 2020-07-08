@@ -13,7 +13,26 @@
         cols="80" placeholder="상품에 대해 궁금한 점을 물어보세요."></textarea>
         <button type="button" class="write-qna-btn" @click="deleteCartAll()">등록하기</button>
     </div>
-    
+
+    <div v-for="qna in qnas" :key="qna.id" class="qna-list">
+        <div class="qna-list-box">
+            <div class="qna-contents-header">
+                 <div class="qna-contents-header-msg">{{ qna.questionWriter }}  {{ qna.questionRegisterDate }}</div>
+            </div>
+            <div class="qna-question">
+                {{ qna.question }}
+            </div>
+            <div class="qna-contents-footer">
+                <button v-if="qna.answer === null" type="button" class="answer-btn">답변하기</button>
+                <button v-if="qna.answer !== null" type="button" class="answer-btn">답변보기</button>
+            </div>
+            <div v-if="isAnswerFlag === false" class="qna-answer">
+                <h4>{{ qna.answerWriter }} | {{ qna.answerRegisterDate }}</h4>
+                <span>{{ qna.answer }}</span>
+            </div>
+        </div>
+        <hr>
+    </div>
 </div>
 </template>
 <script>
@@ -28,6 +47,7 @@ export default {
             loading: true, 
             qnas: [],
             question: null,
+            isAnswerFlag: false,
         }
     },
     created () {
@@ -98,5 +118,62 @@ export default {
     border: solid 1px #b7bfc8;
     background-color:white;
     cursor: pointer;
+}
+
+.qna-list {
+    margin: 12% 2% 2% 2%;
+    position: absolute;
+    width: 90%;
+}
+
+.qna-contents-header {
+    margin-top: 2%;
+    margin-bottom: 3%;
+    color: #CCC;
+    font-size: 75%;
+}
+
+.qna-question{
+    min-height: 80px;
+    font-size: 90%;
+}
+
+.qna-contents-footer {
+    font-size: 80%;
+}
+
+.qna-contents-header-msg{
+    margin-right: 2%;
+}
+
+.answer-btn {
+    border: 0;
+    background-color: #f8f8f8;
+    cursor: pointer;
+    outline: 0;
+}
+
+.answer-btn.on {
+    color: #7c6beb;
+}
+
+.qna-answer {
+    margin: 2% 2% 2% 5%;
+    width: 90%;
+    min-height: 150px;
+    padding: 2%;
+    background-color:#efefef;
+    display: none;
+}
+
+.qna-answer h4 {
+    font-size: 75%;
+    color: #7d7e80;
+    margin-bottom: 3%;
+}
+
+.qna-answer span{
+    font-size: 80%;
+    color: #7d7e80;
 }
 </style>
