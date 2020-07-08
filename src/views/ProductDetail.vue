@@ -55,11 +55,11 @@
                 </div>
             `   <div class="tabmenu">
                     <ul>
-                        <li id="description" class="btnCon active"><a href="#description">상품설명</a>
+                        <li id="description" class="btnCon target"><a href="#description">상품설명</a>
                             <!-- 상품 설명란 -->
                             <section class="tabCon">
                                 <product-description></product-description>
-                            </section>                        
+                            </section>
                         </li>
                         <li id="qna-section" class="btnCon"><a href="#qna-section">상품문의</a>
                             <!-- 상품 문의란 -->
