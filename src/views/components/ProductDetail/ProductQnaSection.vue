@@ -23,10 +23,10 @@
                 {{ qna.question }}
             </div>
             <div class="qna-contents-footer">
-                <button v-if="qna.answer === null" type="button" class="answer-btn">답변하기</button>
-                <button v-if="qna.answer !== null" type="button" class="answer-btn">답변보기</button>
+                <button v-bind:id="'answer-btn-'+qna.id" v-if="qna.answer === null" type="button" class="answer-btn">답변하기</button>
+                <button v-bind:id="'answer-btn-'+qna.id" v-if="qna.answer !== null" type="button" class="answer-btn" @click="displayAnswer(qna.id)">답변보기</button>
             </div>
-            <div v-if="isAnswerFlag === false" class="qna-answer">
+            <div v-bind:id="'qna-answer-'+qna.id" class="qna-answer">
                 <h4>{{ qna.answerWriter }} | {{ qna.answerRegisterDate }}</h4>
                 <span>{{ qna.answer }}</span>
             </div>
@@ -71,8 +71,19 @@ export default {
                 console.log(error)
             })
         },
-        writeReview() {
-            router.push({ name: "PurchaseHistory"})
+        displayAnswer(qnaId) {
+            
+            var display = document.getElementById('qna-answer-'+qnaId).style.display
+            if(display === "none") {
+                document.getElementById('answer-btn-'+qnaId).style.color = "#7c6beb"
+                document.getElementById('qna-answer-'+qnaId).style.display = "inline-block"
+            } else {
+                document.getElementById('answer-btn-'+qnaId).style.color = "black"
+                document.getElementById('qna-answer-'+qnaId).style.display = "none"
+            }
+        },
+        writeQuestion() {
+            
         },
     }    
 }
@@ -100,6 +111,7 @@ export default {
     box-sizing: border-box;
     position: relative;
     width: 85%;
+    margin-bottom: 15%;
 }
 
 .qna-textarea textarea{
@@ -117,12 +129,12 @@ export default {
     border-left: 0;
     border: solid 1px #b7bfc8;
     background-color:white;
-    cursor: pointer;
+    cursor: pointer;    
 }
 
 .qna-list {
-    margin: 12% 2% 2% 2%;
-    position: absolute;
+    margin: 2% 2% 2% 2%;
+    position: relative;
     width: 90%;
 }
 
@@ -153,7 +165,7 @@ export default {
     outline: 0;
 }
 
-.answer-btn.on {
+.answer-btn-clicked {
     color: #7c6beb;
 }
 
