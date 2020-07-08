@@ -69,6 +69,7 @@ export default {
                 this.loading = false
                 this.qnas = response.data
                 this.replaceWriter()
+                this.$emit('qna-count', this.qnas.length)
             })
             .catch(error => {
                 alert('서버 오류')

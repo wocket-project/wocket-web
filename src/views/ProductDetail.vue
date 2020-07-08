@@ -43,7 +43,7 @@
                     <div class="col-md-6">
                         <h3>{{product.name}}</h3>
                         <hr>
-                        <p>제조사 : {{product.manufacturer}}</p>                        
+                        <p>제조사 : {{product.manufacturer}}</p>
                         <p>상품설명 : {{product.description}}</p>
                         <hr>
                         <h3>가격 : {{ product.price | currency}}원</h3>
@@ -61,10 +61,10 @@
                                 <product-description></product-description>
                             </section>
                         </li>
-                        <li id="qna-section" class="btnCon"><a href="#qna-section">상품문의</a>
+                        <li id="qna-section" class="btnCon"><a href="#qna-section">상품문의 ({{ qnaCnt }})</a>
                             <!-- 상품 문의란 -->
                             <section class="tabCon">
-                                <product-qna-section v-bind:productId="product.id"></product-qna-section>
+                                <product-qna-section v-on:qna-count="getQnaCount"  v-bind:productId="product.id"></product-qna-section>
                             </section>
                             </li>
                         <li id="review" class="btnCon"><a href="#review">상품리뷰 ({{ product.reviewCount }})</a>
@@ -112,6 +112,7 @@ export default {
                 {reviewCount: null},
                 {imageFileName: null},
             ],
+            qnaCnt: null,
         }
     },
     filters: {
@@ -140,6 +141,9 @@ export default {
                 console.log(error)
             })
         },
+        getQnaCount(value) {
+            this.qnaCnt = value
+        }
     }
 }
 </script>
