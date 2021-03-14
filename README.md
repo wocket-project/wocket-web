@@ -1,7 +1,7 @@
-# With-Us-Web
+# wocket-web
 쇼핑몰 웹 페이지(클라이언트)
 
-### With-Us 웹페이지 구현 By Vue.js
+### wocket 웹페이지 구현 By Vue.js
 
 ### 주요 페이지 및 기능
 ```
