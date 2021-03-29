@@ -4,8 +4,8 @@
         <div class="container">
             <div class="row row-grid align-items-center my-md">
                 <div class="col-lg-6">
-                    <h3 class="text-primary font-weight-light mb-2">2020 With Us</h3>
-                    <h4 class="mb-0 font-weight-light">우리와 함께 위드어스</h4>
+                    <h3 class="text-primary font-weight-light mb-2">2021 wocket</h3>
+                    <h4 class="mb-0 font-weight-light">세상을 연결하는 wocket</h4>
                 </div>
                 <div class="col-lg-6 text-lg-center btn-wrapper">
                     <a target="_blank" href="https://www.instagram.com/2hansollllll9/?hl=ko"
@@ -25,13 +25,13 @@
                 <div class="col-md-6">
                     <div class="copyright">
                         &copy; {{year}}
-                        <a href="https://github.com/mentalK94" target="_blank" rel="noopener">mentalK94</a>
+                        <a href="https://github.com/pinest94" target="_blank" rel="noopener">pinest94</a>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <ul class="nav nav-footer justify-content-end">
                         <li class="nav-item">
-                            <a href="https://github.com/mentalK94" class="nav-link" target="_blank">hansol Kim</a>
+                            <a href="https://github.com/pinest94" class="nav-link" target="_blank">pinest94</a>
                         </li>
                         <li class="nav-item">
                             <a href="https://github.com/creativetimofficial/argon-design-system/blob/master/LICENSE.md"
